@@ -1,6 +1,6 @@
 {
   "overwrite": true,
-  "schema": "./src/app/api/graphql/schema.graphql",
+  "schema": "./src/app/api/graphql/typeDefs.ts",
   "generates": {
     "src/generated/graphql.ts": {
       "plugins": [
@@ -8,5 +8,6 @@
         "typescript-resolvers"
       ]
     }
-  }
+  },
+  "require": ["ts-node/register"]
 }

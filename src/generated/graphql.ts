@@ -18,8 +18,8 @@ export type Scalars = {
 
 export type Character = {
   __typename?: 'Character';
-  class: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
+  characterClass: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
   level: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   race: Scalars['String']['output'];
@@ -28,6 +28,7 @@ export type Character = {
 export type Mutation = {
   __typename?: 'Mutation';
   createCharacter?: Maybe<Character>;
+  updateCharacter?: Maybe<Character>;
 };
 
 
@@ -35,8 +36,13 @@ export type MutationCreateCharacterArgs = {
   input: NewCharacterInput;
 };
 
+
+export type MutationUpdateCharacterArgs = {
+  input: UpdateCharacterInput;
+};
+
 export type NewCharacterInput = {
-  class: Scalars['String']['input'];
+  characterClass: Scalars['String']['input'];
   level: Scalars['Int']['input'];
   name: Scalars['String']['input'];
   race: Scalars['String']['input'];
@@ -45,6 +51,14 @@ export type NewCharacterInput = {
 export type Query = {
   __typename?: 'Query';
   characters?: Maybe<Array<Character>>;
+};
+
+export type UpdateCharacterInput = {
+  characterClass: Scalars['String']['input'];
+  id: Scalars['Int']['input'];
+  level: Scalars['Int']['input'];
+  name: Scalars['String']['input'];
+  race: Scalars['String']['input'];
 };
 
 
@@ -120,29 +134,29 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Character: ResolverTypeWrapper<Character>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   NewCharacterInput: NewCharacterInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdateCharacterInput: UpdateCharacterInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Character: Character;
-  ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
   Mutation: {};
   NewCharacterInput: NewCharacterInput;
   Query: {};
   String: Scalars['String']['output'];
+  UpdateCharacterInput: UpdateCharacterInput;
 };
 
 export type CharacterResolvers<ContextType = any, ParentType extends ResolversParentTypes['Character'] = ResolversParentTypes['Character']> = {
-  class?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  characterClass?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   level?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   race?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -151,6 +165,7 @@ export type CharacterResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCharacter?: Resolver<Maybe<ResolversTypes['Character']>, ParentType, ContextType, RequireFields<MutationCreateCharacterArgs, 'input'>>;
+  updateCharacter?: Resolver<Maybe<ResolversTypes['Character']>, ParentType, ContextType, RequireFields<MutationUpdateCharacterArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

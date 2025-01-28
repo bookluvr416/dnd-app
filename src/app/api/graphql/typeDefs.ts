@@ -1,17 +1,25 @@
 const typeDefs = `#graphql
   type Character {
-    id: ID!
+    id: Int!
     name: String!
     level: Int!
     race: String!
-    class: String!
+    characterClass: String!
   }
 
   input NewCharacterInput {
     name: String!
     level: Int!
     race: String!
-    class: String!
+    characterClass: String!
+  }
+
+  input UpdateCharacterInput {
+    id: Int!
+    name: String!
+    level: Int!
+    race: String!
+    characterClass: String!
   }
 
   type Query {
@@ -20,6 +28,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     createCharacter(input: NewCharacterInput!): Character
+    updateCharacter(input: UpdateCharacterInput!): Character
   }
 `;
 

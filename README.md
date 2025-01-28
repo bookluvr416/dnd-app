@@ -7,15 +7,21 @@ Features:
 - Page to create a new character (TBD to make this look like an actual character sheet)
 - Page to edit a character (TBD to make this look like an actual character sheet)
 - Page to view all characters in the database, sortable with some sort of summary of character info (not all info will be shown)
-- Page to see the details of a specific character
+- Page to see the details of a specific character (TBD to make this look like an actual character sheet)
+- Blog called "An Adventurer's Blog: A Day in the Life" which features blog posts from character adventures
+- User authentication with any actions writing to the database hidden behind an account logic
 
-User authentication with the create/edit options only available to a logged in user will be added if this app is deployed. For initial local development, the concept of a user will not exist.
+
+The concept of a user will likely be limited to a single hardcoded user with no way to sign up a new account. This way no randos can sign into the application, only people I give the login credentials to can.
+
+I also may use https://www.dnd5eapi.co/ query its apis to create something to do with items or spells. Perhaps a spell tracker or item tracker?
 
 
 ## Technologies
 
-- GraphQL with MongoDB is used for practice purposes. I thought about just writing to an sqlite database, but I wanted to practice GraphQL.
 - Next.js with TypeScript
+- Tailwind UI
+- GraphQL with PostgreSQL is used for practice purposes. I thought about just writing to a PostgreSQL database from Next.js, but I wanted to practice GraphQL.
 
 
 # Boilerplate generated Readme

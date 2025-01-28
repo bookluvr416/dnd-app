@@ -1,11 +1,23 @@
-import { Resolvers } from "@/generated/graphql";
-import CharacterModel from "./models/models";
+import { Character, Resolvers } from "@/generated/graphql";
+
+const data: Character =
+  {
+    id: '1',
+    name: 'Character 1',
+    level: 7,
+    race: 'Elf',
+    class: 'Wizard'
+  }
 
 const resolvers: Resolvers = {
   Query: {
     characters: async () => {
       try {
-        return await CharacterModel.find()
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve([data]); 
+          }, 1000);
+        });
       } catch (error) {
         console.log(error);
         throw new Error("Failed to fetch characters");
@@ -13,10 +25,14 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    createCharacter: async (_root, input) => {
-      return await CharacterModel.create({...input.input});
-    }
-  }
+    createCharacter: async (_root, _input) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(data); 
+        }, 1000);
+      });
+    },
+  },
 };
 
 export default resolvers;

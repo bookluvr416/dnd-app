@@ -5,8 +5,7 @@
     "src/generated/graphql.ts": {
       "plugins": [
         "typescript",
-        "typescript-resolvers",
-        "typescript-mongodb"
+        "typescript-resolvers"
       ]
     }
   }

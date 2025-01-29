@@ -1,23 +1,19 @@
 import { Character, Resolvers } from "@/generated/graphql";
+import { createNewCharacter, getAllCharacters, updateCharacter } from "./db/crud";
 
-const data: Character =
-  {
-    id: '1',
-    name: 'Character 1',
-    level: 7,
-    race: 'Elf',
-    class: 'Wizard'
-  }
+const character: Character = {
+  id: 1,
+  name: 'Test',
+  level: 5,
+  race: 'Elf',
+  characterClass: 'Wizard',
+}
 
 const resolvers: Resolvers = {
   Query: {
     characters: async () => {
       try {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve([data]); 
-          }, 1000);
-        });
+        return await getAllCharacters();
       } catch (error) {
         console.log(error);
         throw new Error("Failed to fetch characters");
@@ -25,12 +21,24 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    createCharacter: async (_root, _input) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(data); 
-        }, 1000);
-      });
+    updateCharacter: async (_root, { input} ) => {
+      try {
+        // const character = await updateCharacter(input.id, input);
+        // return character[0];
+        return character;
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch characters");
+      }
+    },
+    createCharacter: async (_root, { input} ) => {
+      try {
+        // return await createNewCharacter(input);
+        return character;
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch characters");
+      }
     },
   },
 };

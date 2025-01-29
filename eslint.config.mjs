@@ -26,7 +26,8 @@ const eslintConfig = [
           "args": "all",
           "argsIgnorePattern": "^_",
           "varsIgnorePattern": "^_",
-          "caughtErrorsIgnorePattern": "^_"
+          "caughtErrorsIgnorePattern": "^_",
+          "ignores": ["src/@types/next-auth.d.ts"]
         },
       ],
     },

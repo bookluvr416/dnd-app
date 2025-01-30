@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const NavDisclosureButton: React.FC<{ href: string, text: string }> = ({ href, text }) => {
   const currentPath = usePathname();
 
-  const extraCss = currentPath === href ? 'bg-emerald-950/50 text-white' : 'text-gray-300 hover:bg-emerald-950/25 hover:text-white';
+  const extraCss = currentPath === href ? 'bg-fuchsia-950/50 text-white' : 'text-gray-300 hover:bg-fuchsia-950/30 hover:text-white';
 
   return (
     <DisclosureButton

@@ -1,5 +1,4 @@
 import ContentGrid from "@/components/homepage/ContentGrid";
-import bgImg from '@/assets/ruinsbg.jpg';
 
 export default function Home() {
   return (

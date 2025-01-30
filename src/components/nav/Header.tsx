@@ -7,6 +7,7 @@ import SignOutButton from '../auth/SignOutButton';
 import NavLink from './NavLink';
 import Image from 'next/image';
 import NavDisclosureButton from './NavDisclosureButton';
+import d20Img from '@/assets/d20.webp';
 
 export default async function Header() {
   const user = await getServerSession(authOptions);
@@ -30,7 +31,7 @@ export default async function Header() {
 
             <div className='font-quintessential bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-indigo-300 font-bold inline-flex pl-14 sm:p-6'>
               <Image
-                src='https://upload.wikimedia.org/wikipedia/commons/c/cd/D20_icon_showing_1.png?20200701204252'
+                src={d20Img}
                 alt=''
                 width={30}
                 height={30}

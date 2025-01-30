@@ -4,7 +4,7 @@ import { Button } from '@headlessui/react';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
-const SignOutButton: React.FC = () => {
+const SignOutButton: React.FC<{ css: string }> = ({ css }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const signUserOut = async () => {
@@ -18,7 +18,13 @@ const SignOutButton: React.FC = () => {
   }
 
   return (
-    <Button onClick={signUserOut} disabled={isLoading}>Sign Out</Button>
+    <Button
+      onClick={signUserOut}
+      disabled={isLoading}
+      className={css}
+    >
+      Sign Out
+    </Button>
   );
 }
 

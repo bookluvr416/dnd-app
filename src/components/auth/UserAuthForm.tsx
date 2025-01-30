@@ -25,8 +25,9 @@ const UserAuthForm: React.FC = () => {
       disabled={isLoading}
       onClick={loginWithGithub}
       type='button'
+      className="p-6 rounded text-purple-100 bg-violet-900 hover:bg-violet-700 hover:text-violet-100"
     >
-      Github
+      Sign in with Github
     </Button>
   );
 };

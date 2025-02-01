@@ -1,6 +1,8 @@
 # App Description
 
-This is a D&D themed Next.js app.
+This is a D&D themed Next.js app that is a work in progress.
+
+The live app can be seen at https://dnd-app-dun.vercel.app/.
 
 Features:  
 - Dice roller with 3D css dice
@@ -11,17 +13,15 @@ Features:
 - Blog called "An Adventurer's Blog: A Day in the Life" which features blog posts from character adventures
 - User authentication with any actions writing to the database hidden behind an account logic
 
-
-The concept of a user will likely be limited to a single hardcoded user with no way to sign up a new account. This way no randos can sign into the application, only people I give the login credentials to can.
-
 I also may use https://www.dnd5eapi.co/ query its apis to create something to do with items or spells. Perhaps a spell tracker or item tracker?
 
 
 ## Technologies
 
 - Next.js with TypeScript
-- Tailwind UI
-- GraphQL with PostgreSQL is used for practice purposes. I thought about just writing to a PostgreSQL database from Next.js, but I wanted to practice GraphQL.
+- Tailwind CSS
+- GraphQL with PostgreSQL is used for practice purposes. I thought about just writing to a PostgreSQL database from Next.js, but I wanted to practice GraphQL
+- Next-Auth for authentication with Github
 
 
 # Boilerplate generated Readme

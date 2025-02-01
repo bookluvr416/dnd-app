@@ -1,12 +1,13 @@
 import { getServerSession } from 'next-auth';
 import Link from "next/link";
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { authOptions } from '@/lib/auth';
 import SignOutButton from '../auth/SignOutButton';
 import NavLink from './NavLink';
 import Image from 'next/image';
 import NavDisclosureButton from './NavDisclosureButton';
+import d20Img from '@/assets/d20.webp';
 
 export default async function Header() {
   const user = await getServerSession(authOptions);
@@ -30,7 +31,7 @@ export default async function Header() {
 
             <div className='font-quintessential bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-indigo-300 font-bold inline-flex pl-14 sm:p-6'>
               <Image
-                src='https://upload.wikimedia.org/wikipedia/commons/c/cd/D20_icon_showing_1.png?20200701204252'
+                src={d20Img}
                 alt=''
                 width={30}
                 height={30}
@@ -43,6 +44,9 @@ export default async function Header() {
               <ul className='flex h-16 items-center justify-between'>
                 <li className='py-6 px-1'>
                   <NavLink href="/" text="Home" css={linkCss} />
+                </li>
+                <li className='py-6 px-1'>
+                  <NavLink href="/dice-roller" text="Dice Roller" css={linkCss} />
                 </li>
                 <li className='py-6 px-1'>
                   <NavLink href="/protected" text="Protected" css={linkCss} />
@@ -68,6 +72,7 @@ export default async function Header() {
           <DisclosurePanel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               <NavDisclosureButton href="/" text="Home" />
+              <NavDisclosureButton href="/dice-roller" text="Dice Roller" />
               <NavDisclosureButton href="/protected" text="Protected" />
             </div>
           </DisclosurePanel>

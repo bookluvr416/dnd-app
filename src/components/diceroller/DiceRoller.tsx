@@ -1,6 +1,7 @@
 'use client'
 
 import { SyntheticEvent, useState } from "react";
+import { ExclamationTriangleIcon, SparklesIcon } from '@heroicons/react/24/outline'
 import ResultCard from "./ResultCard";
 import DiceSelect from "./DiceSelect";
 import AllDice from "./AllDice";
@@ -64,64 +65,17 @@ const DiceRoller: React.FC = () => {
     setHasNat20(false);
     setHasNat1(false);
 
-    [...Array(numDice.d4)].forEach((_item, i) => {
-      setTimeout(() => {
-        setShouldRoll((prevState) => {
-          const newState = { ...prevState }
-          newState['d4'] = true;
-          return newState
-        });
-      }, 3500 * (i))
-    });
-
-    [...Array(numDice.d6)].forEach((_item, i) => {
-      setTimeout(() => {
-        setShouldRoll((prevState) => {
-          const newState = { ...prevState }
-          newState['d6'] = true;
-          return newState
-        });
-      }, 3500 * (i))
-    });
-
-    [...Array(numDice.d8)].forEach((_item, i) => {
-      setTimeout(() => {
-        setShouldRoll((prevState) => {
-          const newState = { ...prevState }
-          newState['d8'] = true;
-          return newState
-        });
-      }, 3500 * (i))
-    });
-
-    [...Array(numDice.d10)].forEach((_item, i) => {
-      setTimeout(() => {
-        setShouldRoll((prevState) => {
-          const newState = { ...prevState }
-          newState['d10'] = true;
-          return newState
-        });
-      }, 3500 * (i))
-    });
-
-    [...Array(numDice.d12)].forEach((_item, i) => {
-      setTimeout(() => {
-        setShouldRoll((prevState) => {
-          const newState = { ...prevState }
-          newState['d12'] = true;
-          return newState
-        });
-      }, 3500 * (i))
-    });
-
-    [...Array(numDice.d20)].forEach((_item, i) => {
-      setTimeout(() => {
-        setShouldRoll((prevState) => {
-          const newState = { ...prevState }
-          newState['d20'] = true;
-          return newState
-        });
-      }, 3500 * (i))
+    Object.keys(numDice).forEach((key) => {
+      const typedKey = key as keyof NumDice;
+      [...Array(numDice[typedKey])].forEach((_item, i) => {
+        setTimeout(() => {
+          setShouldRoll((prevState) => {
+            const newState = { ...prevState }
+            newState[typedKey] = true;
+            return newState
+          });
+        }, 3500 * (i))
+      });
     });
   }
 
@@ -140,10 +94,16 @@ const DiceRoller: React.FC = () => {
     <div className="mr-4 ml-4 min-w-screen pt-6 pb-20 px-6">
       <div className="bg-blue-950/60 p-4 rounded-lg">
         {hasNat1 && (
-          <div className="bg-red-600/60 p-3 rounded-xl mb-4">Natural 1</div>
+          <div className="bg-red-600/60 p-3 rounded-xl mb-4 flex flex-cols">
+            <span className="size-6 mr-3">{<ExclamationTriangleIcon />}</span>
+            Natural 1
+          </div>
         )}
         {hasNat20 && (
-          <div className="bg-green-600/60 p-3 rounded-xl mb-4">Natural 20</div>
+          <div className="bg-green-600/60 p-3 rounded-xl mb-4 flex flex-cols">
+            <span className="size-6 mr-3">{<SparklesIcon />}</span>
+            Natural 20
+          </div>
         )}
         <div className="pb-4">
           <p className="pb-4 pl-2">Select number of dice to roll.</p>

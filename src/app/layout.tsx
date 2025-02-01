@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <div className="h-screen overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${bgImg.src})` }}>
           <Header />
-          <div className="max-h-screen overflow-y-auto scrollbar-light">
+          <div className="h-screen overflow-y-auto scrollbar-light">
             {children}
           </div>
         </div>

@@ -15,19 +15,14 @@
 }
 
 .dice-wrapper {
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 50%; */
   transform-style: preserve-3d;
-  /* transform: perspective(800px); */
   color: white;
-  /* height: 200px; */
 }
 
 .d4-wrap {
   transform-style: preserve-3d;
   /* transform: translateZ(200px) rotate3d(0, 2, 0, -35deg); */
-  transform: translateZ(12.5) rotate3d(0, 2, 0, -35deg);
+  transform: translateZ(12.5rem) rotate3d(0, 2, 0, -35deg);
 }
 .d6-wrap {
   transform-style: preserve-3d;
@@ -37,7 +32,7 @@
 .d8-wrap {
   transform-style: preserve-3d;
   /* transform: translateY(-20px) rotate3d(0, 2, 0, -10deg); */
-  transform: translateY(-1.25rem) rotate3d(0, 2, 0, -10deg);
+  transform: translateY(1.15rem) rotate3d(0, 2, 0, -10deg);
 }
 .d10-wrap {
   transform-style: preserve-3d;
@@ -52,7 +47,7 @@
 .d20-wrap {
   transform-style: preserve-3d;
   /* transform: translateY(-50px) translateZ(-300px) rotate3d(0, 2, 0, 30deg); */
-  transform: translateY(-3.125rem) translateZ(-18.7rem) rotate3d(0, 2, 0, 30deg);
+  transform: translateY(-3.5rem) translateZ(-18.7rem) rotate3d(0, 2, 0, 30deg);
 }
 
 .d4-inner,

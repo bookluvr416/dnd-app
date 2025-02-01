@@ -137,8 +137,8 @@ const DiceRoller: React.FC = () => {
   }
 
   return (
-    <div className="mr-4 ml-4">
-      <div className="bg-blue-950/50 p-4 rounded-lg h-auto">
+    <div className="mr-4 ml-4 min-w-screen pt-6 pb-20 px-6">
+      <div className="bg-blue-950/60 p-4 rounded-lg">
         {hasNat1 && (
           <div className="bg-red-600/60 p-3 rounded-xl mb-4">Natural 1</div>
         )}
@@ -179,7 +179,7 @@ const DiceRoller: React.FC = () => {
         <div className="">
         <AllDice handleDiceResult={handleDiceResult} shouldRoll={shouldRoll} />
       </div>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4 pt-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pt-5">
           <ResultCard diceType="d4" results={diceResults.d4} />
           <ResultCard diceType="d6" results={diceResults.d6} />
           <ResultCard diceType="d8" results={diceResults.d8} />

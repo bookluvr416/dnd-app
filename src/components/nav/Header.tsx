@@ -46,6 +46,9 @@ export default async function Header() {
                   <NavLink href="/" text="Home" css={linkCss} />
                 </li>
                 <li className='py-6 px-1'>
+                  <NavLink href="/dice-roller" text="Dice Roller" css={linkCss} />
+                </li>
+                <li className='py-6 px-1'>
                   <NavLink href="/protected" text="Protected" css={linkCss} />
                 </li>
               </ul>

@@ -8,7 +8,7 @@ export default function Home() {
         <h1 className="font-quintessential text-center p-6 text-5xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-fuchsia-200">
           D&D App
         </h1>
-        <p className="text-xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-fuchsia-200 shadow-lg shadow-fuchsia-400/50 p-1">
+        <p className="text-lg bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-fuchsia-200 shadow-lg shadow-fuchsia-400/50 p-1">
           A place for many d&d needs - a personal project by Amanda.
         </p>
       </div>

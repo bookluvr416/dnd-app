@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/nav/Header";
+import bgImg from '@/assets/ruinsbg.jpg';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className={`h-screen overflow-hidden bg-cover bg-center bg-[url('/ruinsbg.webp')]`}>
+        <div className="h-screen overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${bgImg.src})` }}>
           <Header />
           <div className="max-h-screen overflow-y-auto scrollbar-light">
             {children}

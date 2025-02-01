@@ -92,7 +92,7 @@ const DiceRoller: React.FC = () => {
 
   return (
     <div className="mr-4 ml-4 min-w-screen pt-6 pb-20 px-6">
-      <div className="bg-blue-950/60 p-4 rounded-lg">
+      <div className="bg-blue-950/60 p-6 rounded-lg">
         {hasNat1 && (
           <div className="bg-red-600/60 p-3 rounded-xl mb-4 flex flex-cols">
             <span className="size-6 mr-3">{<ExclamationTriangleIcon />}</span>
@@ -106,21 +106,23 @@ const DiceRoller: React.FC = () => {
           </div>
         )}
         <div className="pb-4">
-          <p className="pb-4 pl-2">Select number of dice to roll.</p>
-          <DiceSelect diceType="d4" onNumberSelect={onNumberSelect} />
-          <div className="pl-5 sm:pl-10 inline-block">
+          <p className="pl-2">Select number of dice to roll.</p>
+          <div className="pr-5 sm:pr-10 inline-block pt-4">
+            <DiceSelect diceType="d4" onNumberSelect={onNumberSelect} />
+          </div>
+          <div className="pr-5 sm:pr-10 inline-block pt-4">
             <DiceSelect diceType="d6" onNumberSelect={onNumberSelect} />
           </div>
-          <div className="pl-5 sm:pl-10 inline-block">
+          <div className="pr-5 sm:pr-10 inline-block pt-4">
             <DiceSelect diceType="d8" onNumberSelect={onNumberSelect} />
           </div>
-          <div className="pl-5 sm:pl-10 inline-block">
+          <div className="pr-5 sm:pr-10 inline-block pt-4">
             <DiceSelect diceType="d10" onNumberSelect={onNumberSelect} />
           </div>
-          <div className="pl-5 sm:pl-10 inline-block">
+          <div className="pr-5 sm:pr-10 inline-block pt-4">
             <DiceSelect diceType="d12" onNumberSelect={onNumberSelect} />
           </div>
-          <div className="pl-5 sm:pl-10 inline-block">
+          <div className="inline-block pt-4">
             <DiceSelect diceType="d20" onNumberSelect={onNumberSelect} />
           </div>
         </div>
@@ -139,7 +141,7 @@ const DiceRoller: React.FC = () => {
         <div className="">
         <AllDice handleDiceResult={handleDiceResult} shouldRoll={shouldRoll} />
       </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pt-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pt-7">
           <ResultCard diceType="d4" results={diceResults.d4} />
           <ResultCard diceType="d6" results={diceResults.d6} />
           <ResultCard diceType="d8" results={diceResults.d8} />

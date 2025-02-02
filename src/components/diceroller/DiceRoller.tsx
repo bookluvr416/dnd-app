@@ -137,20 +137,20 @@ const DiceRoller: React.FC = () => {
         </div>
         <button
             onClick={startAnimationRoll}
-            className="bg-blue-950 hover:bg-blue-900 p-2 text-blue-100 border-2 border-blue-800 rounded-lg content-center mb-3"
+            className="bg-blue-950 hover:bg-blue-900 p-2 text-blue-100 border-2 border-blue-800 rounded-lg content-center mb-3 mr-4"
           >
             Start Rolling
           </button>
         <button
           onClick={resetTotals}
-          className="bg-blue-950 hover:bg-blue-900 p-2 text-blue-100 border-2 border-blue-800 rounded-lg content-center mb-3 ml-4"
+          className="bg-blue-950 hover:bg-blue-900 p-2 text-blue-100 border-2 border-blue-800 rounded-lg content-center mb-3"
         >
           Reset Totals
         </button>
         <div>
           <AllDice handleDiceResult={handleDiceResult} shouldRoll={shouldRoll} />
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-7">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-7">
           <ResultCard diceType="d4" results={diceResults.d4} />
           <ResultCard diceType="d6" results={diceResults.d6} />
           <ResultCard diceType="d8" results={diceResults.d8} />

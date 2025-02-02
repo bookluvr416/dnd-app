@@ -9,31 +9,38 @@ interface Props {
 const DiceSelect: React.FC<Props> = ({ onNumberSelect, diceType }) => {
   return (
     <div className="inline-block">
-      <div className="">
-      <label
-          htmlFor={`${diceType}-select`}
-          id={`${diceType}-select`}
-          aria-label={`Select number of ${diceType}`}
-          className="pr-4"
-        >
-          {diceType.toUpperCase()}
-        </label>
-        </div>
-        <select
-          id={`${diceType}-select`}
-          name={`${diceType}-select`}
-          className="w-10 h-8 bg-slate-800 rounded-md overflow-y-auto"
-          onChange={(e) => onNumberSelect(e, diceType)}
-        >
-          {[...Array(21)].map((_item, i) => (
-            <option
-              key={`${diceType}-amount-${i}`}
-              value={(i).toString()}
-            >
-              {i}
-            </option>
-          ))};
-        </select>
+      <div>
+        <label
+            htmlFor={`${diceType}-input`}
+            id={`${diceType}-input`}
+            aria-label={`Number of ${diceType}`}
+            className="pr-4"
+          >
+            {diceType.toUpperCase()}
+          </label>
+      </div>
+      <input
+        type="number"
+        id={`${diceType}-input`}
+        name={`${diceType}-input`}
+        className="w-12 h-10 bg-slate-800 rounded-md pl-3"
+        onChange={(e) => onNumberSelect(e, diceType)}
+      />
+      {/* <select
+        id={`${diceType}-select`}
+        name={`${diceType}-select`}
+        className="w-10 h-8 bg-slate-800 rounded-md overflow-y-auto"
+        onChange={(e) => onNumberSelect(e, diceType)}
+      >
+        {[...Array(21)].map((_item, i) => (
+          <option
+            key={`${diceType}-amount-${i}`}
+            value={(i).toString()}
+          >
+            {i}
+          </option>
+        ))};
+      </select> */}
     </div>
   )
 };

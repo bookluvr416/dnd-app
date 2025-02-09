@@ -6,7 +6,14 @@ import {
 } from 'kysely'
 
 export interface Database {
-  characters: CharactersTable
+  characters: CharactersTable;
+  skills: SkillsTable;
+  races: RacesTable;
+  classes: ClassesTable;
+  alignment: AlignmentTable;
+  abilities: AbilitiesTable;
+  characterAbilities: CharacterAbilitiesTable;
+  characterSkills: CharacterSkillsTable;
 }
 
 // This interface describes the `characters` table to Kysely. Table
@@ -18,10 +25,57 @@ export interface CharactersTable {
   // using the `Generated` type. This way they are automatically
   // made optional in inserts and updates.
   id: Generated<number>
-  name: string
-  level: number
-  race: string
-  characterClass: string
+  name: string;
+  level: number;
+  raceId: number;
+  classId: number;
+  armorClass: number;
+  speed: number;
+  hp: number;
+  initiative: number;
+  proficiencyBonus: number;
+  alignmentId: number;
+}
+
+export interface SkillsTable {
+  id: Generated<number>;
+  skill: string;
+}
+
+export interface RacesTable {
+  id: Generated<number>;
+  raceName: string;
+  raceType: string;
+}
+
+export interface ClassesTable {
+  id: Generated<number>;
+  className: string;
+}
+
+export interface AlignmentTable {
+  id: Generated<number>;
+  alignment: string;
+}
+
+export interface AbilitiesTable {
+  id: Generated<number>;
+  ability: string;
+}
+
+export interface CharacterAbilitiesTable {
+  id: Generated<number>;
+  characterId: number;
+  abilityId: number;
+  abilityScore: number;
+  proficiencyBonus: number;
+}
+
+export interface CharacterSkillsTable {
+  id: Generated<number>;
+  characterId: number;
+  skillId: number;
+  skillProficiency: number;
 }
 
 // You should not use the table schema interfaces directly. Instead, you should
@@ -33,3 +87,21 @@ export interface CharactersTable {
 export type Character = Selectable<CharactersTable>
 export type NewCharacter = Insertable<CharactersTable>
 export type CharacterUpdate = Updateable<CharactersTable>
+
+export type CharacterAbilities = Selectable<CharacterAbilitiesTable>
+export type NewCharacterAbilities = Insertable<CharacterAbilitiesTable>
+export type CharacterAbilitiesUpdate = Updateable<CharacterAbilitiesTable>
+
+export type CharacterSkills = Selectable<CharacterSkillsTable>
+export type NewCharacterSkills = Insertable<CharacterSkillsTable>
+export type CharacterSkillsUpdate = Updateable<CharacterSkillsTable>
+
+export type Skills = Selectable<SkillsTable>
+
+export type Races = Selectable<RacesTable>
+
+export type Classes = Selectable<ClassesTable>
+
+export type Alignment = Selectable<AlignmentTable>
+
+export type Abilities = Selectable<AbilitiesTable>

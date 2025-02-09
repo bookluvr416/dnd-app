@@ -6,7 +6,11 @@
       "plugins": [
         "typescript",
         "typescript-resolvers"
-      ]
+      ],
+      "config": {
+        "maybeValue": "T | null | undefined",
+        "inputMaybeValue": "T | null | undefined"
+      }
     }
   },
   "require": ["ts-node/register"]

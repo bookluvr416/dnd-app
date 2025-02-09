@@ -1,29 +1,106 @@
 const typeDefs = `#graphql
   type Character {
     id: Int!
-    name: String!
-    level: Int!
-    race: String!
-    characterClass: String!
+    name: String
+    level: Int
+    race: Race
+    class: Class
+    armorClass: Int
+    speed: Int
+    hp: Int
+    initiative: Int
+    proficiencyBonus: Int
+    alignment: Alignment
+    abilities: [CharacterAbility]
+    skills: [CharacterSkill]
+  }
+
+  type Skill {
+    id: Int
+    skill: String
+  }
+
+  type Race {
+    id: Int
+    raceName: String
+    raceType: String
+  }
+
+  type Class {
+    id: Int
+    className: String
+  }
+
+  type Alignment {
+    id: Int
+    alignment: String
+  }
+
+  type Ability {
+    id: Int
+    ability: String
+  }
+
+  type CharacterAbility {
+    id: Int
+    characterId: Int
+    ability: Ability
+    abilityScore: Int
+    proficiencyBonus: Int
+  }
+
+  type CharacterSkill {
+    id: Int
+    characterId: Int
+    skill: Skill
+    skillProficiency: Int
   }
 
   input NewCharacterInput {
-    name: String!
-    level: Int!
-    race: String!
-    characterClass: String!
+    name: String!,
+    level: Int!,
+    raceId: Int!,
+    classId: Int!,
+    armorClass: Int!,
+    speed: Int!,
+    hp: Int!,
+    initiative: Int!,
+    proficiencyBonus: Int!,
+    alignmentId: Int!
   }
 
   input UpdateCharacterInput {
-    id: Int!
-    name: String!
-    level: Int!
-    race: String!
-    characterClass: String!
+    id: Int!,
+    name: String,
+    level: Int,
+    raceId: Int,
+    classId: Int,
+    armorClass: Int,
+    speed: Int,
+    hp: Int,
+    initiative: Int,
+    proficiencyBonus: Int,
+    alignmentId: Int
   }
 
   type Query {
-    characters: [Character!]
+    characters: [Character!]!
+    character(id: Int!): Character
+
+    skills: [Skill!]!
+    skill(id: Int!): Skill
+
+    races: [Race!]!
+    race(id: Int!): Race
+
+    classes: [Class!]!
+    class(id: Int!): Class
+
+    alignments: [Alignment!]!
+    alignment(id: Int!): Alignment
+
+    abilities: [Ability!]!
+    ability(id: Int!): Ability
   }
 
   type Mutation {

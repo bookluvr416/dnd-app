@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { Resolvers } from '@/generated/graphql';
-import { createNewCharacter, getAllCharacters, updateCharacter } from './db/crud';
+import { createNewCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/crud';
 import { authOptions } from '@/lib/auth';
 
 const resolvers: Resolvers = {
@@ -13,6 +13,14 @@ const resolvers: Resolvers = {
         throw new Error("Failed to fetch characters");
       }
     },
+    character: async (_root, { id }) => {
+      try {
+        return await getSingleCharacter(id);
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch character");
+      }
+    },
   },
   Mutation: {
     updateCharacter: async (_root, { input} ) => {
@@ -23,8 +31,11 @@ const resolvers: Resolvers = {
       }
 
       try {
-        const character = await updateCharacter(input.id, input);
-        return character[0];
+        const cleanedInput = Object.fromEntries(
+          Object.entries(input).map(([key, value]) => [key, value === null ? undefined : value])
+        );
+        const character = await updateCharacter(input.id, cleanedInput);
+        return character;
       } catch (error) {
         console.log(error);
         throw new Error("Failed to fetch characters");

@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { Resolvers } from '@/generated/graphql';
-import { createNewCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/crud';
+import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/crud';
 import { authOptions } from '@/lib/auth';
 
 const resolvers: Resolvers = {
@@ -31,14 +31,11 @@ const resolvers: Resolvers = {
       }
 
       try {
-        const cleanedInput = Object.fromEntries(
-          Object.entries(input).map(([key, value]) => [key, value === null ? undefined : value])
-        );
-        const character = await updateCharacter(input.id, cleanedInput);
+        const character = await updateCharacter(input.id, input);
         return character;
       } catch (error) {
         console.log(error);
-        throw new Error("Failed to fetch characters");
+        throw new Error("Failed to update character");
       }
     },
     createCharacter: async (_root, { input} ) => {
@@ -52,9 +49,24 @@ const resolvers: Resolvers = {
         return await createNewCharacter(input);
       } catch (error) {
         console.log(error);
-        throw new Error("Failed to fetch characters");
+        throw new Error("Failed to create character");
       }
     },
+    deleteCharacter: async (_root, { id} ) => {
+      const user = await getServerSession(authOptions);
+
+      if (!user) {
+        throw new Error('Unauthorized');
+      }
+
+      try {
+        await deleteCharacter(id);
+        return true;
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to delete character");
+      }
+    }
   },
 };
 

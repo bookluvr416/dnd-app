@@ -68,20 +68,38 @@ export type Class = {
   id?: Maybe<Scalars['Int']['output']>;
 };
 
+export type CreateCharacterInput = {
+  abilities: Array<InputMaybe<NewCharacterAbilityInput>>;
+  character: NewCharacterInput;
+  skills: Array<InputMaybe<NewCharacterSkillInput>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createCharacter?: Maybe<Character>;
+  deleteCharacter?: Maybe<Scalars['Boolean']['output']>;
   updateCharacter?: Maybe<Character>;
 };
 
 
 export type MutationCreateCharacterArgs = {
-  input: NewCharacterInput;
+  input: CreateCharacterInput;
+};
+
+
+export type MutationDeleteCharacterArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
 export type MutationUpdateCharacterArgs = {
   input: UpdateCharacterInput;
+};
+
+export type NewCharacterAbilityInput = {
+  abilityId: Scalars['Int']['input'];
+  abilityScore: Scalars['Int']['input'];
+  proficiencyBonus: Scalars['Int']['input'];
 };
 
 export type NewCharacterInput = {
@@ -95,6 +113,11 @@ export type NewCharacterInput = {
   proficiencyBonus: Scalars['Int']['input'];
   raceId: Scalars['Int']['input'];
   speed: Scalars['Int']['input'];
+};
+
+export type NewCharacterSkillInput = {
+  skillId: Scalars['Int']['input'];
+  skillProficiency: Scalars['Int']['input'];
 };
 
 export type Query = {
@@ -156,7 +179,14 @@ export type Skill = {
   skill?: Maybe<Scalars['String']['output']>;
 };
 
+export type UpdateCharacterAbilityInput = {
+  abilityScore: Scalars['Int']['input'];
+  id: Scalars['Int']['input'];
+  proficiencyBonus: Scalars['Int']['input'];
+};
+
 export type UpdateCharacterInput = {
+  abilities?: InputMaybe<Array<InputMaybe<UpdateCharacterAbilityInput>>>;
   alignmentId?: InputMaybe<Scalars['Int']['input']>;
   armorClass?: InputMaybe<Scalars['Int']['input']>;
   classId?: InputMaybe<Scalars['Int']['input']>;
@@ -167,7 +197,13 @@ export type UpdateCharacterInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   proficiencyBonus?: InputMaybe<Scalars['Int']['input']>;
   raceId?: InputMaybe<Scalars['Int']['input']>;
+  skills?: InputMaybe<Array<InputMaybe<UpdateCharacterSkillInput>>>;
   speed?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UpdateCharacterSkillInput = {
+  id: Scalars['Int']['input'];
+  skillProficiency: Scalars['Int']['input'];
 };
 
 
@@ -248,14 +284,19 @@ export type ResolversTypes = {
   CharacterAbility: ResolverTypeWrapper<CharacterAbility>;
   CharacterSkill: ResolverTypeWrapper<CharacterSkill>;
   Class: ResolverTypeWrapper<Class>;
+  CreateCharacterInput: CreateCharacterInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  NewCharacterAbilityInput: NewCharacterAbilityInput;
   NewCharacterInput: NewCharacterInput;
+  NewCharacterSkillInput: NewCharacterSkillInput;
   Query: ResolverTypeWrapper<{}>;
   Race: ResolverTypeWrapper<Race>;
   Skill: ResolverTypeWrapper<Skill>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdateCharacterAbilityInput: UpdateCharacterAbilityInput;
   UpdateCharacterInput: UpdateCharacterInput;
+  UpdateCharacterSkillInput: UpdateCharacterSkillInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -267,14 +308,19 @@ export type ResolversParentTypes = {
   CharacterAbility: CharacterAbility;
   CharacterSkill: CharacterSkill;
   Class: Class;
+  CreateCharacterInput: CreateCharacterInput;
   Int: Scalars['Int']['output'];
   Mutation: {};
+  NewCharacterAbilityInput: NewCharacterAbilityInput;
   NewCharacterInput: NewCharacterInput;
+  NewCharacterSkillInput: NewCharacterSkillInput;
   Query: {};
   Race: Race;
   Skill: Skill;
   String: Scalars['String']['output'];
+  UpdateCharacterAbilityInput: UpdateCharacterAbilityInput;
   UpdateCharacterInput: UpdateCharacterInput;
+  UpdateCharacterSkillInput: UpdateCharacterSkillInput;
 };
 
 export type AbilityResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ability'] = ResolversParentTypes['Ability']> = {
@@ -331,6 +377,7 @@ export type ClassResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCharacter?: Resolver<Maybe<ResolversTypes['Character']>, ParentType, ContextType, RequireFields<MutationCreateCharacterArgs, 'input'>>;
+  deleteCharacter?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteCharacterArgs, 'id'>>;
   updateCharacter?: Resolver<Maybe<ResolversTypes['Character']>, ParentType, ContextType, RequireFields<MutationUpdateCharacterArgs, 'input'>>;
 };
 

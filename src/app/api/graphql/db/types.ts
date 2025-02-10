@@ -35,6 +35,7 @@ export interface CharactersTable {
   initiative: number;
   proficiencyBonus: number;
   alignmentId: number;
+  activeInd: boolean;
 }
 
 export interface SkillsTable {
@@ -69,6 +70,7 @@ export interface CharacterAbilitiesTable {
   abilityId: number;
   abilityScore: number;
   proficiencyBonus: number;
+  activeInd: boolean;
 }
 
 export interface CharacterSkillsTable {
@@ -76,6 +78,56 @@ export interface CharacterSkillsTable {
   characterId: number;
   skillId: number;
   skillProficiency: number;
+  activeInd: boolean;
+}
+
+export type ReturnedData = {
+  id: number;
+  name: string | null;
+  level: number | null;
+  raceId: number | null;
+  alignmentId: number | null;
+  classId: number | null;
+  race: {
+    id: number;
+    raceType: string;
+    raceName: string;
+  } | null;
+  alignment: {
+    id: number;
+    alignment: string;
+  } | null;
+  class: {
+    id: number;
+    className: string;
+  } | null;
+  characterSkills:
+    {
+      id: number;
+      skillProficiency: number;
+      skills: {
+        id: number;
+        skill: string;
+      } | null;
+    }[]
+  | null;
+  characterAbilities:
+    {
+      id: number;
+      abilityScore: number;
+      proficiencyBonus: number;
+      abilities: {
+        id: number;
+        ability: string;
+      } | null;
+    }[]
+  | null;
+  armorClass: number | null;
+  hp: number | null;
+  initiative: number | null;
+  proficiencyBonus: number | null;
+  speed: number | null;
+  activeInd: boolean;
 }
 
 // You should not use the table schema interfaces directly. Instead, you should

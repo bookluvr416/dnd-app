@@ -56,6 +56,17 @@ const typeDefs = `#graphql
     skillProficiency: Int
   }
 
+  input NewCharacterSkillInput {
+    skillId: Int!
+    skillProficiency: Int!
+  }
+
+  input NewCharacterAbilityInput {
+    abilityId: Int!
+    abilityScore: Int!
+    proficiencyBonus: Int!
+  }
+
   input NewCharacterInput {
     name: String!,
     level: Int!,
@@ -66,7 +77,24 @@ const typeDefs = `#graphql
     hp: Int!,
     initiative: Int!,
     proficiencyBonus: Int!,
-    alignmentId: Int!
+    alignmentId: Int!,
+  }
+
+  input CreateCharacterInput {
+    character: NewCharacterInput!,
+    skills: [NewCharacterSkillInput]!,
+    abilities: [NewCharacterAbilityInput]!,
+  }
+
+  input UpdateCharacterSkillInput {
+    id: Int!
+    skillProficiency: Int!
+  }
+
+  input UpdateCharacterAbilityInput {
+    id: Int!
+    abilityScore: Int!
+    proficiencyBonus: Int!
   }
 
   input UpdateCharacterInput {
@@ -80,7 +108,9 @@ const typeDefs = `#graphql
     hp: Int,
     initiative: Int,
     proficiencyBonus: Int,
-    alignmentId: Int
+    alignmentId: Int,
+    skills: [UpdateCharacterSkillInput],
+    abilities: [UpdateCharacterAbilityInput],
   }
 
   type Query {
@@ -104,8 +134,9 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-    createCharacter(input: NewCharacterInput!): Character
+    createCharacter(input: CreateCharacterInput!): Character
     updateCharacter(input: UpdateCharacterInput!): Character
+    deleteCharacter(id: Int!): Boolean
   }
 `;
 

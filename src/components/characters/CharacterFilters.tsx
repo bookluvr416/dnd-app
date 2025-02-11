@@ -21,9 +21,9 @@ const CharacterFilters: React.FC<Props> = ({ characters, onFilterChange }) => {
    * An object of class, alignment, and race keys with unique values from all characters for each key
    */
   const uniqueValues = useMemo(() => ({
-    race: [...new Set(characters.map(char => char.race?.raceType))],
-    alignment: [...new Set(characters.map(char => char.alignment?.alignment))],
-    class: [...new Set(characters.map(char => char.class?.className))]
+    race: [...new Set(characters.map(char => char.race?.raceType).sort())],
+    alignment: [...new Set(characters.map(char => char.alignment?.alignment).sort())],
+    class: [...new Set(characters.map(char => char.class?.className).sort())]
   }), [characters]);
 
   /**

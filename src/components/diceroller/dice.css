@@ -21,33 +21,39 @@
 
 .d4-wrap {
   transform-style: preserve-3d;
+  /* zoom: 1.2; */
   /* transform: translateZ(200px) rotate3d(0, 2, 0, -35deg); */
   transform: translateZ(12.5rem) rotate3d(0, 2, 0, -35deg);
 }
 .d6-wrap {
   transform-style: preserve-3d;
+  /* zoom: 1.2; */
   /* transform: translateZ(200px) rotate3d(0, 2, 0, -15deg); */
   transform: translateZ(12.5rem) rotate3d(0, 2, 0, -15deg);
 }
 .d8-wrap {
   transform-style: preserve-3d;
+  /* zoom: 1.2; */
   /* transform: translateY(-20px) rotate3d(0, 2, 0, -10deg); */
-  transform: translateY(1.15rem) rotate3d(0, 2, 0, -10deg);
+  transform: rotate3d(0, 2, 0, -10deg);
 }
 .d10-wrap {
   transform-style: preserve-3d;
+  /* zoom: 1.2; */
   /* transform: translateZ(400px); */
   transform: translateZ(25rem);
 }
 .d12-wrap {
   transform-style: preserve-3d;
+  /* zoom: 1.2; */
   /* transform: translateZ(-400px); */
   transform: translateZ(-25rem);
 }
 .d20-wrap {
   transform-style: preserve-3d;
+  zoom: 0.7;
   /* transform: translateY(-50px) translateZ(-300px) rotate3d(0, 2, 0, 30deg); */
-  transform: translateY(-3.5rem) translateZ(-18.7rem) rotate3d(0, 2, 0, 30deg);
+  transform: translateY(-2rem) translateZ(-18.7rem) rotate3d(0, 2, 0, 30deg);
 }
 
 .d4-inner,
@@ -60,7 +66,7 @@
 }
 
 .d4 {
-  --width: 30px;
+  --width: 35px;
   --height: 0.8660254;
   --center: 0.288675;
   --offset: calc(var(--center)*var(--center));
@@ -105,11 +111,11 @@
 }
 .rotate-120::after {
   transform: rotateZ(120deg);
-  left: 5px;
+  /* left: 2px; */
 }
 .rotate-240::after {
   transform: rotateZ(240deg);
-  right: 5px;
+  /* right: 2px; */
 }
 
 .d6 {

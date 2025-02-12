@@ -13,7 +13,7 @@ const ContentGrid = () => {
           imageSrc={elfImg}
           alt="A warrior holding up a sword"
           orderNum={1}
-          href="/"
+          href="/characters"
         />
       </div>
       <div className="max-w-80 md:max-w-96">

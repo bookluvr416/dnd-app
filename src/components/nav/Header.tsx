@@ -76,6 +76,7 @@ export default async function Header() {
             <div className="space-y-1 px-2 pt-2 pb-3">
               <NavDisclosureButton href="/" text="Home" />
               <NavDisclosureButton href="/dice-roller" text="Dice Roller" />
+              <NavDisclosureButton href="/characters" text="Characters" />
               <NavDisclosureButton href="/protected" text="Protected" />
             </div>
           </DisclosurePanel>

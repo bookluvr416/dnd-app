@@ -219,7 +219,7 @@ export const getAllCharacters = async (): Promise<Character[]> => {
         characterAbilities(ref('characters.id'))
       ])
       .where('characters.activeInd', '=', true)
-      .orderBy('characters.name')
+      .orderBy('characters.id')
       .selectAll('characters')
       .execute();
 

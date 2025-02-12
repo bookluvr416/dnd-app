@@ -8,7 +8,7 @@ import {
   UpdateCharacterAbilityInput,
   UpdateCharacterInput,
   UpdateCharacterSkillInput,
-} from '@/generated/graphql';
+} from '@/generated/graphql/graphql';
 
 type NewSkillsInput = {
   characterId: number;

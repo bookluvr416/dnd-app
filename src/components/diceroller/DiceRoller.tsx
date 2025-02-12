@@ -115,7 +115,7 @@ const DiceRoller: React.FC = () => {
           </div>
         )}
         <div className="mb-4 bg-indigo-950 p-4 rounded-lg ring-1 ring-blue-700/50">
-          <p>Enter number of dice to roll.</p>
+          <p>Feeling lucky? Enter number of dice to roll.</p>
           <div className="pr-5 sm:pr-10 inline-block pt-4">
             <DiceSelect diceType="d4" onNumberSelect={onNumberSelect} />
           </div>

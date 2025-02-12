@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { Resolvers } from '@/generated/graphql';
+import { Resolvers } from '@/generated/graphql/graphql';
 import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/crud';
 import { authOptions } from '@/lib/auth';
 

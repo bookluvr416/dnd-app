@@ -18,7 +18,7 @@ export default async function Header() {
     <header className='sticky top-0'>
         <Disclosure as="nav" className='bg-gradient-to-r from-violet-950/70 to-purple-950/70'>
           <div className='relative flex h-16 items-center justify-between'>
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
 
               {/* Mobile menu button*/}
               <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-4 text-gray-400 hover:bg-emerald-950/30 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset">
@@ -29,7 +29,7 @@ export default async function Header() {
               </DisclosureButton>
             </div>
 
-            <div className='font-quintessential bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-indigo-300 font-bold inline-flex pl-14 sm:p-6'>
+            <div className='font-quintessential bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-indigo-300 font-bold inline-flex pl-14 md:p-6'>
               <Image
                 src={d20Img}
                 alt=''
@@ -40,7 +40,7 @@ export default async function Header() {
               <span className='p-1'><Link href="/">D&D App</Link></span>
             </div>
 
-            <div className='hidden sm:ml-6 sm:block'>
+            <div className='hidden md:ml-6 md:block'>
               <ul className='flex h-16 items-center justify-between'>
                 <li className='py-6 px-1'>
                   <NavLink href="/" text="Home" css={linkCss} />
@@ -49,11 +49,14 @@ export default async function Header() {
                   <NavLink href="/dice-roller" text="Dice Roller" css={linkCss} />
                 </li>
                 <li className='py-6 px-1'>
+                  <NavLink href="/characters" text="Characters" css={linkCss} />
+                </li>
+                <li className='py-6 px-1'>
                   <NavLink href="/protected" text="Protected" css={linkCss} />
                 </li>
               </ul>
             </div>
-            <div className='sm:ml-6 sm:block'>
+            <div className='md:ml-6 md:block'>
               <ul>
                 {user && (
                   <li className='p-6'>
@@ -69,7 +72,7 @@ export default async function Header() {
             </div>
           </div>
 
-          <DisclosurePanel className="sm:hidden">
+          <DisclosurePanel className="md:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               <NavDisclosureButton href="/" text="Home" />
               <NavDisclosureButton href="/dice-roller" text="Dice Roller" />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ApolloWrapper } from "./ApolloWrapper";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/nav/Header";
@@ -32,7 +33,7 @@ export default function RootLayout({
         <div className="h-screen overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${bgImg.src})` }}>
           <Header />
           <div className="h-screen overflow-y-auto scrollbar-light">
-            {children}
+            <ApolloWrapper>{children}</ApolloWrapper>
           </div>
         </div>
       </body>

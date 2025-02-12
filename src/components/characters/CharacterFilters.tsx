@@ -1,6 +1,6 @@
 'use client'
 
-import { Character } from '@/generated/graphql';
+import { Character } from '@/generated/graphql/graphql';
 import { useState, useMemo, useEffect } from 'react';
 
 interface Props {

@@ -1,6 +1,8 @@
+/* eslint-disable */
 import { GraphQLResolveInfo } from 'graphql';
-export type Maybe<T> = T | null | undefined;
-export type InputMaybe<T> = T | null | undefined;
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -206,6 +208,23 @@ export type UpdateCharacterSkillInput = {
   skillProficiency: Scalars['Int']['input'];
 };
 
+export type CharacterDetailFragment = { __typename?: 'Character', id: number, name?: string | null, level?: number | null, hp?: number | null, alignment?: { __typename?: 'Alignment', id?: number | null, alignment?: string | null } | null, race?: { __typename?: 'Race', id?: number | null, raceName?: string | null, raceType?: string | null } | null, class?: { __typename?: 'Class', id?: number | null, className?: string | null } | null };
+
+export type GetCharactersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCharactersQuery = { __typename?: 'Query', characters: Array<{ __typename?: 'Character', id: number, name?: string | null, level?: number | null, hp?: number | null, alignment?: { __typename?: 'Alignment', id?: number | null, alignment?: string | null } | null, race?: { __typename?: 'Race', id?: number | null, raceName?: string | null, raceType?: string | null } | null, class?: { __typename?: 'Class', id?: number | null, className?: string | null } | null }> };
+
+export type GetSingleCharacterQueryVariables = Exact<{
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type GetSingleCharacterQuery = { __typename?: 'Query', character?: { __typename?: 'Character', initiative?: number | null, proficiencyBonus?: number | null, speed?: number | null, id: number, name?: string | null, level?: number | null, hp?: number | null, skills?: Array<{ __typename?: 'CharacterSkill', id?: number | null, skillProficiency?: number | null, skill?: { __typename?: 'Skill', id?: number | null, skill?: string | null } | null } | null> | null, abilities?: Array<{ __typename?: 'CharacterAbility', id?: number | null, abilityScore?: number | null, proficiencyBonus?: number | null, ability?: { __typename?: 'Ability', id?: number | null, ability?: string | null } | null } | null> | null, alignment?: { __typename?: 'Alignment', id?: number | null, alignment?: string | null } | null, race?: { __typename?: 'Race', id?: number | null, raceName?: string | null, raceType?: string | null } | null, class?: { __typename?: 'Class', id?: number | null, className?: string | null } | null } | null };
+
+export const CharacterDetailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CharacterDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Character"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"hp"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"race"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"raceName"}},{"kind":"Field","name":{"kind":"Name","value":"raceType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"class"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"className"}}]}}]}}]} as unknown as DocumentNode<CharacterDetailFragment, unknown>;
+export const GetCharactersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCharacters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"characters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CharacterDetail"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CharacterDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Character"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"hp"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"race"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"raceName"}},{"kind":"Field","name":{"kind":"Name","value":"raceType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"class"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"className"}}]}}]}}]} as unknown as DocumentNode<GetCharactersQuery, GetCharactersQueryVariables>;
+export const GetSingleCharacterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSingleCharacter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"character"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CharacterDetail"}},{"kind":"Field","name":{"kind":"Name","value":"initiative"}},{"kind":"Field","name":{"kind":"Name","value":"proficiencyBonus"}},{"kind":"Field","name":{"kind":"Name","value":"speed"}},{"kind":"Field","name":{"kind":"Name","value":"skills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skill"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"skill"}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"skillProficiency"}}]}},{"kind":"Field","name":{"kind":"Name","value":"abilities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"abilityScore"}},{"kind":"Field","name":{"kind":"Name","value":"proficiencyBonus"}},{"kind":"Field","name":{"kind":"Name","value":"ability"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ability"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CharacterDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Character"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"hp"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"race"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"raceName"}},{"kind":"Field","name":{"kind":"Name","value":"raceType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"class"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"className"}}]}}]}}]} as unknown as DocumentNode<GetSingleCharacterQuery, GetSingleCharacterQueryVariables>;
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -278,22 +297,22 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Ability: ResolverTypeWrapper<Ability>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Alignment: ResolverTypeWrapper<Alignment>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Character: ResolverTypeWrapper<Character>;
   CharacterAbility: ResolverTypeWrapper<CharacterAbility>;
   CharacterSkill: ResolverTypeWrapper<CharacterSkill>;
   Class: ResolverTypeWrapper<Class>;
   CreateCharacterInput: CreateCharacterInput;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   NewCharacterAbilityInput: NewCharacterAbilityInput;
   NewCharacterInput: NewCharacterInput;
   NewCharacterSkillInput: NewCharacterSkillInput;
   Query: ResolverTypeWrapper<{}>;
   Race: ResolverTypeWrapper<Race>;
   Skill: ResolverTypeWrapper<Skill>;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
   UpdateCharacterAbilityInput: UpdateCharacterAbilityInput;
   UpdateCharacterInput: UpdateCharacterInput;
   UpdateCharacterSkillInput: UpdateCharacterSkillInput;
@@ -302,22 +321,22 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Ability: Ability;
+  String: Scalars['String']['output'];
+  Int: Scalars['Int']['output'];
   Alignment: Alignment;
-  Boolean: Scalars['Boolean']['output'];
   Character: Character;
   CharacterAbility: CharacterAbility;
   CharacterSkill: CharacterSkill;
   Class: Class;
   CreateCharacterInput: CreateCharacterInput;
-  Int: Scalars['Int']['output'];
   Mutation: {};
+  Boolean: Scalars['Boolean']['output'];
   NewCharacterAbilityInput: NewCharacterAbilityInput;
   NewCharacterInput: NewCharacterInput;
   NewCharacterSkillInput: NewCharacterSkillInput;
   Query: {};
   Race: Race;
   Skill: Skill;
-  String: Scalars['String']['output'];
   UpdateCharacterAbilityInput: UpdateCharacterAbilityInput;
   UpdateCharacterInput: UpdateCharacterInput;
   UpdateCharacterSkillInput: UpdateCharacterSkillInput;

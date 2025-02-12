@@ -1,4 +1,4 @@
-import { Character } from "@/generated/graphql";
+import { Character } from "@/generated/graphql/graphql";
 import Image from "next/image";
 import druidpaw from "@/assets/druidpaw.webp";
 import dragonborn from "@/assets/female_dragonborn.webp";

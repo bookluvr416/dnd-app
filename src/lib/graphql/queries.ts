@@ -57,3 +57,77 @@ export const getCharacterById = graphql(`
     }
   }
 `);
+
+export const getRaces = graphql(`
+  query GetRaces {
+    races {
+      id
+      raceName
+      raceType
+    }
+  }
+`);
+
+export const getClasses = graphql(`
+  query GetClasses {
+    classes {
+      id
+      className
+    }
+  }
+`);
+
+export const getAlignments = graphql(`
+  query GetAlignments {
+    alignments {
+      id
+      alignment
+    }
+  }
+`);
+
+export const getSkills = graphql(`
+  query GetSkills {
+    skills {
+      id
+      skill
+    }
+  }
+`);
+
+export const getAbilities = graphql(`
+  query GetAbilities {
+    abilities {
+      id
+      ability
+    }
+  }
+`);
+
+export const getLookupValues = graphql(`
+  query GetLookupValues {
+    lookupValues {
+      races {
+        id
+        raceName
+        raceType
+      }
+      classes {
+        id
+        className
+      }
+      abilities {
+        id
+        ability
+      }
+      skills {
+        id
+        skill
+      }
+      alignments {
+        id
+        alignment
+      }
+    }
+  }
+`);

@@ -1,21 +1,21 @@
 'use client'
 
 import { useSuspenseQuery } from '@apollo/client';
-import { getLookupValues } from '@/lib/graphql/queries';
+import { getReferenceValues } from '@/lib/graphql/queries';
 
-export function useLookupValues() {
-  const { data, error } = useSuspenseQuery(getLookupValues);
+export function useReferenceValues() {
+  const { data, error } = useSuspenseQuery(getReferenceValues);
 
   if (error) {
     console.log(error);
   }
 
   return {
-    abilities: data.lookupValues.abilities,
-    skills: data.lookupValues.skills,
-    alignments: data.lookupValues.alignments,
-    classes: data.lookupValues.classes,
-    races: data.lookupValues.races,
+    abilities: data.referenceValues.abilities,
+    skills: data.referenceValues.skills,
+    alignments: data.referenceValues.alignments,
+    classes: data.referenceValues.classes,
+    races: data.referenceValues.races,
     error
   };
 }

@@ -104,9 +104,9 @@ export const getAbilities = graphql(`
   }
 `);
 
-export const getLookupValues = graphql(`
-  query GetLookupValues {
-    lookupValues {
+export const getReferenceValues = graphql(`
+  query GetreferenceValues {
+    referenceValues {
       races {
         id
         raceName

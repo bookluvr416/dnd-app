@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { Resolvers } from '@/generated/graphql/graphql';
 import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/characterCrud';
-import { getAbilities, getAlignment, getClasses, getRaces, getSkills } from './db/lookupCrud';
+import { getAbilities, getAlignment, getClasses, getRaces, getSkills } from './db/referenceValues';
 import { authOptions } from '@/lib/auth';
 
 const resolvers: Resolvers = {
@@ -67,7 +67,7 @@ const resolvers: Resolvers = {
         throw new Error("Failed to fetch abilities")
       }
     },
-    lookupValues: async () => {
+    referenceValues: async () => {
       try {
         const alignments = await getAlignment();
         const skills = await getSkills();

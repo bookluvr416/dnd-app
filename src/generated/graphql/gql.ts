@@ -22,7 +22,7 @@ type Documents = {
     "\n  query GetAlignments {\n    alignments {\n      id\n      alignment\n    }\n  }\n": typeof types.GetAlignmentsDocument,
     "\n  query GetSkills {\n    skills {\n      id\n      skill\n    }\n  }\n": typeof types.GetSkillsDocument,
     "\n  query GetAbilities {\n    abilities {\n      id\n      ability\n    }\n  }\n": typeof types.GetAbilitiesDocument,
-    "\n  query GetLookupValues {\n    lookupValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n": typeof types.GetLookupValuesDocument,
+    "\n  query GetreferenceValues {\n    referenceValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n": typeof types.GetreferenceValuesDocument,
 };
 const documents: Documents = {
     "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n": types.CharacterDetailFragmentDoc,
@@ -33,7 +33,7 @@ const documents: Documents = {
     "\n  query GetAlignments {\n    alignments {\n      id\n      alignment\n    }\n  }\n": types.GetAlignmentsDocument,
     "\n  query GetSkills {\n    skills {\n      id\n      skill\n    }\n  }\n": types.GetSkillsDocument,
     "\n  query GetAbilities {\n    abilities {\n      id\n      ability\n    }\n  }\n": types.GetAbilitiesDocument,
-    "\n  query GetLookupValues {\n    lookupValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n": types.GetLookupValuesDocument,
+    "\n  query GetreferenceValues {\n    referenceValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n": types.GetreferenceValuesDocument,
 };
 
 /**
@@ -85,7 +85,7 @@ export function graphql(source: "\n  query GetAbilities {\n    abilities {\n    
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetLookupValues {\n    lookupValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetLookupValues {\n    lookupValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query GetreferenceValues {\n    referenceValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetreferenceValues {\n    referenceValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      abilities {\n        id\n        ability\n      }\n      skills {\n        id\n        skill\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

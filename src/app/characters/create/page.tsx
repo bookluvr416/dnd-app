@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import Link from 'next/link';
-import CharacterForm from '@/components/characters/createCharacter/CharacterFormCopy';
+import CharacterForm from '@/components/characters/createCharacter/CharacterForm';
 
 export default async function CreateCharacter() {
   const user = await getServerSession(authOptions);

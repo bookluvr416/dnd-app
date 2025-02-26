@@ -1,7 +1,11 @@
 'use client'
 
-import { Race, Class, Alignment, Skill } from '@/generated/graphql/graphql';
-import { useLookupValues } from '@/lib/graphql/hooks';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormData, schema } from "@/lib/formSchema/zodSchema";
+import { Race, Class, Alignment } from '@/generated/graphql/graphql';
+import { useReferenceValues } from '@/lib/graphql/hooks';
 import TextInput from './formFields/TextInput';
 import NumericInput from './formFields/NumericInput';
 import Select from './formFields/Select';
@@ -9,8 +13,9 @@ import Section from './formFields/Section';
 import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
 
+
 const CharacterForm = () => {
-  const { races, skills, abilities, classes, alignments, error } = useLookupValues();
+  const { races, skills, abilities, classes, alignments, error } = useReferenceValues();
 
   if (error) {
     return (
@@ -21,12 +26,67 @@ const CharacterForm = () => {
     )
   }
 
-  async function createCharacter(formData: FormData) {
-    console.log(formData.get('race'));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onBlur',
+    defaultValues: {
+      name: '',
+      class: 0,
+      level: 0,
+      hp: 0,
+      ac: 0,
+      speed: 0,
+      initiative: 0,
+      proficiencyBonus: 0,
+      race: 0,
+      alignment: 0,
+      constitutionScore: 0,
+      constitutionProficiencyBonus: 0,
+      charismaScore: 0,
+      charismaProficiencyBonus: 0,
+      dexterityScore: 0,
+      dexterityProficiencyBonus: 0,
+      intelligenceScore: 0,
+      intelligenceProficiencyBonus: 0,
+      strengthScore: 0,
+      strengthProficiencyBonus:0,
+      wisdomScore: 0,
+      wisdomProficiencyBonus: 0,
+      acrobatics: 0,
+      animalhandling: 0,
+      arcana: 0,
+      athletics: 0,
+      deception: 0,
+      history: 0,
+      insight: 0,
+      intimidation: 0,
+      investigation: 0,
+      medicine: 0,
+      nature: 0,
+      perception: 0,
+      performance: 0,
+      persuasion: 0,
+      religion: 0,
+      sleightofhand: 0,
+      stealth: 0,
+      survival: 0
+    }
+  });
+
+  // async function createCharacter(formData: FormData) {
+  //   console.log(Object.entries(formData));
+  // }
+
+  const onSubmit = (data: FormData) => {
+    alert(JSON.stringify(data));
   }
 
   return (
-    <form action={createCharacter}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="bg-gradient-to-r from-cyan-700/50 to-violet-800/50 rounded-xl py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto bg-indigo-900 rounded-lg shadow-2xl overflow-hidden border border-indigo-500/30">
           
@@ -39,6 +99,8 @@ const CharacterForm = () => {
                 htmlFor="name"
                 label="Character Name"
                 name="name"
+                register={register}
+                errors={errors}
               />
 
               <div className='md:grid md:grid-cols-2 md:w-full md:gap-4'>
@@ -48,6 +110,8 @@ const CharacterForm = () => {
                   htmlFor="class"
                   name="class"
                   label="Class"
+                  register={register}
+                  errors={errors}
                   options={classes.map((singleClass: Class) => ({ id: singleClass.id!, description: singleClass.className! }))}
                 />
 
@@ -60,6 +124,8 @@ const CharacterForm = () => {
                     name="level"
                     min={1}
                     max={20}
+                    register={register}
+                    errors={errors}
                   />
                 </div>
               </div>
@@ -73,6 +139,8 @@ const CharacterForm = () => {
                   name="hp"
                   min={1}
                   max={1000}
+                  register={register}
+                  errors={errors}
                 />
 
                 {/* AC */}
@@ -83,6 +151,8 @@ const CharacterForm = () => {
                   name="ac"
                   min={1}
                   max={30}
+                  register={register}
+                  errors={errors}
                 />
 
                 {/* Speed */}
@@ -94,6 +164,8 @@ const CharacterForm = () => {
                     name="speed"
                     min={1}
                     max={150}
+                    register={register}
+                    errors={errors}
                   />
                 </div>
               </div>
@@ -107,16 +179,20 @@ const CharacterForm = () => {
                   name="initiative"
                   min={1}
                   max={10}
+                  register={register}
+                  errors={errors}
                 />
 
                 {/* Proficiency Bonus */}
                 <NumericInput
                   id="proficiency-bonus"
-                  htmlFor="proficiency-bonus"
+                  htmlFor="proficiencyBonus"
                   label="Proficiency Bonus"
-                  name="proficiency-bonus"
+                  name="proficiencyBonus"
                   min={1}
                   max={20}
+                  register={register}
+                  errors={errors}
                 />
               </div>
             </div>
@@ -133,6 +209,8 @@ const CharacterForm = () => {
                   htmlFor="race"
                   name="race"
                   label="Race"
+                  register={register}
+                  errors={errors}
                   options={races.map((race: Race) => ({ id: race.id!, description: race.raceName! }))}
                 />
 
@@ -143,6 +221,8 @@ const CharacterForm = () => {
                     htmlFor="alignment"
                     name="alignment"
                     label="Alignment"
+                    register={register}
+                    errors={errors}
                     options={alignments.map((alignment: Alignment) => ({ id: alignment.id!, description: alignment.alignment! }))}
                   />
                 </div>
@@ -153,14 +233,22 @@ const CharacterForm = () => {
           {/* section three - abilities */}
           <Section label="Abilities">
             <div className="space-y-6">
-              <AbilitiesList abilities={abilities} />
+              <AbilitiesList
+                abilities={abilities}
+                register={register}
+                errors={errors}
+              />
             </div>
           </Section>
 
           {/* section four - skills */}
           <Section label="Skills">
             <div className="space-y-6">
-              <SkillsList skills={skills} />
+              <SkillsList
+                skills={skills}
+                register={register}
+                errors={errors}
+              />
             </div>
           </Section>
 

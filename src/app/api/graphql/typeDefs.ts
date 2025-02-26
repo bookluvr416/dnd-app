@@ -56,7 +56,7 @@ const typeDefs = `#graphql
     skillProficiency: Int
   }
 
-  type LookupValues {
+  type referenceValues {
     skills: [Skill!]!
     abilities: [Ability!]!
     alignments: [Alignment!]!
@@ -140,7 +140,7 @@ const typeDefs = `#graphql
     abilities: [Ability!]!
     ability(id: Int!): Ability
 
-    lookupValues: LookupValues!
+    referenceValues: referenceValues!
   }
 
   type Mutation {

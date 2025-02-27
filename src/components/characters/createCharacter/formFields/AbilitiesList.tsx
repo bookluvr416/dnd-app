@@ -27,7 +27,6 @@ const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
             <div className="flex flex-col space-y-3">
               <NumericInput 
                 id={`${standardizedAbility}-score`}
-                htmlFor={`${standardizedAbility}Score`}
                 label="Ability Score"
                 name={`${standardizedAbility}Score` as keyof FormData}
                 min={1}
@@ -38,7 +37,6 @@ const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
 
               <NumericInput 
                 id={`${standardizedAbility}-proficiency-bonus`}
-                htmlFor={`${standardizedAbility}ProficiencyBonus`}
                 label="Proficiency Bonus"
                 name={`${standardizedAbility}ProficiencyBonus` as keyof FormData}
                 min={-20}

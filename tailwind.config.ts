@@ -16,7 +16,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        quintessential : ['Quintessential','cursive']
+        quintessential : ['quintessential','cursive']
       },
     },
   },

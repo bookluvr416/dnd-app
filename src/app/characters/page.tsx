@@ -19,6 +19,7 @@ export default function CharactersPage() {
           width={100}
           height={100}
           className="size-20 md:size-24 lg:size-28"
+          priority
         />
         <Image
           src={paladin}
@@ -26,6 +27,7 @@ export default function CharactersPage() {
           width={100}
           height={100}
           className="hidden md:block md:size-24 lg:size-28"
+          priority
         />
         <Link
           href="/characters/create"
@@ -39,6 +41,7 @@ export default function CharactersPage() {
           width={100}
           height={100}
           className="hidden md:block md:size-24 lg:size-28"
+          priority
         />
         <Image
           src={cleric}
@@ -46,6 +49,7 @@ export default function CharactersPage() {
           width={100}
           height={100}
           className="size-20 md:size-24 lg:size-28"
+          priority
         />
       </div>
       <CharacterList />

@@ -52,7 +52,6 @@ const CharacterForm = () => {
               {/* Character Name */}
               <TextInput
                 id="name"
-                htmlFor="name"
                 label="Character Name"
                 name="name"
                 register={register}
@@ -63,7 +62,6 @@ const CharacterForm = () => {
                 {/* Class Selection */}
                 <Select
                   id="class"
-                  htmlFor="class"
                   name="class"
                   label="Class"
                   register={register}
@@ -75,7 +73,6 @@ const CharacterForm = () => {
                 <div className="pt-6 md:pt-0">
                   <NumericInput
                     id="level"
-                    htmlFor="level"
                     label="Level"
                     name="level"
                     min={1}
@@ -90,7 +87,6 @@ const CharacterForm = () => {
                 {/* HP */}
                 <NumericInput
                   id="hp"
-                  htmlFor="hp"
                   label="HP"
                   name="hp"
                   min={1}
@@ -102,7 +98,6 @@ const CharacterForm = () => {
                 {/* AC */}
                 <NumericInput
                   id="ac"
-                  htmlFor="ac"
                   label="AC"
                   name="ac"
                   min={1}
@@ -115,7 +110,6 @@ const CharacterForm = () => {
                 <div className="pt-4 md:pt-0">
                   <NumericInput
                     id="speed"
-                    htmlFor="speed"
                     label="Speed"
                     name="speed"
                     min={1}
@@ -130,7 +124,6 @@ const CharacterForm = () => {
                 {/* Initiative */}
                 <NumericInput
                   id="initiative"
-                  htmlFor="initiative"
                   label="Initiative"
                   name="initiative"
                   min={1}
@@ -142,7 +135,6 @@ const CharacterForm = () => {
                 {/* Proficiency Bonus */}
                 <NumericInput
                   id="proficiency-bonus"
-                  htmlFor="proficiencyBonus"
                   label="Proficiency Bonus"
                   name="proficiencyBonus"
                   min={1}
@@ -162,7 +154,6 @@ const CharacterForm = () => {
                 {/* Race Selection */}
                 <Select
                   id="race"
-                  htmlFor="race"
                   name="race"
                   label="Race"
                   register={register}
@@ -174,7 +165,6 @@ const CharacterForm = () => {
                 <div className="pt-6 md:pt-0">
                   <Select
                     id="alignment"
-                    htmlFor="alignment"
                     name="alignment"
                     label="Alignment"
                     register={register}

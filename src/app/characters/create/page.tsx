@@ -31,6 +31,7 @@ export default async function CreateCharacter() {
           width={75}
           height={100}
           className="size-16 md:size-20"
+          priority
         />
         <Image
           src={blueAmulet}
@@ -38,13 +39,15 @@ export default async function CreateCharacter() {
           width={100}
           height={100}
           className="hidden md:block md:size-24"
+          priority
         />
         <Image
           src={cauldron}
           alt="cauldron"
           width={100}
           height={100}
-          className="hidden md:block md:size-24="
+          className="hidden md:block md:size-24"
+          priority
         />
         <Image
           src={manaPotion}
@@ -52,6 +55,7 @@ export default async function CreateCharacter() {
           width={100}
           height={100}
           className="size-16 md:size-24"
+          priority
         />
       </div>
       <CharacterForm />

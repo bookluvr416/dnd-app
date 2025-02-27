@@ -6,17 +6,16 @@ interface Props {
   id: string;
   label: string;
   name: keyof FormData;
-  htmlFor: string;
   errors: FieldErrors<FormData>;
   register: UseFormRegister<FormData>;
 }
 
-const TextInput: React.FC<Props> = ({ id, label, name, htmlFor, register, errors }) => {
+const TextInput: React.FC<Props> = ({ id, label, name, register, errors }) => {
   return (
     <div>
       <label
         id={id}
-        htmlFor={htmlFor}
+        htmlFor={`${id}-input`}
         aria-label={label}
         className="block text-small text-indigo-300 mb-1"
       >

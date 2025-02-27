@@ -20,7 +20,7 @@ const SkillsList: React.FC<Props> = ({ skills, errors, register }) => {
             <div className="flex items-center">
               <label
                 id={standardizedSkill}
-                htmlFor={standardizedSkill}
+                htmlFor={`${standardizedSkill}-input`}
                 aria-label={skill.skill!}
                 className="block text-small text-indigo-300 w-32"
               >

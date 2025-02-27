@@ -6,18 +6,17 @@ interface Props {
   id: string;
   label: string;
   name: keyof FormData;
-  htmlFor: string;
   errors: FieldErrors<FormData>;
   register: UseFormRegister<FormData>;
   options: { id: number; description: string; }[];
 }
 
-const Select: React.FC<Props> = ({ id, label, name, htmlFor, options, errors, register }) => {
+const Select: React.FC<Props> = ({ id, label, name, options, errors, register }) => {
   return (
     <div>
       <label
         id={id}
-        htmlFor={htmlFor}
+        htmlFor={`${id}-select`}
         aria-label={label}
         className="block text-small text-indigo-300 mb-1"
       >

@@ -6,19 +6,18 @@ interface Props {
   id: string;
   label: string;
   name: keyof FormData;
-  htmlFor: string;
   min: number;
   max: number;
   errors: FieldErrors<FormData>;
   register: UseFormRegister<FormData>;
 }
 
-const NumericInput: React.FC<Props> = ({ id, label, name, htmlFor, min, max, errors, register }) => {
+const NumericInput: React.FC<Props> = ({ id, label, name, min, max, errors, register }) => {
   return (
     <div>
       <label
         id={id}
-        htmlFor={htmlFor}
+        htmlFor={`${id}-input`}
         aria-label={label}
         className="block text-small text-indigo-300 mb-1"
       >

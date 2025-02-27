@@ -30,21 +30,16 @@ const CharacterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
     defaultValues: schemaDefaults
   });
 
-  // async function createCharacter(formData: FormData) {
-  //   console.log(Object.entries(formData));
-  // }
-
   const onSubmit = (data: FormData) => {
-    alert(JSON.stringify(data));
+    console.log(JSON.stringify(data));
   }
-
-  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -212,11 +207,23 @@ const CharacterForm = () => {
               />
             </div>
           </Section>
-
         </div>
-      </div>
 
-      <button type='submit'>Submit</button>
+        <button
+          type='submit'
+          className="rounded-lg p-3 mt-5 text-small bg-violet-900 hover:bg-violet-800"
+        >
+          Submit
+        </button>
+
+        <button
+          type='button'
+          onClick={() => reset()}
+          className="rounded-lg p-3 mt-5 ml-5 text-small bg-violet-950 hover:bg-violet-800"
+        >
+          Clear
+        </button>
+      </div>
     </form>
   );
 };

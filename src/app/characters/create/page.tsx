@@ -1,7 +1,14 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import Link from 'next/link';
+import Image from 'next/image';
+import HeaderBanner from '@/components/shared/HeaderBanner';
+import WrapperDiv from '@/components/shared/WrapperDiv';
 import CharacterForm from '@/components/characters/createCharacter/CharacterForm';
+import cauldron from '@/assets/Cauldron.png';
+import blueAmulet from '@/assets/blue-amulet.png';
+import goldCoins from '@/assets/gold-coins.png';
+import manaPotion from '@/assets/mana-potion.png';
 
 export default async function CreateCharacter() {
   const user = await getServerSession(authOptions);
@@ -15,12 +22,39 @@ export default async function CreateCharacter() {
   );
 
   return (
-    <div className="bg-blue-950/80 p-8 md:p-20 rounded-3xl max-w-5xl m-auto">
-      <h1 className="bg-gradient-to-r from-cyan-700/50 to-violet-800/50 rounded-xl text-center font-quintessential items-center mb-6 md:mb-12 p-4 sm:p-6 text-large sm:text-2xl text-fuchsia-200">
-        Create Your Character
-      </h1>
-
+    <WrapperDiv>
+      <HeaderBanner text="Create Your Character" />
+      <div className="flex flex-row gap-2 sm:gap-4 pb-5 pl-8 pr-8 justify-between items-center">
+        <Image
+          src={goldCoins}
+          alt="gold coins"
+          width={75}
+          height={100}
+          className="size-16 md:size-20"
+        />
+        <Image
+          src={blueAmulet}
+          alt="blue amulet"
+          width={100}
+          height={100}
+          className="hidden md:block md:size-24"
+        />
+        <Image
+          src={cauldron}
+          alt="cauldron"
+          width={100}
+          height={100}
+          className="hidden md:block md:size-24="
+        />
+        <Image
+          src={manaPotion}
+          alt="mana potion"
+          width={100}
+          height={100}
+          className="size-16 md:size-24"
+        />
+      </div>
       <CharacterForm />
-    </div>
+    </WrapperDiv>
   )
 }

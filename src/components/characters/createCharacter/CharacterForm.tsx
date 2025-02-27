@@ -218,4 +218,4 @@ const CharacterForm = () => {
   );
 };
 
-export default CharacterForm
+export default CharacterForm;

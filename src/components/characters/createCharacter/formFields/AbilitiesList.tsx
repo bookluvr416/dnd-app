@@ -1,7 +1,7 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { FormData } from "@/lib/formSchema/zodSchema";
-import { Ability } from "@/generated/graphql/graphql";
-import NumericInput from "./NumericInput";
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FormData } from '@/lib/formSchema/zodSchema';
+import { Ability } from '@/generated/graphql/graphql';
+import NumericInput from './NumericInput';
 
 interface Props {
   abilities: Ability[];
@@ -20,7 +20,7 @@ const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
             className="bg-purple-950/20 rounded-lg p-4 border border-violet-800"
           >
             <div className="text-center mb-2">
-              <h3 className="text-lg font-medium text-indigo-300">
+              <h3 className="font-medium text-indigo-300">
                 {ability.ability}
               </h3>
             </div>

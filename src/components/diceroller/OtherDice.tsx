@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import '@/components/diceroller/dice.css';
-import { Dice } from "@/interfaces/dice-interfaces";
+import { Dice } from '@/interfaces/dice-interfaces';
 
 interface DynamicObject {
   [key: string]: string; 

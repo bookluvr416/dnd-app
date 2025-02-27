@@ -1,7 +1,7 @@
 'use client'
 
-import { DisclosureButton } from "@headlessui/react";
-import { usePathname } from "next/navigation";
+import { DisclosureButton } from '@headlessui/react';
+import { usePathname } from 'next/navigation';
 
 const NavDisclosureButton: React.FC<{ href: string, text: string }> = ({ href, text }) => {
   const currentPath = usePathname();

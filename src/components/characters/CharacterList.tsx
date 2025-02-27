@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from "react";
-import { Character } from "@/generated/graphql/graphql";
-import CharacterCard from "./CharacterCard";
-import CharacterFilters from "./CharacterFilters";
-import { useSuspenseQuery } from "@apollo/client";
-import { getCharacters } from "@/lib/graphql/queries";
+import { useState } from 'react';
+import { Character } from '@/generated/graphql/graphql';
+import CharacterCard from './CharacterCard';
+import CharacterFilters from './CharacterFilters';
+import { useSuspenseQuery } from '@apollo/client';
+import { getCharacters } from '@/lib/graphql/queries';
 
 function useCharacters() {
   const { data, error } = useSuspenseQuery(getCharacters);

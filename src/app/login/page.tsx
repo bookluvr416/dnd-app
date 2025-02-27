@@ -1,5 +1,5 @@
-import UserAuthForm from "@/components/auth/UserAuthForm";
-import Link from "next/link";
+import UserAuthForm from '@/components/auth/UserAuthForm';
+import Link from 'next/link';
 
 export default function LoginPage() {
   return (

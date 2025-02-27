@@ -1,5 +1,5 @@
 import { NextAuthOptions } from 'next-auth';
-import { Octokit } from "@octokit/rest";
+import { Octokit } from '@octokit/rest';
 import { createOAuthAppAuth } from '@octokit/auth-oauth-app';
 import GithubProvider from 'next-auth/providers/github';
 

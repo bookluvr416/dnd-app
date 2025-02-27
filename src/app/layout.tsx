@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import { ApolloWrapper } from "./ApolloWrapper";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/nav/Header";
+import type { Metadata } from 'next';
+import { ApolloWrapper } from './ApolloWrapper';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import Header from '@/components/nav/Header';
 import bgImg from '@/assets/ruinsbg.jpg';
 
 const geistSans = Geist({

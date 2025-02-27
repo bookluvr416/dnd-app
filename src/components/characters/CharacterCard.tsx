@@ -1,19 +1,19 @@
-import { Character } from "@/generated/graphql/graphql";
-import Image, { StaticImageData } from "next/image";
-import artificerIcon from "@/assets/Artificer-icon.webp";
-import barbarianIcon from "@/assets/Barbarian-icon.webp";
-import bardIcon from "@/assets/Bard-icon.webp";
-import clericIcon from "@/assets/Cleric-icon.webp";
-import druidIcon from "@/assets/Druid-icon.webp";
-import fighterIcon from "@/assets/Fighter-icon.webp";
-import monkIcon from "@/assets/Monk-icon.webp";
-import paladinIcon from "@/assets/Paladin-icon.webp";
-import rangerIcon from "@/assets/Ranger-icon.webp";
-import rogueIcon from "@/assets/Rogue-icon.webp";
-import sorcererIcon from "@/assets/Sorcerer-icon.webp";
-import warlockIcon from "@/assets/Warlock-icon.webp";
-import wizardIcon from "@/assets/Wizard-icon.webp";
-import dragonborn from "@/assets/female_dragonborn.webp";
+import { Character } from '@/generated/graphql/graphql';
+import Image, { StaticImageData } from 'next/image';
+import artificerIcon from '@/assets/Artificer-icon.webp';
+import barbarianIcon from '@/assets/Barbarian-icon.webp';
+import bardIcon from '@/assets/Bard-icon.webp';
+import clericIcon from '@/assets/Cleric-icon.webp';
+import druidIcon from '@/assets/Druid-icon.webp';
+import fighterIcon from '@/assets/Fighter-icon.webp';
+import monkIcon from '@/assets/Monk-icon.webp';
+import paladinIcon from '@/assets/Paladin-icon.webp';
+import rangerIcon from '@/assets/Ranger-icon.webp';
+import rogueIcon from '@/assets/Rogue-icon.webp';
+import sorcererIcon from '@/assets/Sorcerer-icon.webp';
+import warlockIcon from '@/assets/Warlock-icon.webp';
+import wizardIcon from '@/assets/Wizard-icon.webp';
+import dragonborn from '@/assets/female_dragonborn.webp';
 
 const CharacterCard: React.FC<{ character: Character }> = ({ character }) => {
   let iconImage: StaticImageData | null = null;

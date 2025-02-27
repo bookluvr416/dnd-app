@@ -1,4 +1,4 @@
-import DiceRoller from "@/components/diceroller/DiceRoller";
+import DiceRoller from '@/components/diceroller/DiceRoller';
 
 
 export default function DiceRollerPage() {

@@ -1,6 +1,6 @@
-import D4 from "./D4";
-import OtherDice from "./OtherDice";
-import { Dice, ShouldRoll } from "@/interfaces/dice-interfaces";
+import D4 from './D4';
+import OtherDice from './OtherDice';
+import { Dice, ShouldRoll } from '@/interfaces/dice-interfaces';
 
 const getRandomFace = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;

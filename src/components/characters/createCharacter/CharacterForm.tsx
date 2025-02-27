@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormData, schema } from "@/lib/formSchema/zodSchema";
+import { FormData, schema, schemaDefaults } from '@/lib/formSchema/zodSchema';
 import { Race, Class, Alignment } from '@/generated/graphql/graphql';
 import { useReferenceValues } from '@/lib/graphql/hooks';
 import TextInput from './formFields/TextInput';
@@ -33,48 +33,7 @@ const CharacterForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
-    defaultValues: {
-      name: '',
-      class: 0,
-      level: 0,
-      hp: 0,
-      ac: 0,
-      speed: 0,
-      initiative: 0,
-      proficiencyBonus: 0,
-      race: 0,
-      alignment: 0,
-      constitutionScore: 0,
-      constitutionProficiencyBonus: 0,
-      charismaScore: 0,
-      charismaProficiencyBonus: 0,
-      dexterityScore: 0,
-      dexterityProficiencyBonus: 0,
-      intelligenceScore: 0,
-      intelligenceProficiencyBonus: 0,
-      strengthScore: 0,
-      strengthProficiencyBonus:0,
-      wisdomScore: 0,
-      wisdomProficiencyBonus: 0,
-      acrobatics: 0,
-      animalhandling: 0,
-      arcana: 0,
-      athletics: 0,
-      deception: 0,
-      history: 0,
-      insight: 0,
-      intimidation: 0,
-      investigation: 0,
-      medicine: 0,
-      nature: 0,
-      perception: 0,
-      performance: 0,
-      persuasion: 0,
-      religion: 0,
-      sleightofhand: 0,
-      stealth: 0,
-      survival: 0
-    }
+    defaultValues: schemaDefaults
   });
 
   // async function createCharacter(formData: FormData) {
@@ -84,6 +43,8 @@ const CharacterForm = () => {
   const onSubmit = (data: FormData) => {
     alert(JSON.stringify(data));
   }
+
+  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -130,7 +91,7 @@ const CharacterForm = () => {
                 </div>
               </div>
 
-              <div className='grid grid-cols-2 md:grid-cols-3 w-full gap-4'>
+              <div className='grid grid-cols-1 md:grid-cols-3 w-full gap-4'>
                 {/* HP */}
                 <NumericInput
                   id="hp"
@@ -170,7 +131,7 @@ const CharacterForm = () => {
                 </div>
               </div>
 
-              <div className='grid grid-cols-2 w-full gap-4'>
+              <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-4'>
                 {/* Initiative */}
                 <NumericInput
                   id="initiative"

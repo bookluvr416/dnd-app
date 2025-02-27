@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import Link from "next/link";
+import Link from 'next/link';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { authOptions } from '@/lib/auth';

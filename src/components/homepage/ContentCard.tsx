@@ -19,6 +19,7 @@ const ContentCard: React.FC<Props> = ({ description, imageSrc, title, alt, order
 
   let isPriority;
 
+  // sets priority for lazy loading based on if this will show on the first line
   switch (orderNum) {
     case 1:
       isPriority = true;

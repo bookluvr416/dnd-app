@@ -84,7 +84,7 @@ const resolvers: Resolvers = {
         }
       } catch (error) {
         console.log(error);
-        throw new Error("Failed to fetch values")
+        throw new Error("Failed to fetch reference values")
       }
     }
   },

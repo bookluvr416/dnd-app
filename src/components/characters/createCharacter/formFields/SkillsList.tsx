@@ -1,7 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { FormData } from '@/lib/formSchema/zodSchema';
 import { Skill } from '@/generated/graphql/graphql';
-import ErrorDisplay from './ErrorDisplay';
 
 interface Props {
   skills: Skill[];

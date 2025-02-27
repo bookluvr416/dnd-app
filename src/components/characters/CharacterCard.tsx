@@ -19,6 +19,7 @@ const CharacterCard: React.FC<{ character: Character }> = ({ character }) => {
   let iconImage: StaticImageData | null = null;
   let iconAlt = character.class?.className ?? '';
 
+  // set icon image depending on class
   switch (character.class?.className?.toUpperCase()) {
     case 'ARTIFICER':
       iconImage = artificerIcon;

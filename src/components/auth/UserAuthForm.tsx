@@ -7,6 +7,10 @@ import { useState } from 'react';
 const UserAuthForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  /**
+   * loginWithGithub
+   * sets loading state and signs user in to github
+   */
   const loginWithGithub = async () => {
     setIsLoading(true)
 

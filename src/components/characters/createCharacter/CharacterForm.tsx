@@ -26,6 +26,7 @@ const CharacterForm = () => {
     )
   }
 
+  // set up react-hook-form with zod
   const {
     register,
     handleSubmit,
@@ -37,6 +38,11 @@ const CharacterForm = () => {
     defaultValues: schemaDefaults
   });
 
+  /**
+   * onSubmit
+   * TODO
+   * @param data FormData
+   */
   const onSubmit = (data: FormData) => {
     console.log(JSON.stringify(data));
   }
@@ -199,6 +205,7 @@ const CharacterForm = () => {
           </Section>
         </div>
 
+        {/* submit and cancel buttons */}
         <button
           type='submit'
           className="rounded-lg p-3 mt-5 text-small bg-violet-900 hover:bg-violet-800"

@@ -1,5 +1,9 @@
 import { db } from './connection';
 
+/**
+ * getRaces
+ * @returns array of races
+ */
 export const getRaces = async () => {
   try {
     const returnedData = await db
@@ -14,6 +18,10 @@ export const getRaces = async () => {
   }
 };
 
+/**
+ * getClasses
+ * @returns array of classes
+ */
 export const getClasses = async () => {
   try {
     const returnedData = await db
@@ -28,6 +36,10 @@ export const getClasses = async () => {
   }
 };
 
+/**
+ * getAlignment
+ * @returns array of alignments
+ */
 export const getAlignment = async () => {
   try {
     const returnedData = await db
@@ -42,6 +54,10 @@ export const getAlignment = async () => {
   }
 };
 
+/**
+ * getSkills
+ * @returns array of skills
+ */
 export const getSkills = async () => {
   try {
     const returnedData = await db
@@ -56,6 +72,10 @@ export const getSkills = async () => {
   }
 };
 
+/**
+ * getAbilities
+ * @returns array of abilities
+ */
 export const getAbilities = async () => {
   try {
     const returnedData = await db

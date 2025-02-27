@@ -1,5 +1,9 @@
 import { graphql } from '@/generated/graphql/gql';
 
+/**
+ * characterDetailFragment
+ * graphql fragment for queries with common character data
+ */
 const characterDetailFragment = graphql(`
   fragment CharacterDetail on Character {
     id
@@ -22,6 +26,10 @@ const characterDetailFragment = graphql(`
   }
 `);
 
+/**
+ * getCharacters
+ * graphql query to get all characters
+ */
 export const getCharacters = graphql(`
   query GetCharacters {
     characters {
@@ -30,6 +38,10 @@ export const getCharacters = graphql(`
   }
 `);
 
+/**
+ * getCharacterById
+ * graphql query to get a single character by id
+ */
 export const getCharacterById = graphql(`
   query GetSingleCharacter($id: Int!) {
     character(id: $id) {
@@ -58,6 +70,10 @@ export const getCharacterById = graphql(`
   }
 `);
 
+/**
+ * getRaces
+ * graphql query to get races
+ */
 export const getRaces = graphql(`
   query GetRaces {
     races {
@@ -68,6 +84,10 @@ export const getRaces = graphql(`
   }
 `);
 
+/**
+ * getClasses
+ * graphql query to get classes
+ */
 export const getClasses = graphql(`
   query GetClasses {
     classes {
@@ -77,6 +97,10 @@ export const getClasses = graphql(`
   }
 `);
 
+/**
+ * getAlignments
+ * graphql query to get alignments
+ */
 export const getAlignments = graphql(`
   query GetAlignments {
     alignments {
@@ -86,6 +110,10 @@ export const getAlignments = graphql(`
   }
 `);
 
+/**
+ * getSkills
+ * graphql query to get skills
+ */
 export const getSkills = graphql(`
   query GetSkills {
     skills {
@@ -95,6 +123,10 @@ export const getSkills = graphql(`
   }
 `);
 
+/**
+ * getAbilities
+ * graphql query to get abilities
+ */
 export const getAbilities = graphql(`
   query GetAbilities {
     abilities {
@@ -104,6 +136,10 @@ export const getAbilities = graphql(`
   }
 `);
 
+/**
+ * getReferenceValues
+ * graphql query to get race, skill, ability, class, alignment data
+ */
 export const getReferenceValues = graphql(`
   query GetreferenceValues {
     referenceValues {

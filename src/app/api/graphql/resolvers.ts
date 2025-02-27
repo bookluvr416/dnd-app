@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { Resolvers } from '@/generated/graphql/graphql';
-import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/crud';
+import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/characterCrud';
+import { getAbilities, getAlignment, getClasses, getRaces, getSkills } from './db/referenceValues';
 import { authOptions } from '@/lib/auth';
 
 const resolvers: Resolvers = {
@@ -26,6 +27,66 @@ const resolvers: Resolvers = {
         throw new Error("Failed to fetch character");
       }
     },
+    races: async () => {
+      try {
+        return await getRaces();
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch races")
+      }
+    },
+    classes: async () => {
+      try {
+        return await getClasses();
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch classes")
+      }
+    },
+    alignments: async () => {
+      try {
+        return await getAlignment();
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch alignments")
+      }
+    },
+    skills: async () => {
+      try {
+        return await getSkills();
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch skills")
+      }
+    },
+    abilities: async () => {
+      try {
+        return await getAbilities();
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch abilities")
+      }
+    },
+    referenceValues: async () => {
+      try {
+        const alignments = await getAlignment();
+        const skills = await getSkills();
+        const abilities = await getAbilities();
+        const races = await getRaces();
+        const classes = await getClasses();
+
+        return {
+          alignments,
+          skills,
+          abilities,
+          races,
+          classes,
+        }
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to fetch reference values")
+      }
+    }
   },
   Mutation: {
     updateCharacter: async (_root, { input} ) => {

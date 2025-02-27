@@ -7,6 +7,10 @@ import { useState } from 'react';
 const SignOutButton: React.FC<{ css: string }> = ({ css }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  /**
+   * signUserOut
+   * sets loading state and signs user out
+   */
   const signUserOut = async () => {
     try {
       setIsLoading(true)

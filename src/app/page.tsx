@@ -1,4 +1,4 @@
-import ContentGrid from "@/components/homepage/ContentGrid";
+import ContentGrid from '@/components/homepage/ContentGrid';
 
 export default function Home() {
   return (

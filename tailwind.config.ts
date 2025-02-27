@@ -1,5 +1,5 @@
 import plugin from 'tailwindcss/plugin';
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 const {heroui} = require("@heroui/react");
 
 export default {
@@ -16,7 +16,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        quintessential : ['Quintessential','cursive']
+        quintessential : ['quintessential','cursive']
       },
     },
   },

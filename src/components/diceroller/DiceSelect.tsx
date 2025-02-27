@@ -1,5 +1,5 @@
-import { SyntheticEvent } from "react";
-import { NumDice } from "@/interfaces/dice-interfaces";
+import { SyntheticEvent } from 'react';
+import { NumDice } from '@/interfaces/dice-interfaces';
 
 interface Props {
   onNumberSelect: (e: SyntheticEvent, diceType: keyof NumDice) => void;

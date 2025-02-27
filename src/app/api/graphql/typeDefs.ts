@@ -56,6 +56,14 @@ const typeDefs = `#graphql
     skillProficiency: Int
   }
 
+  type referenceValues {
+    skills: [Skill!]!
+    abilities: [Ability!]!
+    alignments: [Alignment!]!
+    races: [Race!]!
+    classes: [Class!]!
+  }
+
   input NewCharacterSkillInput {
     skillId: Int!
     skillProficiency: Int!
@@ -131,6 +139,8 @@ const typeDefs = `#graphql
 
     abilities: [Ability!]!
     ability(id: Int!): Ability
+
+    referenceValues: referenceValues!
   }
 
   type Mutation {

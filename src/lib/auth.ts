@@ -1,5 +1,5 @@
 import { NextAuthOptions } from 'next-auth';
-import { Octokit } from "@octokit/rest";
+import { Octokit } from '@octokit/rest';
 import { createOAuthAppAuth } from '@octokit/auth-oauth-app';
 import GithubProvider from 'next-auth/providers/github';
 
@@ -9,6 +9,11 @@ const AuthProviders = {
 
 type github = keyof typeof AuthProviders;
 
+/**
+ * getCredentials
+ * @param type github
+ * @returns an object with client id and client secret
+ */
 function getCredentials(type: github) {
   let clientId;
   let clientSecret;
@@ -28,6 +33,7 @@ function getCredentials(type: github) {
 
   return { clientId, clientSecret };
 }
+
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -55,6 +61,8 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token }) {
       return token;
+      /* todo below - on login, save account to database. also track expiration */
+
       // if (account) {
       //   // First-time login, save the `access_token`, its expiry and the `refresh_token`
       //   return {

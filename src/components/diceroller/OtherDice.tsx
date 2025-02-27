@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import '@/components/diceroller/dice.css';
-import { Dice } from "@/interfaces/dice-interfaces";
+import { Dice } from '@/interfaces/dice-interfaces';
 
 interface DynamicObject {
   [key: string]: string; 
@@ -18,10 +18,15 @@ interface Props {
   animationTime: number;
 }
 
+/**
+ * useRefsList
+ * Creates a function to set item ref, a function to get ref by id
+ * @returns object with functions
+ */
 const useRefsList = () => {
   const refsList = useRef<Record<string, any>>({});
 
-  const getItemRefFn = (_id: string) => (ref: any) => {
+  const setItemRef = (_id: string) => (ref: any) => {
     refsList.current[_id] = ref;
   };
 
@@ -29,7 +34,7 @@ const useRefsList = () => {
     return refsList.current[_id];
   };
 
-  return { getItemRefFn, getRefById };
+  return { setItemRef, getRefById };
 };
 
 const OtherDice: React.FC<Props> = ({
@@ -41,11 +46,12 @@ const OtherDice: React.FC<Props> = ({
   initialNumber,
   animationTime,
 }) => {
-  const { getRefById, getItemRefFn } = useRefsList();
+  const { getRefById, setItemRef } = useRefsList();
   const [prevNumber, setPrevNumber] = useState<number>(initialNumber);
   const [dataFace, setDataFace] = useState('');
   const [animationStyle, setAnimationStyle] = useState('roll-stop');
 
+  // sets size based on dice type
   let size: number = 0;
   switch (diceType) {
     case 'd20':
@@ -66,6 +72,7 @@ const OtherDice: React.FC<Props> = ({
     default: break;
   }
 
+  // sets initial sides
   const initialSides: DynamicObject = {};
   [...Array(size)].forEach((_item, i) => {
     initialSides[`${diceType}-${i + 1}`] = (i + 1).toString();
@@ -73,10 +80,20 @@ const OtherDice: React.FC<Props> = ({
 
   const [dataSides, setDataSides] = useState<DynamicObject>(initialSides);
 
+  /**
+   * useEffect
+   * when prop shouldRoll is true, start the animation roll
+   */
   useEffect(() => {
     if (shouldRoll) startAnimationRoll();
   }, [shouldRoll]);
 
+  /**
+   * handleDataSideChange
+   * sets new state when a data side value changes
+   * @param num string
+   * @param side string
+   */
   const handleDataSideChange = (num: string, side: string) => {
     setDataSides((prevState) => {
       const newState = {...prevState};
@@ -85,6 +102,11 @@ const OtherDice: React.FC<Props> = ({
     });
   }
 
+  /**
+   * startAnimationRoll
+   * sets the animation roll style and then sets a timeout to randomize the dice
+   * @returns void
+   */
   const startAnimationRoll = () => {
     const el: HTMLDivElement = getRefById(`diceClassRef-${diceType}`);
     if (!el) { return; }
@@ -98,16 +120,20 @@ const OtherDice: React.FC<Props> = ({
       const dataElements: HTMLDivElement[] = [];
       const usedNumbers: number[] = [];
 
+      // gets a new dice number to land on
       const newNumber = getRandomFace(1, size);
       usedNumbers.push(newNumber);
 
+      // gets refs
       [...Array(size)].forEach((_, i) => {
         dataElements.push(getRefById(`${diceType}-${i + 1}`));
       });
 
+      // for each data element
       dataElements.forEach((element, i) => {
         const side = element.getAttribute('data-side');
         
+        // if new dice number is not old number
         if (newNumber !== prevNumber) {
           if (side === prevNumber.toString()) {
             handleDataSideChange(newNumber.toString(), `${diceType}-${i + 1}`);
@@ -129,13 +155,13 @@ const OtherDice: React.FC<Props> = ({
 
   return (
     <>
-      <div className={`${diceType}-wrap inset-x-0 top-0`} ref={getItemRefFn(`diceWrapperRef-${diceType}`)}>
-        <div data-face={dataFace} className={`${diceType}-inner dice ${animationStyle}`} ref={getItemRefFn(`diceClassRef-${diceType}`)}>
+      <div className={`${diceType}-wrap inset-x-0 top-0`} ref={setItemRef(`diceWrapperRef-${diceType}`)}>
+        <div data-face={dataFace} className={`${diceType}-inner dice ${animationStyle}`} ref={setItemRef(`diceClassRef-${diceType}`)}>
           {[...Array(size)].map((_item, i) => (
             <div
               key={`side-${i + 1}`}
               className={`die ${diceType} ${diceType}-${i + 1}`}
-              ref={getItemRefFn(`${diceType}-${(i + 1).toString()}`)}
+              ref={setItemRef(`${diceType}-${(i + 1).toString()}`)}
               data-side={dataSides[`${diceType}-${i + 1}`]}
             ></div>
           ))}

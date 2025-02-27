@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import Link from "next/link";
+import Link from 'next/link';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { authOptions } from '@/lib/auth';
@@ -51,9 +51,6 @@ export default async function Header() {
                 <li className='py-6 px-1'>
                   <NavLink href="/characters" text="Characters" css={linkCss} />
                 </li>
-                <li className='py-6 px-1'>
-                  <NavLink href="/protected" text="Protected" css={linkCss} />
-                </li>
               </ul>
             </div>
             <div className='md:ml-6 md:block'>
@@ -77,7 +74,6 @@ export default async function Header() {
               <NavDisclosureButton href="/" text="Home" />
               <NavDisclosureButton href="/dice-roller" text="Dice Roller" />
               <NavDisclosureButton href="/characters" text="Characters" />
-              <NavDisclosureButton href="/protected" text="Protected" />
             </div>
           </DisclosurePanel>
         </Disclosure>

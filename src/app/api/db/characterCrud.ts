@@ -1,7 +1,7 @@
 import { jsonArrayFrom, jsonObjectFrom } from 'kysely/helpers/postgres';
 import { Expression } from 'kysely';
 import { db } from './connection';
-import * as Types from './types';
+import * as Types from './schema';
 import {
   Character,
   CreateCharacterInput,
@@ -267,7 +267,7 @@ export const getSingleCharacter = async (id: number): Promise<Character | null> 
  * @param character 
  * @returns Character object
  */
-export const createNewCharacter = async (character: CreateCharacterInput): Promise<Types.CharactersTable | any> => {
+export const createNewCharacter = async (character: CreateCharacterInput): Promise<Types.NewCharacter | any> => {
   const characterValues = { ...character.character };
   let abilityValues: NewAbilitiesInput[] = [];
   let skillValues: NewSkillsInput[] = [];

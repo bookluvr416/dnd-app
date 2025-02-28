@@ -2,7 +2,7 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { ApolloServer } from '@apollo/server';
 // import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
 import { NextRequest } from 'next/server';
-import { connectToDb } from './db/connection';
+import { connectToDb } from '../db/connection';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 

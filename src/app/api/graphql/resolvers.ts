@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { Resolvers } from '@/generated/graphql/graphql';
-import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from './db/characterCrud';
-import { getAbilities, getAlignment, getClasses, getRaces, getSkills } from './db/referenceValues';
+import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from '../db/characterCrud';
+import { getAbilities, getAlignment, getClasses, getRaces, getSkills } from '../db/referenceValues';
 import { authOptions } from '@/lib/auth';
 
 const resolvers: Resolvers = {

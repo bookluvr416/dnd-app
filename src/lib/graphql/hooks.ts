@@ -1,5 +1,6 @@
 'use client'
 
+import { gql } from '@apollo/client';
 import { useSuspenseQuery, useMutation, useQuery } from '@apollo/client';
 import { getReferenceValues, getCharacters } from '@/lib/graphql/queries';
 import { createCharacter } from '@/lib/graphql/mutations';
@@ -52,10 +53,44 @@ export function useCreateCharacter() {
   const [mutate, { loading, error }] = useMutation(createCharacter);
 
   const createCharacterMutation = async (input: CreateCharacterInput) => {
-    const { data: { character } } = await mutate({
+    const { data } = await mutate({
       variables: { input },
+      update(cache, { data: { character } }) {
+        cache.modify({
+          fields: {
+            characters(existingCharacters = []) {
+              const newCharacterRef = cache.writeFragment({
+                data: character,
+                fragment: gql`
+                  fragment NewCharacter on Character {
+                    id
+                    name
+                    level
+                    hp
+                    alignment {
+                      id
+                      alignment
+                    }
+                    race {
+                      id
+                      raceName
+                      raceType
+                    }
+                    class {
+                      id
+                      className
+                    }
+                  }
+                `
+              });
+              return [...existingCharacters, newCharacterRef];
+            }
+          }
+        });
+      }
     });
-    return character;
+
+    return data.character;
   };
 
   return {

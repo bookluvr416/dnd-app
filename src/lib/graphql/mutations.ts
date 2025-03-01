@@ -6,7 +6,7 @@ import { gql } from '@apollo/client';
  */
 export const createCharacter = gql(`
   mutation createCharacter($input: CreateCharacterInput!) {
-    createCharacter(input: $input) {
+    character: createCharacter(input: $input) {
       id
       name
       level

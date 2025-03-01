@@ -191,6 +191,7 @@ const CharacterForm = () => {
       reset(schemaDefaults);
       setTimeout(() => { router.push('/characters')}, 5000);
     } catch(err) {
+      console.log(err);
       showErrorToast();
       setCreateError(true);
     }

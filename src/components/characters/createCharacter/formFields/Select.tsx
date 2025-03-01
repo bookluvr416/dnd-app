@@ -1,13 +1,13 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { FormData } from '@/lib/formSchema/zodSchema';
+import { FormType } from '@/lib/formSchema/zodSchema';
 import ErrorDisplay from './ErrorDisplay';
 
 interface Props {
   id: string;
   label: string;
-  name: keyof FormData;
-  errors: FieldErrors<FormData>;
-  register: UseFormRegister<FormData>;
+  name: string;
+  errors: FieldErrors<FormType>;
+  register: UseFormRegister<FormType>;
   options: { id: number; description: string; }[];
 }
 
@@ -34,7 +34,7 @@ const Select: React.FC<Props> = ({ id, label, name, options, errors, register })
           <option key={option.id} value={option.id}>{option.description}</option>
         ))}
       </select>
-      {errors[name]?.message && <ErrorDisplay message={errors[name].message} />}
+      {errors[name]?.message && <ErrorDisplay message={errors[name].message as string} />}
     </div>
   )
 };

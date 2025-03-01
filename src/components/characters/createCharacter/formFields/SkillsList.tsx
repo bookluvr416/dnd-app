@@ -37,7 +37,7 @@ const SkillsList: React.FC<Props> = ({ skills, errors, register }) => {
             </div>
             <div className="pb-4">
               {errors[`skill${skill.id}`]?.message && (
-                <p className="text-red-300 pt-1">
+                <p className="text-red-300 pt-1 text-small">
                   {`* ${errors[`skill${skill.id}`]?.message}`}
                 </p>
               )}

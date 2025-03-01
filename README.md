@@ -6,15 +6,22 @@ The live app can be seen at https://dnd-app-dun.vercel.app/.
 
 Features:  
 - Dice roller with 3D css dice
-- Page to create a new character (TBD to make this look like an actual character sheet)
-- Page to edit a character (TBD to make this look like an actual character sheet)
+- Page to create a new character
+- Page to edit a character
 - Page to view all characters in the database, sortable with some sort of summary of character info (not all info will be shown)
 - Page to see the details of a specific character (TBD to make this look like an actual character sheet)
 - Blog called "An Adventurer's Blog: A Day in the Life" which features blog posts from character adventures
 - User authentication with any actions writing to the database hidden behind an account logic
 
-I also may use https://www.dnd5eapi.co/ query its apis to create something to do with items or spells. Perhaps a spell tracker or item tracker?
+I also may use https://www.dnd5eapi.co/ to query its apis to create something to do with items or spells. Perhaps a spell tracker or item tracker?
 
+## Various TODOS
+- Better error handling
+- Fix UI bugs
+- lighten background maybe?
+- show logged in person's username in right corner of nav bar
+- reset button for character list filters
+- pagination for the characters list and subsequent retrieval. offset-based?
 
 ## Technologies
 

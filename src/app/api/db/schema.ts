@@ -34,6 +34,7 @@ export interface CharactersTable {
   proficiencyBonus: number;
   alignmentId: number;
   activeInd: boolean;
+  userId: number;
 }
 
 export interface SkillsTable {

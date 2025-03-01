@@ -1,4 +1,5 @@
 import { getServerSession } from 'next-auth';
+import { encode } from 'html-entities';
 import { Resolvers } from '@/generated/graphql/graphql';
 import { createNewCharacter, deleteCharacter, getAllCharacters, getSingleCharacter, updateCharacter } from '../db/characterCrud';
 import { getAbilities, getAlignment, getClasses, getRaces, getSkills } from '../db/referenceValues';
@@ -97,7 +98,8 @@ const resolvers: Resolvers = {
       }
 
       try {
-        const character = await updateCharacter(input.id, input);
+        const sanitized = sanitizeVariables(input);
+        const character = await updateCharacter(input.id, sanitized);
         return character;
       } catch (error) {
         console.log(error);
@@ -105,23 +107,24 @@ const resolvers: Resolvers = {
       }
     },
     createCharacter: async (_root, { input} ) => {
-      const user = await getServerSession(authOptions);
+      const session = await getServerSession(authOptions);
 
-      if (!user) {
+      if (!session) {
         throw new Error('Unauthorized');
       }
 
       try {
-        return await createNewCharacter(input);
+        const sanitized = sanitizeVariables(input);
+        return await createNewCharacter(sanitized, session.user.id);
       } catch (error) {
         console.log(error);
         throw new Error("Failed to create character");
       }
     },
     deleteCharacter: async (_root, { id} ) => {
-      const user = await getServerSession(authOptions);
+      const session = await getServerSession(authOptions);
 
-      if (!user) {
+      if (!session) {
         throw new Error('Unauthorized');
       }
 
@@ -135,5 +138,39 @@ const resolvers: Resolvers = {
     }
   },
 };
+
+// Function to sanitize variables
+function sanitizeVariables(input: any): any {
+  
+  // Deep clone to avoid modifying the original object
+  const sanitized = JSON.parse(JSON.stringify(input))
+  
+  // Recursively sanitize all properties
+  Object.keys(sanitized).forEach(key => {
+    const value = sanitized[key]
+    
+    if (typeof value === 'string') {
+      sanitized[key] = sanitizeString(value)
+    } else if (typeof value === 'object' && value !== null) {
+      // Recursively sanitize nested objects and arrays
+      sanitized[key] = sanitizeVariables(value)
+    }
+  })
+  
+  return sanitized
+}
+
+// replace < > / ; [ ] * and then encode the rest
+function sanitizeString(str: string): string {
+  const replaced = str
+      .replace(/</g, '')
+      .replace(/>/g, '')
+      .replace(/\//g, '')
+      .replace(/;/g, '')
+      .replace(/\[/g, '')
+      .replace(/]/g, '')
+      .replace(/\*/g, '')
+  return encode(replaced).trim()
+}
 
 export default resolvers;

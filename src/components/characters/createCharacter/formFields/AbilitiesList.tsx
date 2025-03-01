@@ -1,12 +1,12 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { FormData } from '@/lib/formSchema/zodSchema';
+import { FormType } from '@/lib/formSchema/zodSchema';
 import { Ability } from '@/generated/graphql/graphql';
 import NumericInput from './NumericInput';
 
 interface Props {
   abilities: Ability[];
-  errors: FieldErrors<FormData>;
-  register: UseFormRegister<FormData>;
+  errors: FieldErrors<FormType>;
+  register: UseFormRegister<FormType>;
 }
 
 const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
@@ -14,6 +14,7 @@ const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {abilities.map((ability) => {
         const standardizedAbility = ability.ability!.toLowerCase().replace(' ', '');
+
         return (
           <div
             key={standardizedAbility}
@@ -28,7 +29,7 @@ const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
               <NumericInput 
                 id={`${standardizedAbility}-score`}
                 label="Ability Score"
-                name={`${standardizedAbility}Score` as keyof FormData}
+                name={`abilityScore${ability.id}`}
                 min={1}
                 max={30}
                 register={register}
@@ -38,7 +39,7 @@ const AbilitiesList: React.FC<Props> = ({ abilities, errors, register }) => {
               <NumericInput 
                 id={`${standardizedAbility}-proficiency-bonus`}
                 label="Proficiency Bonus"
-                name={`${standardizedAbility}ProficiencyBonus` as keyof FormData}
+                name={`abilityBonus${ability.id}`}
                 min={-20}
                 max={20}
                 register={register}

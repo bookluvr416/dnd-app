@@ -267,7 +267,7 @@ export const getSingleCharacter = async (id: number): Promise<Character | null> 
  * @param character 
  * @returns Character object
  */
-export const createNewCharacter = async (character: CreateCharacterInput): Promise<Types.NewCharacter | any> => {
+export const createNewCharacter = async (character: CreateCharacterInput, userId: number): Promise<Types.NewCharacter | any> => {
   const characterValues = { ...character.character };
   let abilityValues: NewAbilitiesInput[] = [];
   let skillValues: NewSkillsInput[] = [];
@@ -278,7 +278,7 @@ export const createNewCharacter = async (character: CreateCharacterInput): Promi
       // write to characters table
       const newCharacter = await trx
         .insertInto('characters')
-        .values({...characterValues, activeInd})
+        .values({...characterValues, activeInd, userId})
         .returningAll()
         .executeTakeFirstOrThrow();
 

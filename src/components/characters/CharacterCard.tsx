@@ -1,3 +1,4 @@
+import { decode } from 'html-entities';
 import { Character } from '@/generated/graphql/graphql';
 import Image, { StaticImageData } from 'next/image';
 import artificerIcon from '@/assets/Artificer-icon.webp';
@@ -75,7 +76,7 @@ const CharacterCard: React.FC<{ character: Character }> = ({ character }) => {
         />
       </div>
       <div className="flex flex-row justify-between">
-        <h2 className="text-lg sm:text-xl pb-5">{character.name}</h2>
+        <h2 className="text-lg sm:text-xl pb-5">{decode(character.name)}</h2>
         {iconImage && (
           <div className="pl-2">
             <Image

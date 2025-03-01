@@ -71,6 +71,18 @@ export const getCharacterById = graphql(`
 `);
 
 /**
+ * getCharacterById
+ * graphql query to get partial data for a single character by id
+ */
+export const getPartialCharacterById = graphql(`
+  query getPartialCharacterById($id: Int!) {
+    character(id: $id) {
+      ...CharacterDetail
+    }
+  }
+`);
+
+/**
  * getRaces
  * graphql query to get races
  */

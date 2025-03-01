@@ -3,10 +3,10 @@ import Link from 'next/link';
 import CharacterList from '@/components/characters/CharacterList';
 import HeaderBanner from '@/components/shared/HeaderBanner';
 import WrapperDiv from '@/components/shared/WrapperDiv';
-import femaleCleric from '@/assets/female-cleric.png';
-import elf from '@/assets/archer-elf.png';
-import cleric from '@/assets/male-cleric.png';
-import paladin from '@/assets/male-paladin.png';
+import femaleCleric from '@/assets/female-cleric.webp';
+import elf from '@/assets/archer-elf.webp';
+import cleric from '@/assets/male-cleric.webp';
+import paladin from '@/assets/male-paladin.webp';
 
 export default function CharactersPage() {
   return (

@@ -30,9 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="h-screen overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${bgImg.src})` }}>
+        <div className="h-screen overflow-hidden bg-cover bg-center flex flex-col" style={{ backgroundImage: `url(${bgImg.src})` }}>
           <Header />
-          <div className="h-screen overflow-y-auto scrollbar-light">
+          <div className="overflow-y-auto scrollbar-light flex-1">
             <ApolloWrapper>{children}</ApolloWrapper>
           </div>
         </div>

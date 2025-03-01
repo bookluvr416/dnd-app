@@ -5,10 +5,10 @@ import Image from 'next/image';
 import HeaderBanner from '@/components/shared/HeaderBanner';
 import WrapperDiv from '@/components/shared/WrapperDiv';
 import CharacterForm from '@/components/characters/createCharacter/CharacterForm';
-import cauldron from '@/assets/Cauldron.png';
-import blueAmulet from '@/assets/blue-amulet.png';
-import goldCoins from '@/assets/gold-coins.png';
-import manaPotion from '@/assets/mana-potion.png';
+import cauldron from '@/assets/Cauldron.webp';
+import blueAmulet from '@/assets/blue-amulet.webp';
+import goldCoins from '@/assets/gold-coins.webp';
+import manaPotion from '@/assets/mana-potion.webp';
 
 export default async function CreateCharacter() {
   const user = await getServerSession(authOptions);

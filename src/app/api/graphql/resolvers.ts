@@ -9,12 +9,7 @@ const resolvers: Resolvers = {
   Query: {
     characters: async () => {
       try {
-        const characters = await getAllCharacters();
-        return characters.sort((a, b) => {
-          if (a.name!.toUpperCase() < b.name!.toUpperCase()) return -1;
-          if (a.name!.toUpperCase() > b.name!.toUpperCase()) return 1;
-          return 0
-      });
+        return await getAllCharacters();
       } catch (error) {
         console.log(error);
         throw new Error("Failed to fetch characters");

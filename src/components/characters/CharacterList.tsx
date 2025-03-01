@@ -9,6 +9,7 @@ import { useCharacters } from '@/lib/graphql/hooks';
 const CharacterList = () => {
   const { characters, error } = useCharacters();
 
+  const [sortedCharacters, setSortedCharacters] = useState<Character[]>([]);
   const [filteredResults, setFilteredResults] = useState<Character[]>([]);
 
   /**
@@ -17,11 +18,12 @@ const CharacterList = () => {
    */
   useEffect(() => {
     const sorted = [...characters].sort((a, b) => {
-      if (a.name! < b.name!) return -1;
-      if (a.name! > b.name!) return 1;
+      if (a.name!.toLowerCase() < b.name!.toLowerCase()) return -1;
+      if (a.name!.toLowerCase() > b.name!.toLowerCase()) return 1;
       return 0;
     });
 
+    setSortedCharacters(sorted);
     setFilteredResults(sorted);
   }, [characters]);
 
@@ -47,7 +49,7 @@ const CharacterList = () => {
     <>
       <div>
         <CharacterFilters 
-          characters={characters}
+          characters={sortedCharacters}
           onFilterChange={handleFilterChange}
         />
       </div>

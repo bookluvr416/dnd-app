@@ -1,11 +1,14 @@
 'use client'
 
-import { Button } from '@headlessui/react';
+import FadeLoader from 'react-spinners/FadeLoader';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import Button from '../shared/Button';
+import ErrorAlert from '../shared/ErrorAlert';
 
 const UserAuthForm: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   /**
    * loginWithGithub
@@ -13,26 +16,53 @@ const UserAuthForm: React.FC = () => {
    */
   const loginWithGithub = async () => {
     setIsLoading(true)
+    setHasError(false);
 
     try {
       await signIn('github')
     } catch (error) {
       console.log(error);
-      window.alert('There was an error signing in.');
-    } finally {
-      setIsLoading(false)
+      setHasError(true);
+      setIsLoading(false);
     }
   }
 
   return (
-    <Button
-      disabled={isLoading}
-      onClick={loginWithGithub}
-      type='button'
-      className="p-6 rounded text-purple-100 bg-violet-900 hover:bg-violet-700 hover:text-violet-100"
-    >
-      Sign in with Github
-    </Button>
+    <div className='p-6'>
+
+      {hasError && (
+        <div className="mb-10">
+          <ErrorAlert>
+            An error occured on submitting character, please try again.
+          </ErrorAlert>
+        </div>
+      )}
+
+      <p className='mb-5'>Sign in with Github to access features to create, modify, and delete characters.</p>
+      {isLoading && (
+        <FadeLoader
+          color="#fa77f7"
+          loading={isLoading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          className='mb-5'
+        />
+      )}
+
+      {hasError && (
+        <div className='mb-5'>
+          Could not sign into Github, try again.
+        </div>
+      )}
+
+      <Button
+        text="Sign in with Github"
+        onClick={loginWithGithub}
+        type='button'
+        disabled={isLoading}
+        cssColor='bg-purple-900 hover:bg-purple-900/80'
+      />
+    </div>
   );
 };
 

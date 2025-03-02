@@ -1,31 +1,31 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, CSSProperties } from 'react';
 import { z } from 'zod';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { ToastContainer, toast } from 'react-toastify';
+import PropagateLoader from 'react-spinners/PropagateLoader';
+import { ToastContainer } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { createZodSchema, FormType } from '@/lib/formSchema/zodSchema';
 import { CreateCharacterInput, NewCharacterAbilityInput } from '@/generated/graphql/graphql';
 import { useCreateCharacter, useReferenceValues } from '@/lib/graphql/hooks';
+import FormWrapper from './FormWrapper';
 import Section from './formFields/Section';
 import SectionOne from './formFields/SectionOne';
 import SectionTwo from './formFields/SectionTwo';
 import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
 import Button from '@/components/shared/Button';
+import ErrorLoading from '@/components/shared/ErrorLoading';
+import ErrorAlert from '@/components/shared/ErrorAlert';
+import { showSuccessToast, showErrorToast } from './Toasts';
 import "react-loading-skeleton/dist/skeleton.css";
 
-const SkeletonComponent = () => (
-  <SkeletonTheme baseColor="#351460" highlightColor="#30205e">
-    <div>
-      <Skeleton className='h-10 border border-violet-800 rounded-md' />
-    </div>
-  </SkeletonTheme>
-)
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+};
 
 const CharacterForm = () => {
   const [skillsIds, setSkillsIds] = useState<number[]>([]);
@@ -33,7 +33,7 @@ const CharacterForm = () => {
   const [createError, setCreateError] = useState(false);
 
   const { createCharacterMutation, loading: createPending } = useCreateCharacter();
-  const { races, skills, abilities, classes, alignments, error, loading } = useReferenceValues();
+  const { races, skills, abilities, classes, alignments, error, refetch } = useReferenceValues();
 
   const router = useRouter();
 
@@ -54,7 +54,7 @@ const CharacterForm = () => {
   // Create the schema only when not loading and we have the IDs
   const { schema, schemaDefaults } = useMemo(() => {
     // Return a default/empty value while loading
-    if (loading || skillsIds.length === 0 || abilitiesIds.length === 0) {
+    if (skillsIds.length === 0 || abilitiesIds.length === 0) {
       // Return a placeholder or minimal schema
       return {
         schema: z.object({}),
@@ -64,7 +64,7 @@ const CharacterForm = () => {
     
     // Only create the real schema when loaded and IDs are available
     return createZodSchema(abilitiesIds, skillsIds);
-  }, [loading, abilitiesIds, skillsIds]);
+  }, [abilitiesIds, skillsIds]);
 
   // set up react-hook-form with zod
   const {
@@ -148,42 +148,6 @@ const CharacterForm = () => {
     return input;
   }
 
-  const ToastError = () => (
-    <div>
-      An error occured on submitting character, please try again.
-    </div>
-  );
-
-  const ToastSuccess = () => (
-    <div>
-      Character created!
-    </div>
-  );
-
-  /**
-   * showErrorToast
-   * function to show toast on unsuccessful character creation
-   */
-  const showErrorToast = () => {
-    toast.error(ToastError, {
-      position: 'bottom-right',
-      className:"p-3 w-[400px] border border-red-900/40 rounded-xl bg-red-700 text-red-100",
-      ariaLabel: 'An error occured on submission.'
-    });
-  }
-
-  /**
-   * showSuccessToast
-   * function to show toast on successful character creation
-   */
-  const showSuccessToast = () => {
-    toast.success(ToastSuccess, {
-      position: 'bottom-right',
-      className:"p-3 w-[400px] border border-green-900/40 rounded-xl bg-green-700 text-green-100",
-      ariaLabel: 'Character created!'
-    });
-  }
-
   /**
    * onSubmit
    * calls the function to send a graphql mutation.
@@ -200,118 +164,111 @@ const CharacterForm = () => {
       showSuccessToast();
       reset(schemaDefaults);
       setTimeout(() => { router.push('/characters')}, 5000);
-    } catch(err) {
-      console.log(err);
+    } catch(error) {
+      console.log(error);
       showErrorToast();
       setCreateError(true);
     }
   }
 
-  if (error) {
-    return (
-      <>
-        <div className="text-lg pb-3">Error!</div>
-        <div>An error occurred. Please try again.</div>
-      </>
-    )
-  };
-
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="bg-gradient-to-r from-cyan-700/50 to-violet-800/50 rounded-xl py-12 px-4 sm:px-6 lg:px-8">
-
+    <FormWrapper>
       <ToastContainer />
 
         {/* submit error */}
         {createError && (
-          <div className="bg-red-600/60 p-3 rounded-xl mb-4 flex">
-            <span className="size-6 mr-3">{<ExclamationTriangleIcon />}</span>
-            An error occured on submitting character, please try again.
+          <div className="mb-5">
+            <ErrorAlert>
+              An error occured on submitting character, please try again.
+            </ErrorAlert>
           </div>
         )}
 
-        <div className={`max-w-6xl mx-auto bg-indigo-900 rounded-lg overflow-hidden border border-indigo-500/30 ${!loading ? 'shadow-2xl' : ''}`}>
+        {error && <ErrorLoading refetch={refetch} />}
 
-          {/* section one */}
-          <Section label="Character Details">
-            {loading && <SkeletonComponent />}
+        {!error && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="max-w-6xl mx-auto bg-indigo-950/60 rounded-lg overflow-hidden border border-indigo-500/30 shadow-2xl">
 
-            {!loading && (
-              <div className="space-y-6">
-                <SectionOne
-                  errors={errors}
-                  register={register}
-                  classes={classes ? classes : []}
+              {/* section one */}
+              <Section label="Character Details">
+                <div className="space-y-6">
+                  <SectionOne
+                    errors={errors}
+                    register={register}
+                    classes={classes ? classes : []}
+                  />
+                </div>
+              </Section>
+
+              {/* section two */}
+              <Section label="Race & Alignment">
+                <div className="space-y-6">
+                  <SectionTwo
+                    errors={errors}
+                    register={register}
+                    races={races ? races : []}
+                    alignments={alignments ? alignments : []}
+                  />
+                </div>
+              </Section>
+
+              {/* section three - abilities */}
+              <Section label="Abilities">
+                <div className="space-y-6">
+                  <AbilitiesList
+                    abilities={abilities ? abilities : []}
+                    register={register}
+                    errors={errors}
+                  />
+                </div>
+              </Section>
+
+              {/* section four - skills */}
+              <Section label="Skills">
+                <div className="space-y-6">
+                  <SkillsList
+                    skills={skills ? skills : []}
+                    register={register}
+                    errors={errors}
+                  />
+                </div>
+              </Section>
+            </div>
+
+            {/* submit and cancel buttons */}
+            <div className='mt-5'>
+              {createPending && (
+                <div className='flex flex-row justify-center'>
+                  <PropagateLoader
+                    color="#fa77f7"
+                    loading={createPending}
+                    cssOverride={override}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </div>
+              )}
+
+              <span className='mr-3'>
+                <Button
+                  text="Submit"
+                  type="submit"
+                  disabled={createPending}
+                  cssColor="bg-purple-950 hover:bg-purple-900/80"
                 />
-              </div>
-            )}
-          </Section>
-
-          {/* section two */}
-          <Section label="Race & Alignment">
-            {loading && <SkeletonComponent />}
-
-            {!loading && (
-              <div className="space-y-6">
-                <SectionTwo
-                  errors={errors}
-                  register={register}
-                  races={races ? races : []}
-                  alignments={alignments ? alignments : []}
-                />
-              </div>
-            )}
-          </Section>
-
-          {/* section three - abilities */}
-          <Section label="Abilities">
-            {loading && <SkeletonComponent />}
-            {!loading && (
-              <div className="space-y-6">
-              <AbilitiesList
-                abilities={abilities ? abilities : []}
-                register={register}
-                errors={errors}
+              </span>
+              <Button
+                text="Clear"
+                type="button"
+                disabled={createPending}
+                onClick={() => reset()}
+                cssColor="bg-purple-950/60 hover:bg-purple-900/80"
               />
             </div>
-            )}
-          </Section>
-
-          {/* section four - skills */}
-          <Section label="Skills">
-            {loading && <SkeletonComponent />}
-            {!loading && (
-              <div className="space-y-6">
-                <SkillsList
-                  skills={skills ? skills : []}
-                  register={register}
-                  errors={errors}
-                />
-              </div>
-            )}
-          </Section>
-        </div>
-
-        {/* submit and cancel buttons */}
-        <div className='mt-5'>
-          <span className='mr-3'>
-            <Button
-              text="Submit"
-              type="submit"
-              cssColor="bg-purple-950 hover:bg-purple-900/80"
-            />
-          </span>
-          <Button
-            text="Clear"
-            type="button"
-            onClick={() => reset()}
-            cssColor="bg-purple-950/60 hover:bg-purple-900/80"
-          />
-        </div>
-        
-      </div>
-    </form>
+          </form>
+        )}
+      </FormWrapper>
   );
 };
 

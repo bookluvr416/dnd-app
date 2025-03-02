@@ -24,7 +24,9 @@ const NumericInput: React.FC<Props> = ({ id, label, name, min, max, errors, regi
         {label}
       </label>
       <input
-        type="number"
+        // type="number"
+        type="text"
+        inputMode="numeric"
         id={`${id}-input`}
         {...register(name, { valueAsNumber: true })}
         min={min}

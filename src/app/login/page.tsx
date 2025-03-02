@@ -1,15 +1,15 @@
 import UserAuthForm from '@/components/auth/UserAuthForm';
-import Link from 'next/link';
+import WrapperDiv from '@/components/shared/WrapperDiv';
+import HeaderBanner from '@/components/shared/HeaderBanner';
 
 export default function LoginPage() {
   return (
-    <main className="p-6 md:p-28 pt-5 md:pt-12">
-      <h1 className="text-2xl p-6">Sign In</h1>
-      <p className="p-6">
-        Sign in with Github to access features to create, modify, and delete characters.
-      </p>
-      <div className="p-6">
-        <UserAuthForm />
+    <main>
+      <div className="mr-4 ml-4 min-w-screen pt-6 pb-20 sm:px-6">
+        <WrapperDiv>
+          <HeaderBanner text='Sign In' />
+            <UserAuthForm />
+        </WrapperDiv>
       </div>
     </main>
   );

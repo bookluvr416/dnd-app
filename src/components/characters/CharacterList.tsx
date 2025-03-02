@@ -5,26 +5,28 @@ import { Character } from '@/generated/graphql/graphql';
 import CharacterCard from './CharacterCard';
 import CharacterFilters from './CharacterFilters';
 import { useCharacters } from '@/lib/graphql/hooks';
+import ErrorLoading from '../shared/ErrorLoading';
 
 const CharacterList = () => {
-  const { characters, error } = useCharacters();
+  const { characters, error, refetch } = useCharacters();
 
   const [sortedCharacters, setSortedCharacters] = useState<Character[]>([]);
   const [filteredResults, setFilteredResults] = useState<Character[]>([]);
-
   /**
    * useEffect
    * sorts characters by name A-Z when characters array changes
    */
   useEffect(() => {
-    const sorted = [...characters].sort((a, b) => {
-      if (a.name!.toLowerCase() < b.name!.toLowerCase()) return -1;
-      if (a.name!.toLowerCase() > b.name!.toLowerCase()) return 1;
-      return 0;
-    });
+    if (characters) {
+      const sorted = [...characters].sort((a, b) => {
+        if (a.name!.toLowerCase() < b.name!.toLowerCase()) return -1;
+        if (a.name!.toLowerCase() > b.name!.toLowerCase()) return 1;
+        return 0;
+      });
 
     setSortedCharacters(sorted);
     setFilteredResults(sorted);
+    }
   }, [characters]);
 
   /**
@@ -37,12 +39,7 @@ const CharacterList = () => {
   }
 
   if (error) {
-    return (
-      <>
-        <div className="text-lg pb-3">Error!</div>
-        <div>Unable to load characters. Please try again.</div>
-      </>
-    )
+    return <ErrorLoading refetch={refetch} />
   }
 
   return (

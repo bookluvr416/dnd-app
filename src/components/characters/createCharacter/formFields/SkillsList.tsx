@@ -26,7 +26,9 @@ const SkillsList: React.FC<Props> = ({ skills, errors, register }) => {
                 {skill.skill}
               </label>
               <input
-                type="number"
+                // type="number"
+                type="text"
+                inputMode="numeric"
                 id={`skill${skill.id}-input`}
                 {...register(`skill${skill.id}`, { valueAsNumber: true })}
                 min={-20}

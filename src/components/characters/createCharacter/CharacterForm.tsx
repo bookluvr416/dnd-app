@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, CSSProperties } from 'react';
 import { z } from 'zod';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -17,6 +18,7 @@ import SectionTwo from './formFields/SectionTwo';
 import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
 import Button from '@/components/shared/Button';
+import { showSuccessToast, showErrorToast } from './Toasts';
 import "react-loading-skeleton/dist/skeleton.css";
 
 const SkeletonComponent = () => (
@@ -25,7 +27,12 @@ const SkeletonComponent = () => (
       <Skeleton className='h-10 border border-violet-800 rounded-md' />
     </div>
   </SkeletonTheme>
-)
+);
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+};
 
 const CharacterForm = () => {
   const [skillsIds, setSkillsIds] = useState<number[]>([]);
@@ -148,42 +155,6 @@ const CharacterForm = () => {
     return input;
   }
 
-  const ToastError = () => (
-    <div>
-      An error occured on submitting character, please try again.
-    </div>
-  );
-
-  const ToastSuccess = () => (
-    <div>
-      Character created!
-    </div>
-  );
-
-  /**
-   * showErrorToast
-   * function to show toast on unsuccessful character creation
-   */
-  const showErrorToast = () => {
-    toast.error(ToastError, {
-      position: 'bottom-right',
-      className:"p-3 w-[400px] border border-red-900/40 rounded-xl bg-red-700 text-red-100",
-      ariaLabel: 'An error occured on submission.'
-    });
-  }
-
-  /**
-   * showSuccessToast
-   * function to show toast on successful character creation
-   */
-  const showSuccessToast = () => {
-    toast.success(ToastSuccess, {
-      position: 'bottom-right',
-      className:"p-3 w-[400px] border border-green-900/40 rounded-xl bg-green-700 text-green-100",
-      ariaLabel: 'Character created!'
-    });
-  }
-
   /**
    * onSubmit
    * calls the function to send a graphql mutation.
@@ -207,20 +178,8 @@ const CharacterForm = () => {
     }
   }
 
-  if (error) {
-    return (
-      <>
-        <div className="text-lg pb-3">Error!</div>
-        <div>An error occurred. Please try again.</div>
-      </>
-    )
-  };
-
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="bg-gradient-to-r from-cyan-700/50 to-violet-800/50 rounded-xl py-12 px-4 sm:px-6 lg:px-8">
-
+    <div className="bg-gradient-to-r from-cyan-700/50 to-violet-800/50 rounded-xl py-12 px-4 sm:px-6 lg:px-8">
       <ToastContainer />
 
         {/* submit error */}
@@ -231,87 +190,110 @@ const CharacterForm = () => {
           </div>
         )}
 
-        <div className={`max-w-6xl mx-auto bg-indigo-900 rounded-lg overflow-hidden border border-indigo-500/30 ${!loading ? 'shadow-2xl' : ''}`}>
+        {error && (
+          <div className="max-w-6xl mx-auto p-6 bg-indigo-950/60 rounded-lg overflow-hidden border border-indigo-500/30 shadow-2xl">
+            <div className="text-lg pb-3">Error!</div>
+            <div>An error occurred. Please try again.</div>
+          </div>
+        )}
 
-          {/* section one */}
-          <Section label="Character Details">
-            {loading && <SkeletonComponent />}
+        {!error && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={`max-w-6xl mx-auto bg-indigo-950/60 rounded-lg overflow-hidden border border-indigo-500/30 ${!loading ? 'shadow-2xl' : ''}`}>
 
-            {!loading && (
-              <div className="space-y-6">
-                <SectionOne
-                  errors={errors}
-                  register={register}
-                  classes={classes ? classes : []}
+              {/* section one */}
+              <Section label="Character Details">
+                {loading && <SkeletonComponent />}
+
+                {!loading && (
+                  <div className="space-y-6">
+                    <SectionOne
+                      errors={errors}
+                      register={register}
+                      classes={classes ? classes : []}
+                    />
+                  </div>
+                )}
+              </Section>
+
+              {/* section two */}
+              <Section label="Race & Alignment">
+                {loading && <SkeletonComponent />}
+
+                {!loading && (
+                  <div className="space-y-6">
+                    <SectionTwo
+                      errors={errors}
+                      register={register}
+                      races={races ? races : []}
+                      alignments={alignments ? alignments : []}
+                    />
+                  </div>
+                )}
+              </Section>
+
+              {/* section three - abilities */}
+              <Section label="Abilities">
+                {loading && <SkeletonComponent />}
+                {!loading && (
+                  <div className="space-y-6">
+                  <AbilitiesList
+                    abilities={abilities ? abilities : []}
+                    register={register}
+                    errors={errors}
+                  />
+                </div>
+                )}
+              </Section>
+
+              {/* section four - skills */}
+              <Section label="Skills">
+                {loading && <SkeletonComponent />}
+                {!loading && (
+                  <div className="space-y-6">
+                    <SkillsList
+                      skills={skills ? skills : []}
+                      register={register}
+                      errors={errors}
+                    />
+                  </div>
+                )}
+              </Section>
+            </div>
+
+            {/* submit and cancel buttons */}
+            <div className='mt-5'>
+              {createPending && (
+                <div className='flex flex-row justify-center'>
+                  <PropagateLoader
+                    color="#fa77f7"
+                    loading={createPending}
+                    cssOverride={override}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </div>
+              )}
+
+              <span className='mr-3'>
+                <Button
+                  text="Submit"
+                  type="submit"
+                  disabled={createPending}
+                  cssColor="bg-purple-950 hover:bg-purple-900/80"
                 />
-              </div>
-            )}
-          </Section>
-
-          {/* section two */}
-          <Section label="Race & Alignment">
-            {loading && <SkeletonComponent />}
-
-            {!loading && (
-              <div className="space-y-6">
-                <SectionTwo
-                  errors={errors}
-                  register={register}
-                  races={races ? races : []}
-                  alignments={alignments ? alignments : []}
-                />
-              </div>
-            )}
-          </Section>
-
-          {/* section three - abilities */}
-          <Section label="Abilities">
-            {loading && <SkeletonComponent />}
-            {!loading && (
-              <div className="space-y-6">
-              <AbilitiesList
-                abilities={abilities ? abilities : []}
-                register={register}
-                errors={errors}
+              </span>
+              <Button
+                text="Clear"
+                type="button"
+                disabled={createPending}
+                onClick={() => reset()}
+                cssColor="bg-purple-950/60 hover:bg-purple-900/80"
               />
             </div>
-            )}
-          </Section>
-
-          {/* section four - skills */}
-          <Section label="Skills">
-            {loading && <SkeletonComponent />}
-            {!loading && (
-              <div className="space-y-6">
-                <SkillsList
-                  skills={skills ? skills : []}
-                  register={register}
-                  errors={errors}
-                />
-              </div>
-            )}
-          </Section>
-        </div>
-
-        {/* submit and cancel buttons */}
-        <div className='mt-5'>
-          <span className='mr-3'>
-            <Button
-              text="Submit"
-              type="submit"
-              cssColor="bg-purple-950 hover:bg-purple-900/80"
-            />
-          </span>
-          <Button
-            text="Clear"
-            type="button"
-            onClick={() => reset()}
-            cssColor="bg-purple-950/60 hover:bg-purple-900/80"
-          />
-        </div>
-        
+          </form>
+        )}
       </div>
-    </form>
   );
 };
 

@@ -1,8 +1,9 @@
 'use client'
 
-import { Button } from '@headlessui/react';
+import FadeLoader from 'react-spinners/FadeLoader';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import Button from '../shared/Button';
 
 const UserAuthForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,20 +20,27 @@ const UserAuthForm: React.FC = () => {
     } catch (error) {
       console.log(error);
       window.alert('There was an error signing in.');
-    } finally {
-      setIsLoading(false)
     }
   }
 
   return (
-    <Button
-      disabled={isLoading}
-      onClick={loginWithGithub}
-      type='button'
-      className="p-6 rounded text-purple-100 bg-violet-900 hover:bg-violet-700 hover:text-violet-100"
-    >
-      Sign in with Github
-    </Button>
+    <>
+      {isLoading && (
+        <FadeLoader
+          color="#fa77f7"
+          loading={isLoading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )}
+      {!isLoading && (
+        <Button
+          text="Sign in with Github"
+          onClick={loginWithGithub}
+          type='button'
+        />
+      )}
+    </>
   );
 };
 

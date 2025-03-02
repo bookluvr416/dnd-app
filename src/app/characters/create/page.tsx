@@ -30,7 +30,7 @@ export default async function CreateCharacter() {
           alt="gold coins"
           width={75}
           height={100}
-          className="size-16 md:size-20"
+          className="size-14 md:size-16 lg:size-20"
           priority
         />
         <Image
@@ -38,7 +38,7 @@ export default async function CreateCharacter() {
           alt="blue amulet"
           width={75}
           height={100}
-          className="hidden md:block md:size-20"
+          className="hidden md:block md:size-16 lg:size-20"
           priority
         />
         <Image
@@ -46,7 +46,7 @@ export default async function CreateCharacter() {
           alt="cauldron"
           width={75}
           height={100}
-          className="hidden md:block md:size-20"
+          className="hidden md:block md:size-16 lg:size-20"
           priority
         />
         <Image
@@ -54,7 +54,7 @@ export default async function CreateCharacter() {
           alt="mana potion"
           width={75}
           height={100}
-          className="size-16 md:size-20"
+          className="size-14 md:size-16 lg:size-20"
           priority
         />
       </div>

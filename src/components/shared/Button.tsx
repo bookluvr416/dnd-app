@@ -2,14 +2,18 @@ interface Props {
   text: string;
   cssColor?: string;
   cssMargin?: string;
+  disabled?: boolean;
   type?: 'submit' | 'reset' | 'button';
   onClick?: () => void;
 }
 
 const Button: React.FC<Props> = ({ text, cssColor = '', cssMargin = '', ...props }) => {
-
-  const color = cssColor.length ? cssColor : 'bg-purple-900/60 hover:bg-purple-900';
+  let color = cssColor.length ? cssColor : 'bg-purple-900/60 hover:bg-purple-900';
   const margin = cssMargin.length ? cssMargin : '';
+
+  if (props.disabled) {
+    color = 'bg-purple-900/50 text-gray-200'
+  }
 
   return (
     <button

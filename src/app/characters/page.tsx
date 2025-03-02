@@ -37,7 +37,7 @@ export default function CharactersPage() {
           alt="female human cleric"
           width={100}
           height={100}
-          className="size-20 md:size-24 lg:size-28"
+          className="size-14 md:size-16 lg:size-20"
           priority
         />
         <Image
@@ -45,7 +45,7 @@ export default function CharactersPage() {
           alt="male paladin"
           width={100}
           height={100}
-          className="hidden md:block md:size-24 lg:size-28"
+          className="hidden md:block md:size-16 lg:size-20"
           priority
         />
         <Link
@@ -59,7 +59,7 @@ export default function CharactersPage() {
           alt="female elf archer"
           width={100}
           height={100}
-          className="hidden md:block md:size-24 lg:size-28"
+          className="hidden md:block md:size-16 lg:size-20"
           priority
         />
         <Image
@@ -67,7 +67,7 @@ export default function CharactersPage() {
           alt="male human cleric"
           width={100}
           height={100}
-          className="size-20 md:size-24 lg:size-28"
+          className="size-14 md:size-16 lg:size-20"
           priority
         />
       </div>

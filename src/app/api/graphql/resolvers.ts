@@ -9,6 +9,9 @@ const resolvers: Resolvers = {
   Query: {
     characters: async () => {
       try {
+        
+      await new Promise((resolve, reject) => setTimeout(() => reject(), 5000))
+
         return await getAllCharacters();
       } catch (error) {
         console.log(error);
@@ -86,9 +89,9 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     updateCharacter: async (_root, { input} ) => {
-      const user = await getServerSession(authOptions);
+      const session = await getServerSession(authOptions);
 
-      if (!user) {
+      if (!session) {
         throw new Error('Unauthorized');
       }
 

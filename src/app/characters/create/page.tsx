@@ -2,24 +2,20 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import Link from 'next/link';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import HeaderBanner from '@/components/shared/HeaderBanner';
 import WrapperDiv from '@/components/shared/WrapperDiv';
+import FormFrame from '@/components/characters/createCharacter/FormFrame';
 import CharacterForm from '@/components/characters/createCharacter/CharacterForm';
 import cauldron from '@/assets/Cauldron.webp';
 import blueAmulet from '@/assets/blue-amulet.webp';
 import goldCoins from '@/assets/gold-coins.webp';
 import manaPotion from '@/assets/mana-potion.webp';
+import { Suspense } from 'react';
 
 export default async function CreateCharacter() {
-  const user = await getServerSession(authOptions);
-  if (!user) return (
-    <div className="bg-blue-950/80 p-8 md:p-20 rounded-3xl max-w-7xl m-auto">
-      <h1 className='text-xl pb-5'>Log in required!</h1>
-      <div className=''>
-        This page can only be accessed by logged in users. Please <Link href="/login" className='text-violet-300 hover:text-violet-400'>log in</Link>.
-      </div>
-    </div>
-  );
+  const session = await getServerSession(authOptions);
+  if (!session) redirect('/login');
 
   return (
     <WrapperDiv>
@@ -58,7 +54,9 @@ export default async function CreateCharacter() {
           priority
         />
       </div>
-      <CharacterForm />
+      <Suspense fallback={<div><FormFrame /></div>}>
+        <CharacterForm />
+      </Suspense>
     </WrapperDiv>
   )
 }

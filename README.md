@@ -16,12 +16,8 @@ Features:
 I also may use https://www.dnd5eapi.co/ to query its apis to create something to do with items or spells. Perhaps a spell tracker or item tracker?
 
 ## Various TODOS
-- Better error handling
 - show logged in person's username in right corner of nav bar
 - pagination for the characters list and subsequent retrieval. offset-based?
-- fix styling on login pages
-- fix styling on 404 pages
-- fix issue on mobile where chibi images on character list are too big
 - fix issue on mobile where numeric fields that allow negatives can't have a negative entered because the mobile number pad doesn't have a "-" symbol
 
 ## Technologies

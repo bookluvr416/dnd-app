@@ -8,26 +8,19 @@ import { ToastContainer } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { createZodSchema, FormType } from '@/lib/formSchema/zodSchema';
 import { CreateCharacterInput, NewCharacterAbilityInput } from '@/generated/graphql/graphql';
 import { useCreateCharacter, useReferenceValues } from '@/lib/graphql/hooks';
+import FormWrapper from './FormWrapper';
 import Section from './formFields/Section';
 import SectionOne from './formFields/SectionOne';
 import SectionTwo from './formFields/SectionTwo';
 import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
 import Button from '@/components/shared/Button';
+import ErrorLoading from '@/components/shared/ErrorLoading';
 import { showSuccessToast, showErrorToast } from './Toasts';
 import "react-loading-skeleton/dist/skeleton.css";
-
-const SkeletonComponent = () => (
-  <SkeletonTheme baseColor="#351460" highlightColor="#30205e">
-    <div>
-      <Skeleton className='h-10 border border-violet-800 rounded-md' />
-    </div>
-  </SkeletonTheme>
-);
 
 const override: CSSProperties = {
   display: "block",
@@ -40,7 +33,7 @@ const CharacterForm = () => {
   const [createError, setCreateError] = useState(false);
 
   const { createCharacterMutation, loading: createPending } = useCreateCharacter();
-  const { races, skills, abilities, classes, alignments, error, loading } = useReferenceValues();
+  const { races, skills, abilities, classes, alignments, error, refetch } = useReferenceValues();
 
   const router = useRouter();
 
@@ -61,7 +54,7 @@ const CharacterForm = () => {
   // Create the schema only when not loading and we have the IDs
   const { schema, schemaDefaults } = useMemo(() => {
     // Return a default/empty value while loading
-    if (loading || skillsIds.length === 0 || abilitiesIds.length === 0) {
+    if (skillsIds.length === 0 || abilitiesIds.length === 0) {
       // Return a placeholder or minimal schema
       return {
         schema: z.object({}),
@@ -71,7 +64,7 @@ const CharacterForm = () => {
     
     // Only create the real schema when loaded and IDs are available
     return createZodSchema(abilitiesIds, skillsIds);
-  }, [loading, abilitiesIds, skillsIds]);
+  }, [abilitiesIds, skillsIds]);
 
   // set up react-hook-form with zod
   const {
@@ -179,7 +172,7 @@ const CharacterForm = () => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-cyan-700/50 to-violet-800/50 rounded-xl py-12 px-4 sm:px-6 lg:px-8">
+    <FormWrapper>
       <ToastContainer />
 
         {/* submit error */}
@@ -190,74 +183,55 @@ const CharacterForm = () => {
           </div>
         )}
 
-        {error && (
-          <div className="max-w-6xl mx-auto p-6 bg-indigo-950/60 rounded-lg overflow-hidden border border-indigo-500/30 shadow-2xl">
-            <div className="text-lg pb-3">Error!</div>
-            <div>An error occurred. Please try again.</div>
-          </div>
-        )}
+        {error && <ErrorLoading refetch={refetch} />}
 
         {!error && (
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={`max-w-6xl mx-auto bg-indigo-950/60 rounded-lg overflow-hidden border border-indigo-500/30 ${!loading ? 'shadow-2xl' : ''}`}>
+            <div className="max-w-6xl mx-auto bg-indigo-950/60 rounded-lg overflow-hidden border border-indigo-500/30 shadow-2xl">
 
               {/* section one */}
               <Section label="Character Details">
-                {loading && <SkeletonComponent />}
-
-                {!loading && (
-                  <div className="space-y-6">
-                    <SectionOne
-                      errors={errors}
-                      register={register}
-                      classes={classes ? classes : []}
-                    />
-                  </div>
-                )}
+                <div className="space-y-6">
+                  <SectionOne
+                    errors={errors}
+                    register={register}
+                    classes={classes ? classes : []}
+                  />
+                </div>
               </Section>
 
               {/* section two */}
               <Section label="Race & Alignment">
-                {loading && <SkeletonComponent />}
-
-                {!loading && (
-                  <div className="space-y-6">
-                    <SectionTwo
-                      errors={errors}
-                      register={register}
-                      races={races ? races : []}
-                      alignments={alignments ? alignments : []}
-                    />
-                  </div>
-                )}
+                <div className="space-y-6">
+                  <SectionTwo
+                    errors={errors}
+                    register={register}
+                    races={races ? races : []}
+                    alignments={alignments ? alignments : []}
+                  />
+                </div>
               </Section>
 
               {/* section three - abilities */}
               <Section label="Abilities">
-                {loading && <SkeletonComponent />}
-                {!loading && (
-                  <div className="space-y-6">
+                <div className="space-y-6">
                   <AbilitiesList
                     abilities={abilities ? abilities : []}
                     register={register}
                     errors={errors}
                   />
                 </div>
-                )}
               </Section>
 
               {/* section four - skills */}
               <Section label="Skills">
-                {loading && <SkeletonComponent />}
-                {!loading && (
-                  <div className="space-y-6">
-                    <SkillsList
-                      skills={skills ? skills : []}
-                      register={register}
-                      errors={errors}
-                    />
-                  </div>
-                )}
+                <div className="space-y-6">
+                  <SkillsList
+                    skills={skills ? skills : []}
+                    register={register}
+                    errors={errors}
+                  />
+                </div>
               </Section>
             </div>
 
@@ -293,7 +267,7 @@ const CharacterForm = () => {
             </div>
           </form>
         )}
-      </div>
+      </FormWrapper>
   );
 };
 

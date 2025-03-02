@@ -9,9 +9,6 @@ const resolvers: Resolvers = {
   Query: {
     characters: async () => {
       try {
-        
-      await new Promise((resolve, reject) => setTimeout(() => reject(), 5000))
-
         return await getAllCharacters();
       } catch (error) {
         console.log(error);

@@ -9,10 +9,10 @@ import { CreateCharacterInput } from '@/generated/graphql/graphql';
 /**
  * useReferenceValues
  * uses a graphql query to get all reference values (skills, abilities, races, classes, alignments)
- * @returns object with arrays of reference values
+ * @returns object with arrays of reference values, as well as error and refetch
  */
 export function useReferenceValues() {
-  const { data, error, loading } = useQuery(getReferenceValues);
+  const { data, error, refetch } = useSuspenseQuery(getReferenceValues, { errorPolicy: 'all' });
 
   if (error) {
     console.log(error);
@@ -25,23 +25,24 @@ export function useReferenceValues() {
     classes: data?.referenceValues.classes,
     races: data?.referenceValues.races,
     error,
-    loading
+    refetch
   };
 }
 
 /**
  * useCharacters
  * uses a graphql query to get characters array
- * @returns object with characters array and error object
+ * @returns object with characters array and error object, as well as error and refetch
  */
 export function useCharacters() {
-  const { data, error } = useSuspenseQuery(getCharacters);
+  console.log('in use');
+  const { data, error, refetch } = useSuspenseQuery(getCharacters, { errorPolicy: 'all' });
 
   if (error) {
     console.log(error);
   }
 
-  return { characters: data.characters, error };
+  return { characters: data?.characters, error, refetch };
 }
 
 /**

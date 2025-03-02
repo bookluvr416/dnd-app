@@ -3,7 +3,7 @@ import { ApolloWrapper } from './ApolloWrapper';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/nav/Header';
-import bgImg from '@/assets/ruinsbg.webp';
+import bgImg from '@/assets/darkBg.webp';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -36,25 +36,25 @@ export default async function CreateCharacter() {
         <Image
           src={blueAmulet}
           alt="blue amulet"
-          width={100}
+          width={75}
           height={100}
-          className="hidden md:block md:size-24"
+          className="hidden md:block md:size-20"
           priority
         />
         <Image
           src={cauldron}
           alt="cauldron"
-          width={100}
+          width={75}
           height={100}
-          className="hidden md:block md:size-24"
+          className="hidden md:block md:size-20"
           priority
         />
         <Image
           src={manaPotion}
           alt="mana potion"
-          width={100}
+          width={75}
           height={100}
-          className="size-16 md:size-24"
+          className="size-16 md:size-20"
           priority
         />
       </div>

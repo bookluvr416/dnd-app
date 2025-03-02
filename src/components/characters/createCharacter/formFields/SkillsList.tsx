@@ -21,7 +21,7 @@ const SkillsList: React.FC<Props> = ({ skills, errors, register }) => {
                 id={standardizedSkill}
                 htmlFor={`skill${skill.id}-input`}
                 aria-label={skill.skill!}
-                className="block text-small text-indigo-300 w-32"
+                className="block text-medium text-indigo-300 w-32"
               >
                 {skill.skill}
               </label>
@@ -32,12 +32,12 @@ const SkillsList: React.FC<Props> = ({ skills, errors, register }) => {
                 min={-20}
                 max={20}
                 aria-invalid={errors[`skill${skill.id}`]?.message ? true : false}
-                className="w-14 px-2 py-1 bg-purple-950/30 border border-violet-800 rounded-md shadow-sm text-indigo-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-purple-800"
+                className="w-14 px-2 py-1 bg-purple-950/60 border border-violet-800 rounded-md shadow-sm text-indigo-50 focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-purple-700"
               />
             </div>
             <div className="pb-4">
               {errors[`skill${skill.id}`]?.message && (
-                <p className="text-red-300 pt-1 text-small">
+                <p className="text-red-300 pt-1 text-medium">
                   {`* ${errors[`skill${skill.id}`]?.message}`}
                 </p>
               )}

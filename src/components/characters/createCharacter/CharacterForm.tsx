@@ -6,16 +6,26 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { ToastContainer, toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { createZodSchema, FormType } from '@/lib/formSchema/zodSchema';
-import { Race, Class, Alignment, CreateCharacterInput, NewCharacterAbilityInput } from '@/generated/graphql/graphql';
+import { CreateCharacterInput, NewCharacterAbilityInput } from '@/generated/graphql/graphql';
 import { useCreateCharacter, useReferenceValues } from '@/lib/graphql/hooks';
-import TextInput from './formFields/TextInput';
-import NumericInput from './formFields/NumericInput';
-import Select from './formFields/Select';
 import Section from './formFields/Section';
+import SectionOne from './formFields/SectionOne';
+import SectionTwo from './formFields/SectionTwo';
 import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
+import Button from '@/components/shared/Button';
+import "react-loading-skeleton/dist/skeleton.css";
+
+const SkeletonComponent = () => (
+  <SkeletonTheme baseColor="#351460" highlightColor="#30205e">
+    <div>
+      <Skeleton className='h-10 border border-violet-800 rounded-md' />
+    </div>
+  </SkeletonTheme>
+)
 
 const CharacterForm = () => {
   const [skillsIds, setSkillsIds] = useState<number[]>([]);
@@ -221,176 +231,85 @@ const CharacterForm = () => {
           </div>
         )}
 
-        <div className="max-w-6xl mx-auto bg-indigo-900 rounded-lg shadow-2xl overflow-hidden border border-indigo-500/30">
+        <div className={`max-w-6xl mx-auto bg-indigo-900 rounded-lg overflow-hidden border border-indigo-500/30 ${!loading ? 'shadow-2xl' : ''}`}>
 
           {/* section one */}
           <Section label="Character Details">
-            <div className="space-y-6">
-              {/* Character Name */}
-              <TextInput
-                id="name"
-                label="Character Name"
-                name="name"
-                register={register}
-                errors={errors}
-              />
+            {loading && <SkeletonComponent />}
 
-              <div className='md:grid md:grid-cols-2 md:w-full md:gap-4'>
-                {/* Class Selection */}
-                <Select
-                  id="class"
-                  name="class"
-                  label="Class"
-                  register={register}
+            {!loading && (
+              <div className="space-y-6">
+                <SectionOne
                   errors={errors}
-                  options={classes ? classes.map((singleClass: Class) => ({ id: singleClass.id!, description: singleClass.className! })) : []}
-                />
-
-                {/* Level Selection */}
-                <div className="pt-6 md:pt-0">
-                  <NumericInput
-                    id="level"
-                    label="Level"
-                    name="level"
-                    min={1}
-                    max={20}
-                    register={register}
-                    errors={errors}
-                  />
-                </div>
-              </div>
-
-              <div className='grid grid-cols-1 md:grid-cols-3 w-full gap-4'>
-                {/* HP */}
-                <NumericInput
-                  id="hp"
-                  label="HP"
-                  name="hp"
-                  min={1}
-                  max={1000}
                   register={register}
-                  errors={errors}
-                />
-
-                {/* AC */}
-                <NumericInput
-                  id="ac"
-                  label="AC"
-                  name="ac"
-                  min={1}
-                  max={30}
-                  register={register}
-                  errors={errors}
-                />
-
-                {/* Speed */}
-                <div className="pt-4 md:pt-0">
-                  <NumericInput
-                    id="speed"
-                    label="Speed"
-                    name="speed"
-                    min={1}
-                    max={150}
-                    register={register}
-                    errors={errors}
-                  />
-                </div>
-              </div>
-
-              <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-4'>
-                {/* Initiative */}
-                <NumericInput
-                  id="initiative"
-                  label="Initiative"
-                  name="initiative"
-                  min={1}
-                  max={10}
-                  register={register}
-                  errors={errors}
-                />
-
-                {/* Proficiency Bonus */}
-                <NumericInput
-                  id="proficiency-bonus"
-                  label="Proficiency Bonus"
-                  name="proficiencyBonus"
-                  min={1}
-                  max={20}
-                  register={register}
-                  errors={errors}
+                  classes={classes ? classes : []}
                 />
               </div>
-            </div>
+            )}
           </Section>
 
           {/* section two */}
           <Section label="Race & Alignment">
-            <div className="space-y-6">
+            {loading && <SkeletonComponent />}
 
-              <div className='md:grid md:grid-cols-2 md:w-full md:gap-4'>
-                {/* Race Selection */}
-                <Select
-                  id="race"
-                  name="race"
-                  label="Race"
-                  register={register}
+            {!loading && (
+              <div className="space-y-6">
+                <SectionTwo
                   errors={errors}
-                  options={races ? races.map((race: Race) => ({ id: race.id!, description: race.raceName! })) : []}
+                  register={register}
+                  races={races ? races : []}
+                  alignments={alignments ? alignments : []}
                 />
-
-                {/* Alignment Selection */}
-                <div className="pt-6 md:pt-0">
-                  <Select
-                    id="alignment"
-                    name="alignment"
-                    label="Alignment"
-                    register={register}
-                    errors={errors}
-                    options={alignments ? alignments.map((alignment: Alignment) => ({ id: alignment.id!, description: alignment.alignment! })) : []}
-                  />
-                </div>
               </div>
-            </div>
+            )}
           </Section>
 
           {/* section three - abilities */}
           <Section label="Abilities">
-            <div className="space-y-6">
+            {loading && <SkeletonComponent />}
+            {!loading && (
+              <div className="space-y-6">
               <AbilitiesList
                 abilities={abilities ? abilities : []}
                 register={register}
                 errors={errors}
               />
             </div>
+            )}
           </Section>
 
           {/* section four - skills */}
           <Section label="Skills">
-            <div className="space-y-6">
-              <SkillsList
-                skills={skills ? skills : []}
-                register={register}
-                errors={errors}
-              />
-            </div>
+            {loading && <SkeletonComponent />}
+            {!loading && (
+              <div className="space-y-6">
+                <SkillsList
+                  skills={skills ? skills : []}
+                  register={register}
+                  errors={errors}
+                />
+              </div>
+            )}
           </Section>
         </div>
 
         {/* submit and cancel buttons */}
-        <button
-          type='submit'
-          className="rounded-lg p-3 mt-5 text-small bg-violet-900 hover:bg-violet-800"
-        >
-          Submit
-        </button>
-
-        <button
-          type='button'
-          onClick={() => reset()}
-          className="rounded-lg p-3 mt-5 ml-5 text-small bg-violet-950 hover:bg-violet-800"
-        >
-          Clear
-        </button>
+        <div className='mt-5'>
+          <span className='mr-3'>
+            <Button
+              text="Submit"
+              type="submit"
+              cssColor="bg-purple-950 hover:bg-purple-900/80"
+            />
+          </span>
+          <Button
+            text="Clear"
+            type="button"
+            onClick={() => reset()}
+            cssColor="bg-purple-950/60 hover:bg-purple-900/80"
+          />
+        </div>
+        
       </div>
     </form>
   );

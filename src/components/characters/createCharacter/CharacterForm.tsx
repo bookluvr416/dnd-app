@@ -164,8 +164,8 @@ const CharacterForm = () => {
       showSuccessToast();
       reset(schemaDefaults);
       setTimeout(() => { router.push('/characters')}, 5000);
-    } catch(err) {
-      console.log(err);
+    } catch(error) {
+      console.log(error);
       showErrorToast();
       setCreateError(true);
     }

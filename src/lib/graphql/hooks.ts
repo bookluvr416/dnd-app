@@ -35,7 +35,6 @@ export function useReferenceValues() {
  * @returns object with characters array and error object, as well as error and refetch
  */
 export function useCharacters() {
-  console.log('in use');
   const { data, error, refetch } = useSuspenseQuery(getCharacters, { errorPolicy: 'all' });
 
   if (error) {

@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState, CSSProperties } from 'react';
 import { z } from 'zod';
 import PropagateLoader from 'react-spinners/PropagateLoader';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { ToastContainer } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,6 +18,7 @@ import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
 import Button from '@/components/shared/Button';
 import ErrorLoading from '@/components/shared/ErrorLoading';
+import ErrorAlert from '@/components/shared/ErrorAlert';
 import { showSuccessToast, showErrorToast } from './Toasts';
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -177,9 +177,10 @@ const CharacterForm = () => {
 
         {/* submit error */}
         {createError && (
-          <div className="bg-red-600/60 p-3 rounded-xl mb-4 flex">
-            <span className="size-6 mr-3">{<ExclamationTriangleIcon />}</span>
-            An error occured on submitting character, please try again.
+          <div className="mb-5">
+            <ErrorAlert>
+              An error occured on submitting character, please try again.
+            </ErrorAlert>
           </div>
         )}
 

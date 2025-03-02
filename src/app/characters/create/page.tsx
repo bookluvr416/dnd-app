@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import Link from 'next/link';
+import { Suspense } from 'react';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import HeaderBanner from '@/components/shared/HeaderBanner';
@@ -11,7 +11,6 @@ import cauldron from '@/assets/Cauldron.webp';
 import blueAmulet from '@/assets/blue-amulet.webp';
 import goldCoins from '@/assets/gold-coins.webp';
 import manaPotion from '@/assets/mana-potion.webp';
-import { Suspense } from 'react';
 
 export default async function CreateCharacter() {
   const session = await getServerSession(authOptions);

@@ -16,7 +16,7 @@ import warlockIcon from '@/assets/Warlock-icon.webp';
 import wizardIcon from '@/assets/Wizard-icon.webp';
 import dragonborn from '@/assets/female_dragonborn.webp';
 
-const CharacterCard: React.FC<{ character: Character }> = ({ character }) => {
+const CharacterCard: React.FC<{ character: Character, index: number }> = ({ character, index }) => {
   let iconImage: StaticImageData | null = null;
   let iconAlt = character.class?.className ?? '';
 
@@ -73,6 +73,7 @@ const CharacterCard: React.FC<{ character: Character }> = ({ character }) => {
           width={320}
           height={400}
           className="ring-2 ring-black"
+          priority={index < 3 ? true : false}
         />
       </div>
       <div className="flex flex-row justify-between">

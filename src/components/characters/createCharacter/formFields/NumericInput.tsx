@@ -19,7 +19,7 @@ const NumericInput: React.FC<Props> = ({ id, label, name, min, max, errors, regi
         id={id}
         htmlFor={`${id}-input`}
         aria-label={label}
-        className="block text-small text-indigo-300 mb-1"
+        className="block text-medium text-indigo-300 mb-1"
       >
         {label}
       </label>
@@ -30,7 +30,7 @@ const NumericInput: React.FC<Props> = ({ id, label, name, min, max, errors, regi
         min={min}
         max={max}
         aria-invalid={errors[name]?.message ? true : false}
-        className='w-full px-3 py-2 bg-purple-950/30 border border-violet-800 rounded-md shadow-sm text-indigo-50 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-purple-800'
+        className='w-full px-3 py-2 bg-purple-950/60 border border-violet-800 rounded-md shadow-sm text-indigo-50 focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-purple-700'
       />
       {errors[name]?.message && <ErrorDisplay message={errors[name].message as string} />}
     </div>

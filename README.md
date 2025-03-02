@@ -17,10 +17,7 @@ I also may use https://www.dnd5eapi.co/ to query its apis to create something to
 
 ## Various TODOS
 - Better error handling
-- Better loading handling
-- lighten background maybe?
 - show logged in person's username in right corner of nav bar
-- reset button for character list filters
 - pagination for the characters list and subsequent retrieval. offset-based?
 
 ## Technologies

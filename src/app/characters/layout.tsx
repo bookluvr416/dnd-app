@@ -5,7 +5,7 @@ export default function CharactersLayout({
 }) {
   return (
     <main>
-      <div className="mr-4 ml-4 min-w-screen pt-6 pb-20 sm:px-6">
+      <div className="mr-4 ml-4 min-w-screen pt-6 pb-20 px-6">
         {children}
       </div>
     </main>

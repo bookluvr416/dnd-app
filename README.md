@@ -18,7 +18,7 @@ I also may use https://www.dnd5eapi.co/ to query its apis to create something to
 ## Various TODOS
 - show logged in person's username in right corner of nav bar
 - pagination for the characters list and subsequent retrieval. offset-based?
-- fix issue on mobile where numeric fields that allow negatives can't have a negative entered because the mobile number pad doesn't have a "-" symbol
+- fix issue on mobile where numeric fields that allow negatives can't have a negative entered because the mobile number pad doesn't have a "-" symbol (possibly fixed, tbd after deployment)
 
 ## Technologies
 

@@ -8,6 +8,7 @@ Features:
 - Dice roller with 3D css dice
 - Page to create a new character
 - Page to edit a character
+- Ability to delete a character
 - Page to view all characters in the database, sortable with some sort of summary of character info (not all info will be shown)
 - Page to see the details of a specific character (TBD to make this look like an actual character sheet)
 - Blog called "An Adventurer's Blog: A Day in the Life" which features blog posts from character adventures
@@ -17,8 +18,10 @@ I also may use https://www.dnd5eapi.co/ to query its apis to create something to
 
 ## Various TODOS
 - show logged in person's username in right corner of nav bar
-- pagination for the characters list and subsequent retrieval. offset-based?
-- fix issue on mobile where numeric fields that allow negatives can't have a negative entered because the mobile number pad doesn't have a "-" symbol (possibly fixed, tbd after deployment)
+- show character creator's username on character card, and have a filter for submitter
+- have a "my characters" and "all characters" tab
+- logger library that logs to somewhere other than console.log()?
+- various css fixes
 
 ## Technologies
 

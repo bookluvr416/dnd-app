@@ -26,6 +26,7 @@ const DiceNumberInput: React.FC<Props> = ({ onNumberSelect, diceType, register }
         type="number"
         id={`${diceType}Input`}
         min={0}
+        max={30}
         {...register(`${diceType}Input`, { valueAsNumber: true })}
         onChange={(e) => onNumberSelect(e, diceType)}
         className="w-14 px-2 py-1 bg-purple-950/60 border border-violet-800 rounded-md shadow-sm text-indigo-50 focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-purple-700"

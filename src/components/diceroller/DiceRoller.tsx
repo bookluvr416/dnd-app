@@ -229,7 +229,7 @@ const DiceRoller: React.FC = () => {
             cssMargin='mb-5 sm:mb-0 sm:mr-5'
           />
           <Button
-            text="Reset Totals"
+            text="Reset Rolls"
             type="button"
             onClick={resetTotals}
             cssMargin='mb-5 sm:mb-0 sm:mr-5'

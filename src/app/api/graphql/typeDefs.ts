@@ -16,29 +16,29 @@ const typeDefs = `#graphql
   }
 
   type Skill {
-    id: Int
-    skill: String
+    id: Int!
+    skill: String!
   }
 
   type Race {
-    id: Int
-    raceName: String
-    raceType: String
+    id: Int!
+    raceName: String!
+    raceType: String!
   }
 
   type Class {
-    id: Int
-    className: String
+    id: Int!
+    className: String!
   }
 
   type Alignment {
-    id: Int
-    alignment: String
+    id: Int!
+    alignment: String!
   }
 
   type Ability {
-    id: Int
-    ability: String
+    id: Int!
+    ability: String!
   }
 
   type CharacterAbility {
@@ -76,22 +76,22 @@ const typeDefs = `#graphql
   }
 
   input NewCharacterInput {
-    name: String!,
-    level: Int!,
-    raceId: Int!,
-    classId: Int!,
-    armorClass: Int!,
-    speed: Int!,
-    hp: Int!,
-    initiative: Int!,
-    proficiencyBonus: Int!,
-    alignmentId: Int!,
+    name: String!
+    level: Int!
+    raceId: Int!
+    classId: Int!
+    armorClass: Int!
+    speed: Int!
+    hp: Int!
+    initiative: Int!
+    proficiencyBonus: Int!
+    alignmentId: Int!
   }
 
   input CreateCharacterInput {
-    character: NewCharacterInput!,
-    skills: [NewCharacterSkillInput]!,
-    abilities: [NewCharacterAbilityInput]!,
+    character: NewCharacterInput!
+    skills: [NewCharacterSkillInput]!
+    abilities: [NewCharacterAbilityInput]!
   }
 
   input UpdateCharacterSkillInput {
@@ -106,23 +106,42 @@ const typeDefs = `#graphql
   }
 
   input UpdateCharacterInput {
-    id: Int!,
-    name: String,
-    level: Int,
-    raceId: Int,
-    classId: Int,
-    armorClass: Int,
-    speed: Int,
-    hp: Int,
-    initiative: Int,
-    proficiencyBonus: Int,
-    alignmentId: Int,
-    skills: [UpdateCharacterSkillInput],
-    abilities: [UpdateCharacterAbilityInput],
+    id: Int!
+    name: String
+    level: Int
+    raceId: Int
+    classId: Int
+    armorClass: Int
+    speed: Int
+    hp: Int
+    initiative: Int
+    proficiencyBonus: Int
+    alignmentId: Int
+    skills: [UpdateCharacterSkillInput]
+    abilities: [UpdateCharacterAbilityInput]
+  }
+
+  type CharactersPage {
+    characters: [Character!]!
+    totalCount: Int!
+    totalPages: Int!
+    currentPage: Int!
+    pageSize: Int!
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+  }
+
+  input QueryCharactersInput {
+    page: Int!
+    pageSize: Int!
+    race: Int
+    class: Int
+    alignment: Int
+    name: String
   }
 
   type Query {
-    characters: [Character!]!
+    characters(input: QueryCharactersInput!): CharactersPage!
     character(id: Int!): Character
 
     skills: [Skill!]!

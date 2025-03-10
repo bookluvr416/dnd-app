@@ -31,9 +31,17 @@ const characterDetailFragment = graphql(`
  * graphql query to get all characters
  */
 export const getCharacters = graphql(`
-  query GetCharacters {
-    characters {
-      ...CharacterDetail
+  query GetCharacters($input: QueryCharactersInput!) {
+    characters(input: $input) {
+      characters {
+        ...CharacterDetail
+      }
+      totalCount
+      totalPages
+      currentPage
+      pageSize
+      hasNextPage
+      hasPreviousPage
     }
   }
 `);
@@ -171,6 +179,30 @@ export const getReferenceValues = graphql(`
       skills {
         id
         skill
+      }
+      alignments {
+        id
+        alignment
+      }
+    }
+  }
+`);
+
+/**
+ * getReferenceValues
+ * graphql query to get race, class, alignment data
+ */
+export const getCharacterFiltersReferenceValues = graphql(`
+  query GetCharacterFiltersReferenceValues {
+    referenceValues {
+      races {
+        id
+        raceName
+        raceType
+      }
+      classes {
+        id
+        className
       }
       alignments {
         id

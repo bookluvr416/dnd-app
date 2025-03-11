@@ -2,6 +2,10 @@
   "overwrite": true,
   "schema": "./src/app/api/graphql/typeDefs.ts",
   "documents": "./src/lib/graphql/queries.ts",
+  "config": {
+    "noSilentErrors": true,
+    "verbose": true
+  },
   "generates": {
     "src/generated/graphql/": {
       "preset": "client",

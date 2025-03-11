@@ -4,11 +4,17 @@ import { db } from './connection';
 import * as Types from './schema';
 import {
   Character,
+  CharactersPage,
   CreateCharacterInput,
+  QueryCharactersInput,
   UpdateCharacterAbilityInput,
   UpdateCharacterInput,
   UpdateCharacterSkillInput,
 } from '@/generated/graphql/graphql';
+
+interface Queryable<T> {
+  where(column: string, operator: string, value: any): T;
+}
 
 type NewSkillsInput = {
   characterId: number;
@@ -167,8 +173,8 @@ const mapData = (data: Types.ReturnedData) => {
         abilityScore: ability.abilityScore,
         proficiencyBonus: ability.proficiencyBonus,
         ability: {
-          id: ability.abilities?.id,
-          ability: ability.abilities?.ability,
+          id: ability.abilities!.id,
+          ability: ability.abilities!.ability,
         }
       }
     ));
@@ -179,16 +185,16 @@ const mapData = (data: Types.ReturnedData) => {
     name: data.name,
     level: data.level,
     race: {
-      id: data.raceId,
+      id: data.raceId!,
       raceType: data.race!.raceType,
       raceName: data.race!.raceName,
     },
     alignment: {
-      id: data.alignmentId,
+      id: data.alignmentId!,
       alignment: data.alignment!.alignment
     },
     class: {
-      id: data.classId,
+      id: data.classId!,
       className: data.class!.className,
     },
     skills: skills,
@@ -203,13 +209,42 @@ const mapData = (data: Types.ReturnedData) => {
 }
 
 /**
+ * setWheres
+ * Sets additional where statements on a query depending on inputs
+ * @param query kysely query
+ * @param input query characters input
+ * @returns ksely query
+ */
+const setWheres = <T extends Queryable<T>>(query: T, input: QueryCharactersInput) => {
+  if (input.alignment) query = query.where('characters.alignmentId', '=', input.alignment);
+  if (input.class) query = query.where('characters.classId', '=', input.class);
+  if (input.race) query = query.where('characters.raceId', '=', input.race);
+  if (input.name) query = query.where('characters.name', 'like', `${input.name}%`);
+  return query;
+}
+
+/**
  * getAllCharacters
  * Gets a list of characters
  * @returns array of Character objects
  */
-export const getAllCharacters = async (): Promise<Character[]> => {
+export const getAllCharacters = async (input: QueryCharactersInput): Promise<CharactersPage> => {
+
   try {
-    const returnedData = await db
+    const offset = (input.page - 1) * input.pageSize;
+
+    let countQuery = db
+      .selectFrom('characters')
+      .select(eb => eb.fn.count<number>('id').as('count'))
+      .where('characters.activeInd', '=', true);
+
+    countQuery = setWheres(countQuery, input);
+
+    const countResult = await countQuery.executeTakeFirstOrThrow();
+    const totalCount = countResult.count;
+    const totalPages = Math.ceil(totalCount / input.pageSize);
+
+    let query = db
       .selectFrom('characters')
       .select(({ ref }) => [
         races(ref('characters.raceId')),
@@ -219,11 +254,25 @@ export const getAllCharacters = async (): Promise<Character[]> => {
         characterAbilities(ref('characters.id'))
       ])
       .where('characters.activeInd', '=', true)
+      .orderBy((eb) => eb.fn('lower', ['characters.name']))
       .orderBy('characters.id')
-      .selectAll('characters')
-      .execute();
+      .limit(input.pageSize)
+      .offset(offset)
+      .selectAll('characters');
+    
+    query = setWheres(query, input)
 
-    return returnedData.map((data) => mapData(data));
+    const returnedData = await query.execute();
+    const charactesrData = returnedData.map((data) => mapData(data));
+    return {
+      characters: charactesrData,
+      totalCount,
+      totalPages,
+      pageSize: input.pageSize,
+      hasNextPage: input.page < totalPages,
+      hasPreviousPage: input.page > 1,
+      currentPage: input.page,
+    }
   } catch (e) {
     throw e;
   }

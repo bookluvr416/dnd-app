@@ -7,9 +7,10 @@ import { authOptions } from '@/lib/auth';
 
 const resolvers: Resolvers = {
   Query: {
-    characters: async () => {
+    characters: async (_root, { input }) => {
       try {
-        return await getAllCharacters();
+        const sanitized = sanitizeVariables(input);
+        return await getAllCharacters(sanitized);
       } catch (error) {
         console.log(error);
         throw new Error("Failed to fetch characters");

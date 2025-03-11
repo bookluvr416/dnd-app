@@ -2,9 +2,10 @@
 
 import { gql } from '@apollo/client';
 import { useSuspenseQuery, useMutation, useQuery } from '@apollo/client';
-import { getReferenceValues, getCharacters } from '@/lib/graphql/queries';
+import { getReferenceValues, getCharacters, getCharacterFiltersReferenceValues } from '@/lib/graphql/queries';
 import { createCharacter } from '@/lib/graphql/mutations';
-import { CreateCharacterInput } from '@/generated/graphql/graphql';
+import { CreateCharacterInput, QueryCharactersInput } from '@/generated/graphql/graphql';
+import { PAGE_SIZE } from '@/constants';
 
 /**
  * useReferenceValues
@@ -30,18 +31,46 @@ export function useReferenceValues() {
 }
 
 /**
- * useCharacters
- * uses a graphql query to get characters array
- * @returns object with characters array and error object, as well as error and refetch
+ * useReferenceValues
+ * uses a graphql query to get all reference values (skills, abilities, races, classes, alignments)
+ * @returns object with arrays of reference values, as well as error and refetch
  */
-export function useCharacters() {
-  const { data, error, refetch } = useSuspenseQuery(getCharacters, { errorPolicy: 'all' });
+export function useCharacterFiltersReferenceValues() {
+  const { data, error, refetch, loading } = useQuery(getCharacterFiltersReferenceValues, {
+    errorPolicy: 'all',
+    notifyOnNetworkStatusChange: true,
+  });
 
   if (error) {
     console.log(error);
   }
 
-  return { characters: data?.characters, error, refetch };
+  return {
+    alignments: data?.referenceValues.alignments,
+    classes: data?.referenceValues.classes,
+    races: data?.referenceValues.races,
+    error,
+    refetch,
+    loading,
+  };
+}
+
+/**
+ * useCharacters
+ * uses a graphql query to get characters array
+ * @returns object with characters array and error object, as well as error and refetch
+ */
+export function useCharacters() {
+  const { data, error, refetch, fetchMore } = useSuspenseQuery(getCharacters, {
+    errorPolicy: 'all',
+    variables: { input: { page: 1, pageSize: PAGE_SIZE } }
+  });
+
+  if (error) {
+    console.log(error);
+  }
+
+  return { data, error, refetch, fetchMore };
 }
 
 /**
@@ -58,7 +87,7 @@ export function useCreateCharacter() {
       update(cache, { data: { character } }) {
         cache.modify({
           fields: {
-            characters(existingCharacters = []) {
+            characters(existingCharacters) {
               const newCharacterRef = cache.writeFragment({
                 data: character,
                 fragment: gql`
@@ -83,7 +112,12 @@ export function useCreateCharacter() {
                   }
                 `
               });
-              return [...existingCharacters, newCharacterRef];
+              return {
+                totalCount: existingCharacters.totalCount + 1,
+                characters: [...existingCharacters.characters, newCharacterRef],
+                totalPages: Math.ceil((existingCharacters.totalCount + 1) / existingCharacters.pageSize),
+                ...existingCharacters,
+              };
             }
           }
         });

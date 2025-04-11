@@ -6,7 +6,7 @@ const ResultCard: React.FC<{ diceType: string, results: number[] }> = ({ diceTyp
       <h2
         className="text-cyan-200 mb-4 bg-indigo-900 rounded-lg p-2"
       >
-        {diceType.toUpperCase()} Total: {total}
+        {diceType.toUpperCase()}: {total}
       </h2>
       <div className="pl-2 pr-2">{resultsString}</div>
     </div>

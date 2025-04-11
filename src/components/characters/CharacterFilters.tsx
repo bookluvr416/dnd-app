@@ -136,7 +136,7 @@ const CharacterFilters: React.FC<Props> = ({ onFilterChange }) => {
           <div className='pb-2'>
             <label
                 htmlFor='name-search'
-                id='name-search'
+                id='name-search-label'
                 aria-label='Search by Name'
                 className="pr-4"
               >

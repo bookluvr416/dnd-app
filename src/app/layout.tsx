@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "D&D App",
+  title: "The Astral Codex",
   description: "A dungeons and dragons project.",
 };
 

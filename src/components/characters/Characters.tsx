@@ -133,7 +133,7 @@ const Characters = () => {
       <div className='mt-6 flex justify-between'>
         <Link
           href="/characters/create"
-          className="rounded-lg p-4 mb-7 bg-violet-900 hover:bg-violet-800"
+          className="rounded-lg p-4 mb-7 bg-violet-900/90 hover:ring-2 hover:ring-violet-700"
         >
           Create Character
         </Link>

@@ -37,21 +37,7 @@ const useRefsList = () => {
   return { setItemRef, getRefById };
 };
 
-const OtherDice: React.FC<Props> = ({
-  getRandomFace,
-  getRandomNumber,
-  shouldRoll,
-  handleDiceResult,
-  diceType,
-  initialNumber,
-  animationTime,
-}) => {
-  const { getRefById, setItemRef } = useRefsList();
-  const [prevNumber, setPrevNumber] = useState<number>(initialNumber);
-  const [dataFace, setDataFace] = useState('');
-  const [animationStyle, setAnimationStyle] = useState('roll-stop');
-
-  // sets size based on dice type
+const calculateSize = (diceType: string) => {
   let size: number = 0;
   switch (diceType) {
     case 'd20':
@@ -71,6 +57,26 @@ const OtherDice: React.FC<Props> = ({
       break;
     default: break;
   }
+
+  return size;
+}
+
+const OtherDice: React.FC<Props> = ({
+  getRandomFace,
+  getRandomNumber,
+  shouldRoll,
+  handleDiceResult,
+  diceType,
+  initialNumber,
+  animationTime,
+}) => {
+  const { getRefById, setItemRef } = useRefsList();
+  const [prevNumber, setPrevNumber] = useState<number>(initialNumber);
+  const [dataFace, setDataFace] = useState('');
+  const [animationStyle, setAnimationStyle] = useState('tumble-stop');
+
+  // sets size based on dice type
+  const size = calculateSize(diceType)
 
   // sets initial sides
   const initialSides: DynamicObject = {};
@@ -103,6 +109,46 @@ const OtherDice: React.FC<Props> = ({
   }
 
   /**
+   * randomizeSides
+   * Randomizes all the dice data sides and returns the new number for the landed dice
+   * @param diceType string
+   * @param size number
+   * @returns number
+   */
+  const randomizeSides = (diceType: string, size: number) => {
+    const dataElements: HTMLDivElement[] = [];
+    const usedNumbers: number[] = [];
+
+    // gets a new dice number to land on
+    const newNumber = getRandomFace(1, size);
+    usedNumbers.push(newNumber);
+
+    // gets refs
+    [...Array(size)].forEach((_, i) => {
+      dataElements.push(getRefById(`${diceType}-${i + 1}`));
+    });
+
+    // for each data element
+    dataElements.forEach((element, i) => {
+      const side = element.getAttribute('data-side');
+      
+      // if new dice number is not old number
+      if (newNumber !== prevNumber) {
+        if (side === prevNumber.toString()) {
+          handleDataSideChange(newNumber.toString(), `${diceType}-${i + 1}`);
+        } else {
+          const num = getRandomNumber(1, size, usedNumbers);
+          usedNumbers.push(num);
+          handleDataSideChange(num.toString(), `${diceType}-${i + 1}`);
+        }
+      }
+      setDataFace(newNumber.toString());
+    });
+
+    return newNumber;
+  }
+
+  /**
    * startAnimationRoll
    * sets the animation roll style and then sets a timeout to randomize the dice
    * @returns void
@@ -111,42 +157,14 @@ const OtherDice: React.FC<Props> = ({
     const el: HTMLDivElement = getRefById(`diceClassRef-${diceType}`);
     if (!el) { return; }
 
-    setAnimationStyle('roll');
-
+    setAnimationStyle('tumble');
     setDataFace('');
     
     setTimeout(() => {
       const currentDice: keyof Dice = diceType;
-      const dataElements: HTMLDivElement[] = [];
-      const usedNumbers: number[] = [];
+      const newNumber = randomizeSides(diceType, size);
 
-      // gets a new dice number to land on
-      const newNumber = getRandomFace(1, size);
-      usedNumbers.push(newNumber);
-
-      // gets refs
-      [...Array(size)].forEach((_, i) => {
-        dataElements.push(getRefById(`${diceType}-${i + 1}`));
-      });
-
-      // for each data element
-      dataElements.forEach((element, i) => {
-        const side = element.getAttribute('data-side');
-        
-        // if new dice number is not old number
-        if (newNumber !== prevNumber) {
-          if (side === prevNumber.toString()) {
-            handleDataSideChange(newNumber.toString(), `${diceType}-${i + 1}`);
-          } else {
-            const num = getRandomNumber(1, size, usedNumbers);
-            usedNumbers.push(num);
-            handleDataSideChange(num.toString(), `${diceType}-${i + 1}`);
-          }
-        }
-        setDataFace(newNumber.toString());
-      });
-
-      setAnimationStyle('roll-stop');
+      setAnimationStyle('tumble-stop');
 
       setPrevNumber(newNumber);
       handleDiceResult(currentDice, newNumber);

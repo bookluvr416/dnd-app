@@ -170,49 +170,50 @@ const DiceRoller: React.FC = () => {
           Natural 20
         </div>
       )}
-
+<div className="mb-4 bg-indigo-950 p-4 rounded-lg ring-1 ring-blue-700/50">
       <form onSubmit={handleSubmit(startAnimationRoll)}>
 
         {/* dice number inputs */}
-        <div className="mb-4 bg-indigo-950 p-4 rounded-lg ring-1 ring-blue-700/50">
+        
           <p>Feeling lucky? Enter number of dice to roll.</p>
-          <div className='flex flex-row gap-4 justify-between mt-5 flex-wrap'>
-            <DiceNumberInput
-              diceType="d4"
-              onNumberSelect={onNumberSelect}
-              register={register}
-            />
-            <DiceNumberInput
-              diceType="d6"
-              onNumberSelect={onNumberSelect}
-              register={register}
-            />
-            <DiceNumberInput
-              diceType="d8"
-              onNumberSelect={onNumberSelect}
-              register={register}
-            />
-            <DiceNumberInput
-              diceType="d10"
-              onNumberSelect={onNumberSelect}
-              register={register}
-            />
-            <DiceNumberInput
-              diceType="d12"
-              onNumberSelect={onNumberSelect}
-              register={register}
-            />
-            <DiceNumberInput
-              diceType="d20"
-              onNumberSelect={onNumberSelect}
-              register={register}
-            />
+          <div>
+            <div className='flex flex-row gap-4 justify-between mt-5 flex-wrap'>
+              <DiceNumberInput
+                diceType="d4"
+                onNumberSelect={onNumberSelect}
+                register={register}
+              />
+              <DiceNumberInput
+                diceType="d6"
+                onNumberSelect={onNumberSelect}
+                register={register}
+              />
+              <DiceNumberInput
+                diceType="d8"
+                onNumberSelect={onNumberSelect}
+                register={register}
+              />
+              <DiceNumberInput
+                diceType="d10"
+                onNumberSelect={onNumberSelect}
+                register={register}
+              />
+              <DiceNumberInput
+                diceType="d12"
+                onNumberSelect={onNumberSelect}
+                register={register}
+              />
+              <DiceNumberInput
+                diceType="d20"
+                onNumberSelect={onNumberSelect}
+                register={register}
+              />
           </div>
           {['d4Input', 'd6Input', 'd8Input', 'd10Input', 'd12Input', 'd20Input'].map((dice) => {
             if (errors[dice as keyof FormType]?.message) {
               return (
-                <p key={dice} className='mt-5 text-red-300 text-medium'>
-                  {dice.slice(0, -5).toUpperCase()} {errors[dice as keyof FormType]?.message}
+                <p key={dice} className='mt-3 text-red-300 text-medium'>
+                  {dice.slice(0, -5).toUpperCase()}: {errors[dice as keyof FormType]?.message}
                 </p>
               );
             } else {
@@ -222,7 +223,7 @@ const DiceRoller: React.FC = () => {
         </div> 
 
         {/* buttons to roll and reset */}
-        <div className='flex flex-col sm:flex-row flex-wrap'>
+        <div className='flex flex-col sm:flex-row flex-wrap pt-4'>
           <Button
             text="Start Rolling"
             type="submit"
@@ -247,7 +248,7 @@ const DiceRoller: React.FC = () => {
       <div>
         <AllDice handleDiceResult={handleDiceResult} shouldRoll={shouldRoll} />
       </div>
-
+</div>
       {/* result cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-7">
         <ResultCard diceType="d4" results={diceResults.d4} />

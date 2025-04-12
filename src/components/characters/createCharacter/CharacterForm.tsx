@@ -255,7 +255,7 @@ const CharacterForm = () => {
                   text="Submit"
                   type="submit"
                   disabled={createPending}
-                  cssColor="bg-purple-950 hover:bg-purple-900/80"
+                  cssColor="bg-purple-950"
                 />
               </span>
               <Button
@@ -263,7 +263,7 @@ const CharacterForm = () => {
                 type="button"
                 disabled={createPending}
                 onClick={() => reset()}
-                cssColor="bg-purple-950/60 hover:bg-purple-900/80"
+                cssColor="bg-purple-950/60"
               />
             </div>
           </form>

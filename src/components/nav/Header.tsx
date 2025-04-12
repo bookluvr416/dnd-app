@@ -37,7 +37,7 @@ export default async function Header() {
                 height={30}
                 className='rounded-sm'
               />
-              <span className='p-1'><Link href="/">D&D App</Link></span>
+              <span className='p-1'><Link href="/">The Astral Codex</Link></span>
             </div>
 
             <div className='hidden md:ml-6 md:block'>

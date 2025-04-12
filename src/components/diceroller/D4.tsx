@@ -58,7 +58,7 @@ const D4: React.FC<ComponentProps> = ({
 }) => {
   const { getRefById, setItemRef } = useRefsList();
   const [dataFace, setDataFace] = useState('');
-  const [animationStyle, setAnimationStyle] = useState('roll-stop');
+  const [animationStyle, setAnimationStyle] = useState('tumble-stop');
   const [dataAttributes, setDataAttributes] = useState<DynamicObject>({
     'd4-1': {
       dataSide: '1',
@@ -131,6 +131,86 @@ const D4: React.FC<ComponentProps> = ({
     });
   }
 
+  const randomizeSides = () => {
+    const usedD4Faces: number[] = [];
+    const dataElements: HTMLDivElement[] = [];
+
+    // gets refs
+    [...Array(4)].forEach((_, i) => {
+      dataElements.push(getRefById(`d4-${i + 1}`));
+    });
+
+    // gets new values for face and number for dice to land on
+    const newD4Face = getRandomFace(1, 4);
+    const newD4Number = getRandomNumber(1, 4, [newD4Face]);
+    usedD4Faces.push(newD4Face);  
+
+    // for each data element
+    dataElements.forEach((element, i) => {
+      const side = element.getAttribute('data-side');
+
+      // if new dace is not the old face or the new number is not the old number
+      if (newD4Face !== prevD4Face || newD4Number !== prevD4Number) {
+        const usedD4Numbers = [newD4Face];
+        let dataNumbers:HTMLDivElement[] = [];
+
+        // get refs
+        [...Array(4)].forEach((_, i) => {
+          if ((i + 1).toString() === side) {
+            dataNumbers.push(getRefById(`d4-${i + 1}-1`));
+            dataNumbers.push(getRefById(`d4-${i + 1}-2`));
+            dataNumbers.push(getRefById(`d4-${i + 1}-3`));
+          }
+        });
+
+        // if current side is the previous face
+        if (side === prevD4Face.toString()) {
+          handleDataSideChange(newD4Face.toString(), `d4-${i + 1}`);
+
+          usedD4Numbers.push(newD4Number);
+
+          // for each data number on that side
+          dataNumbers.forEach((dataNumber) => {
+            if (dataNumber.classList.contains('facing-down')) {
+              handleDataNumberChange(newD4Number.toString(), 'facing-down', `d4-${i + 1}`);
+            } else {
+              const num = getRandomNumber(1, 4, usedD4Numbers);
+              usedD4Numbers.push(num);
+
+              if (dataNumber.classList.contains('rotate-120')) {
+                handleDataNumberChange(num.toString(), 'rotate-120', `d4-${i + 1}`);
+              } else {
+                handleDataNumberChange(num.toString(), 'rotate-240', `d4-${i + 1}`);
+              }
+            }
+          });
+        } else {
+          const number = getRandomNumber(1, 4, usedD4Faces);
+          usedD4Faces.push(number);
+
+          handleDataSideChange(number.toString(), `d4-${i + 1}`);
+
+          // for each data number on that side
+          dataNumbers.forEach((dataNumber) => {
+            const num = getRandomNumber(1, 4, usedD4Numbers);
+            usedD4Numbers.push(num);
+
+            if (dataNumber.classList.contains('rotate-120')) {
+              handleDataNumberChange(num.toString(), 'rotate-120', `d4-${i + 1}`);
+            } else if (dataNumber.classList.contains('rotate-240')) {
+              handleDataNumberChange(num.toString(), 'rotate-240', `d4-${i + 1}`);
+            } else {
+              handleDataNumberChange(num.toString(), 'facing-down', `d4-${i + 1}`);
+            }
+          });
+        }
+      }
+      setDataFace(newD4Number.toString());     
+    });
+
+    return { newD4Number, newD4Face }
+  }
+
   /**
    * startAnimationRoll
    * sets the animation roll style and then sets a timeout to randomize the dice
@@ -140,92 +220,17 @@ const D4: React.FC<ComponentProps> = ({
     const el: HTMLDivElement = getRefById('diceClassRef-d4');
     if (!el) { return; }
 
-    setAnimationStyle('roll');
-
+    setAnimationStyle('tumble');
     setDataFace('');
     
     setTimeout(() => {
       const currentDice: keyof Dice = 'd4';
-      const usedD4Faces: number[] = [];
-      const dataElements: HTMLDivElement[] = [];
 
-      // gets refs
-      [...Array(4)].forEach((_, i) => {
-        dataElements.push(getRefById(`d4-${i + 1}`));
-      });
-
-      // gets new values for face and number for dice to land on
-      const newD4Face = getRandomFace(1, 4);
-      const newD4Number = getRandomNumber(1, 4, [newD4Face]);
-      usedD4Faces.push(newD4Face);  
-  
-      // for each data element
-      dataElements.forEach((element, i) => {
-        const side = element.getAttribute('data-side');
-
-        // if new dace is not the old face or the new number is not the old number
-        if (newD4Face !== prevD4Face || newD4Number !== prevD4Number) {
-          const usedD4Numbers = [newD4Face];
-          let dataNumbers:HTMLDivElement[] = [];
-
-          // get refs
-          [...Array(4)].forEach((_, i) => {
-            if ((i + 1).toString() === side) {
-              dataNumbers.push(getRefById(`d4-${i + 1}-1`));
-              dataNumbers.push(getRefById(`d4-${i + 1}-2`));
-              dataNumbers.push(getRefById(`d4-${i + 1}-3`));
-            }
-          });
-
-          // if current side is the previous face
-          if (side === prevD4Face.toString()) {
-            handleDataSideChange(newD4Face.toString(), `d4-${i + 1}`);
-
-            usedD4Numbers.push(newD4Number);
-
-            // for each data number on that side
-            dataNumbers.forEach((dataNumber) => {
-              if (dataNumber.classList.contains('facing-down')) {
-                handleDataNumberChange(newD4Number.toString(), 'facing-down', `d4-${i + 1}`);
-              } else {
-                const num = getRandomNumber(1, 4, usedD4Numbers);
-                usedD4Numbers.push(num);
-
-                if (dataNumber.classList.contains('rotate-120')) {
-                  handleDataNumberChange(num.toString(), 'rotate-120', `d4-${i + 1}`);
-                } else {
-                  handleDataNumberChange(num.toString(), 'rotate-240', `d4-${i + 1}`);
-                }
-              }
-            });
-          } else {
-            const number = getRandomNumber(1, 4, usedD4Faces);
-            usedD4Faces.push(number);
-
-            handleDataSideChange(number.toString(), `d4-${i + 1}`);
-
-            // for each data number on that side
-            dataNumbers.forEach((dataNumber) => {
-              const num = getRandomNumber(1, 4, usedD4Numbers);
-              usedD4Numbers.push(num);
-
-              if (dataNumber.classList.contains('rotate-120')) {
-                handleDataNumberChange(num.toString(), 'rotate-120', `d4-${i + 1}`);
-              } else if (dataNumber.classList.contains('rotate-240')) {
-                handleDataNumberChange(num.toString(), 'rotate-240', `d4-${i + 1}`);
-              } else {
-                handleDataNumberChange(num.toString(), 'facing-down', `d4-${i + 1}`);
-              }
-            });
-          }
-        }
-        setDataFace(newD4Number.toString());     
-      });
-
+      const { newD4Number, newD4Face } = randomizeSides();
       prevD4Number = newD4Number;
       prevD4Face = newD4Face;
 
-      setAnimationStyle('roll-stop');
+      setAnimationStyle('tumble-stop');
 
       handleDiceResult(currentDice, newD4Number);
     }, (animationTime * 1000));

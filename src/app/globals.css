@@ -21,3 +21,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+:focus-visible {
+  outline: 2px solid #8a1cc9; /* change color and size as needed */
+}

@@ -6,11 +6,18 @@
   90% { transform: rotateX(480deg) rotateY(960deg) rotateZ(0deg) }
 }
 
-.roll {
-  animation: roll 3s linear;
+@keyframes tumble { 
+  10% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) }
+  30% { transform: rotateX(120deg) rotateY(240deg) rotateZ(0deg) translateX(40px) translateY(40px) }
+  50% { transform: rotateX(240deg) rotateY(480deg) rotateZ(0deg) translateX(-40px) translateY(-40px) }
+  70% { transform: rotateX(360deg) rotateY(720deg) rotateZ(0deg) }
 }
 
-.roll-stop {
+.tumble {
+  animation: tumble 3s linear;
+}
+
+.tumble-stop {
   animation: reset;
 }
 
@@ -24,36 +31,42 @@
   /* zoom: 1.2; */
   /* transform: translateZ(200px) rotate3d(0, 2, 0, -35deg); */
   transform: translateZ(12.5rem) rotate3d(0, 2, 0, -35deg);
+  margin-left: -35%;
 }
 .d6-wrap {
   transform-style: preserve-3d;
   /* zoom: 1.2; */
   /* transform: translateZ(200px) rotate3d(0, 2, 0, -15deg); */
   transform: translateZ(12.5rem) rotate3d(0, 2, 0, -15deg);
+  margin-left: -35%;
 }
 .d8-wrap {
   transform-style: preserve-3d;
   /* zoom: 1.2; */
   /* transform: translateY(-20px) rotate3d(0, 2, 0, -10deg); */
   transform: rotate3d(0, 2, 0, -10deg);
+  margin-left: -35%;
 }
 .d10-wrap {
   transform-style: preserve-3d;
   /* zoom: 1.2; */
   /* transform: translateZ(400px); */
   transform: translateZ(25rem);
+  margin-left: -35%;
 }
 .d12-wrap {
   transform-style: preserve-3d;
   /* zoom: 1.2; */
   /* transform: translateZ(-400px); */
   transform: translateZ(-25rem);
+  margin-left: -35%;
 }
 .d20-wrap {
   transform-style: preserve-3d;
   zoom: 0.7;
   /* transform: translateY(-50px) translateZ(-300px) rotate3d(0, 2, 0, 30deg); */
   transform: translateY(-2rem) translateZ(-18.7rem) rotate3d(0, 2, 0, 30deg);
+  margin-left: -35%;
 }
 
 .d4-inner,

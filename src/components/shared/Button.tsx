@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Button: React.FC<Props> = ({ text, cssColor = '', cssMargin = '', ...props }) => {
-  let color = cssColor.length ? cssColor : 'bg-purple-900/60 hover:bg-purple-900';
+  let color = cssColor.length ? cssColor : 'bg-purple-900/60';
   const margin = cssMargin.length ? cssMargin : '';
 
   if (props.disabled) {
@@ -17,7 +17,12 @@ const Button: React.FC<Props> = ({ text, cssColor = '', cssMargin = '', ...props
 
   return (
     <button
-      className={`rounded-lg p-2 text-medium focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-purple-700 ${color} ${margin}`}
+      className={`rounded-lg p-2 text-medium outline-none
+                hover:ring-2 hover:ring-purple-800 hover:border-purple-800
+                focus-visible:ring-2 focus-visible:ring-purple-800 focus-visible:border-purple-800
+                active:duration-200 active:bg-purple-900
+                ${color} ${margin}
+              `}
       {...props}
     >
       {text}

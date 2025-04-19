@@ -60,10 +60,10 @@ export function useCharacterFiltersReferenceValues() {
  * uses a graphql query to get characters array
  * @returns object with characters array and error object, as well as error and refetch
  */
-export function useCharacters() {
+export function useCharacters(page: number) {
   const { data, error, refetch, fetchMore } = useSuspenseQuery(getCharacters, {
     errorPolicy: 'all',
-    variables: { input: { page: 1, pageSize: PAGE_SIZE } }
+    variables: { input: { page: page, pageSize: PAGE_SIZE } }
   });
 
   if (error) {

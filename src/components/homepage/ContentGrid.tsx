@@ -5,8 +5,8 @@ import bardImg from '@/assets/bard.webp';
 
 const ContentGrid = () => {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:gap-0 ml-10 mr-10 place-items-center'>
-      <div className="max-w-72 md:max-w-80">
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:gap-0 sm:ml-10 sm:mr-10 place-items-center'>
+      <div className="max-w-80">
         <ContentCard
           title="Character Management"
           description="For all your character sheet needs! View a list of all characters, add a new character, modify or delete an existing character."
@@ -16,7 +16,7 @@ const ContentGrid = () => {
           href="/characters"
         />
       </div>
-      <div className="max-w-72 md:max-w-80">
+      <div className="max-w-80">
         <ContentCard
           title="Dice Roller"
           description="Roll the dice and see what your future holds! Dice rolls for d4 up to d20."
@@ -26,7 +26,7 @@ const ContentGrid = () => {
           href="/dice-roller"
         />
       </div>
-      <div className="max-w-72 md:max-w-80">
+      <div className="max-w-80">
         <ContentCard
           title="A Day in the Life: An Adventurer's Blog"
           description="Read all about the daily adventures of our favorite heroes."

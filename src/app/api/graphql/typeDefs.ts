@@ -13,6 +13,7 @@ const typeDefs = `#graphql
     alignment: Alignment
     abilities: [CharacterAbility]
     skills: [CharacterSkill]
+    imageLink: String
   }
 
   type Skill {

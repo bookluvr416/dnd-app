@@ -18,10 +18,10 @@ I also may use https://www.dnd5eapi.co/ to query its apis to create something to
 
 ## Various TODOS
 - show logged in person's username in right corner of nav bar
-- show character creator's username on character card, and have a filter for submitter
 - have a "my characters" and "all characters" tab
 - logger library that logs to somewhere other than console.log()?
-- various css fixes
+- bug fixes: issues with the characters list when there's only 1 result
+- bug fixes: the filtering request on the characters list makes 2 graphql calls instead of 1
 
 ## Technologies
 

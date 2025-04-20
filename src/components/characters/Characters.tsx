@@ -39,7 +39,7 @@ const Characters = () => {
 
   /**
    * useEffect
-   * This fetches more characters when currentPage or filters changes
+   * This fetches more characters when currentPage, filters, or resultsPerPage changes
    */
   useEffect(() => {
     const input: QueryCharactersInput = {
@@ -57,7 +57,7 @@ const Characters = () => {
     } else {
       fetchMore({ variables: { input } })
     }
-  }, [currentPage, filters])
+  }, [currentPage, filters, resultsPerPage])
 
   /**
    * useEffect

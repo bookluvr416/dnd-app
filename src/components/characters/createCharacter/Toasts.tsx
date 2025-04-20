@@ -12,6 +12,12 @@ const ToastSuccess = () => (
   </div>
 );
 
+const ToastWarn = () => (
+  <div>
+    Character created but image failed to save.
+  </div>
+);
+
 /**
  * showErrorToast
  * function to show toast on unsuccessful character creation
@@ -33,5 +39,17 @@ export const showSuccessToast = () => {
     position: 'bottom-right',
     className:"p-3 w-[400px] border border-green-900/40 rounded-xl bg-green-700 text-green-100",
     ariaLabel: 'Character created!'
+  });
+}
+
+/**
+ * showWarningToast
+ * function to show toast on successful character creation but failure to upload image
+ */
+export const showWarningToast = () => {
+  toast.warn(ToastWarn, {
+    position: 'bottom-right',
+    className:"p-3 w-[400px] border border-amber-900/40 rounded-xl bg-amber-700 text-amber-100",
+    ariaLabel: 'Character created but image failed to save.'
   });
 }

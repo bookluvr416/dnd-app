@@ -87,6 +87,7 @@ const typeDefs = `#graphql
     initiative: Int!
     proficiencyBonus: Int!
     alignmentId: Int!
+    imageLink: String
   }
 
   input CreateCharacterInput {

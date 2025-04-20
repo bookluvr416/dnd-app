@@ -121,6 +121,7 @@ export type NewCharacterInput = {
   armorClass: Scalars['Int']['input'];
   classId: Scalars['Int']['input'];
   hp: Scalars['Int']['input'];
+  imageLink?: InputMaybe<Scalars['String']['input']>;
   initiative: Scalars['Int']['input'];
   level: Scalars['Int']['input'];
   name: Scalars['String']['input'];

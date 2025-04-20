@@ -1,5 +1,8 @@
 import { z, ZodType } from 'zod';
 
+const maxUploadSize = 1024 * 1024 * 5; // 5MB
+const acceptedFileTypes = ['image/png', 'image/webp', 'image/jpg', 'image/jpeg'];
+
 const invalidNumberError = 'A number is required';
 const invalidIntError = 'A whole number is required';
 
@@ -7,6 +10,16 @@ const pureNumberValidation = z.number({ invalid_type_error: invalidNumberError }
 const scoreValidation = z.number({ invalid_type_error: invalidNumberError }).positive().min(1).max(30).int({ message: invalidIntError });
 const positiveNumberValidation = z.number({ invalid_type_error: invalidNumberError }).positive().int({ message: invalidIntError });
 const nonNegativeValidation = z.number({ invalid_type_error: invalidNumberError }).nonnegative().int({ message: invalidIntError });
+const fileValidation = z
+  .instanceof(File)
+  .optional()
+  .refine((file) => {
+    return !file || file.size <= maxUploadSize;
+  }, 'File size must be less than 5MB')
+  .refine((file) => {
+    if (!file) return true;
+    if (file) return acceptedFileTypes.includes(file.type);
+  }, 'File must be a PNG, WEBP, JPG, or JPEG');
 
 let schema: ZodType = {} as ZodType;
 
@@ -48,6 +61,7 @@ export const createZodSchema = (abilityIds: number[], skillsIds: number[]) => {
     alignment: pureNumberValidation.min(1, { message: 'Alignment required' }),
     ...abilities,
     ...skills,
+    characterImage: fileValidation,
   });
 
   const schemaDefaults = {
@@ -63,6 +77,7 @@ export const createZodSchema = (abilityIds: number[], skillsIds: number[]) => {
     alignment: 0,
     ...abilitiesDefaults,
     ...skillsDefaults,
+    characterImage: undefined,
   };
 
   return { schema, schemaDefaults }

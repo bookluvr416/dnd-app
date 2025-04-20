@@ -46,8 +46,6 @@ function makeClient() {
               read(existing, { variables }) {
                 if (!existing || !variables) return existing;
 
-                console.log(variables.input.page);
-
                 const page = existing.currentPage;
                 const characters = existing.pages?.[page] || [];
 

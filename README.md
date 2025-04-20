@@ -5,14 +5,14 @@ This is a D&D themed Next.js app that is a work in progress.
 The live app can be seen at https://dnd-app-dun.vercel.app/.
 
 Features:  
-- Dice roller with 3D css dice
-- Page to create a new character
+- Dice roller with 3D css dice (done)
+- Page to create a new character (done)
 - Page to edit a character
 - Ability to delete a character
-- Page to view all characters in the database, sortable with some sort of summary of character info (not all info will be shown)
+- Page to view all characters in the database (done)
 - Page to see the details of a specific character (TBD to make this look like an actual character sheet)
 - Blog called "An Adventurer's Blog: A Day in the Life" which features blog posts from character adventures
-- User authentication with any actions writing to the database hidden behind an account logic
+- User authentication with any actions writing to the database hidden behind an account logic (done)
 
 I also may use https://www.dnd5eapi.co/ to query its apis to create something to do with items or spells. Perhaps a spell tracker or item tracker?
 
@@ -20,8 +20,6 @@ I also may use https://www.dnd5eapi.co/ to query its apis to create something to
 - show logged in person's username in right corner of nav bar
 - have a "my characters" and "all characters" tab
 - logger library that logs to somewhere other than console.log()?
-- bug fixes: issues with the characters list when there's only 1 result
-- bug fixes: the filtering request on the characters list makes 2 graphql calls instead of 1
 
 ## Technologies
 

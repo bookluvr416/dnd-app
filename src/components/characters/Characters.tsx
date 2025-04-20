@@ -4,20 +4,16 @@ import { useCallback, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Character, QueryCharactersInput } from '@/generated/graphql/graphql';
-import CharacterCard from './CharacterCard';
 import CharacterFilters from './CharacterFilters';
 import { useCharacters } from '@/lib/graphql/hooks';
 import ErrorLoading from '../shared/ErrorLoading';
-import Paginator from '../shared/Paginator';
 import { PAGE_SIZE } from '@/constants';
 import ResultsPerPage from '../shared/ResultsPerPage';
 import CharacterList from './CharacterList';
 
 const Characters = () => {
-  const pathname = usePathname()
-
-  const { data, error, refetch, fetchMore } = useCharacters();
-
+  const pathname = usePathname();
+  const [currentPage, setCurrentPage] = useState(1);
   const [sortedCharacters, setSortedCharacters] = useState<Character[]>([]);
   const [resultsPerPage, setResultsPerPage] = useState(PAGE_SIZE);
   const [filters, setFilters] = useState({
@@ -26,6 +22,9 @@ const Characters = () => {
     alignment: 0,
     searchTerm: '',
   });
+
+  const { data, error, refetch, fetchMore } = useCharacters(currentPage);
+  const characters = data?.characters.characters;
 
   useEffect(() => {
     // This runs whenever the pathname changes
@@ -36,9 +35,29 @@ const Characters = () => {
       };
       refetch({ input });
     }
-  }, [pathname])
+  }, [pathname]);
 
-  const characters = data?.characters.characters;
+  /**
+   * useEffect
+   * This fetches more characters when currentPage or filters changes
+   */
+  useEffect(() => {
+    const input: QueryCharactersInput = {
+      page: currentPage,
+      pageSize: resultsPerPage,
+    }
+
+    if (filters.class !== 0) input.class = filters.class;
+    if (filters.race !== 0) input.race = filters.race;
+    if (filters.alignment !== 0) input.alignment = filters.alignment;
+    if (filters.searchTerm.trim() !== '') input.name = filters.searchTerm;
+
+    if (currentPage === 1) {
+      refetch({ input });
+    } else {
+      fetchMore({ variables: { input } })
+    }
+  }, [currentPage, filters])
 
   /**
    * useEffect
@@ -53,6 +72,8 @@ const Characters = () => {
       });
 
       setSortedCharacters(sorted);
+    } else if (characters) {
+      setSortedCharacters(characters);
     }
   }, [characters]);
 
@@ -62,26 +83,8 @@ const Characters = () => {
    * @param pageNumber number
    */
   const handlePageChange = useCallback((pageNumber: number) => {
-    const input: QueryCharactersInput = {
-      page: pageNumber,
-      pageSize: resultsPerPage,
-    }
-
-    if (filters.class !== 0) input.class = filters.class;
-    if (filters.race !== 0) input.race = filters.race;
-    if (filters.alignment !== 0) input.alignment = filters.alignment;
-    if (filters.searchTerm.trim() !== '') input.name = filters.searchTerm;
-
-    fetchMore({ variables: { input } })
-  }, [resultsPerPage, filters])
-
-  /**
-   * useEffect
-   * Calls the function to change page to 1 on results per page change
-   */
-  useEffect(() => {
-    handlePageChange(1);
-  }, [resultsPerPage, handlePageChange])
+    setCurrentPage(pageNumber);
+  }, [])
 
   /**
    * handleFilterChange
@@ -92,24 +95,13 @@ const Characters = () => {
    * @param searchTerm string
    */
   const handleFilterChange = (classType: number, race: number, alignment: number, searchTerm: string) => {
-    const input: QueryCharactersInput = {
-      page: 1,
-      pageSize: resultsPerPage
-    }
-
-    if (classType !== 0) input.class = classType;
-    if (race !== 0) input.race = race;
-    if (alignment !== 0) input.alignment = alignment;
-    if (searchTerm.trim() !== '') input.name = searchTerm;
-
     setFilters({
       class: classType,
       race: race,
       alignment: alignment,
       searchTerm: searchTerm,
-    })
-
-    refetch({ input })
+    });
+    setCurrentPage(1);
   }
 
   /**

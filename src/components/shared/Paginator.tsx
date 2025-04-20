@@ -144,7 +144,7 @@ const Paginator: React.FC<Props> = ({
   hasNextPage,
   hasPreviousPage
 }) => {
-  const startResultNumber = ((pageSize * (currentPage - 1)) + 1) || 1;
+  const startResultNumber = totalResults > 0 ? ((pageSize * (currentPage - 1)) + 1) || 1 : 0;
   const endResultNumber = hasNextPage ? (startResultNumber + (pageSize - 1)) : totalResults;
 
   /**

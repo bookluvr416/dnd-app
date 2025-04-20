@@ -204,6 +204,7 @@ const mapData = (data: Types.ReturnedData) => {
     initiative: data.initiative,
     proficiencyBonus: data.proficiencyBonus,
     speed: data.speed,
+    imageLink: data.imageLink,
   };
   return character;
 }

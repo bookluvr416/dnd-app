@@ -8,18 +8,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { createZodSchema, FormType } from '@/lib/formSchema/zodSchema';
-import { CreateCharacterInput, NewCharacterAbilityInput } from '@/generated/graphql/graphql';
 import { useCreateCharacter, useReferenceValues } from '@/lib/graphql/hooks';
 import FormWrapper from './FormWrapper';
 import Section from './formFields/Section';
 import SectionOne from './formFields/SectionOne';
 import SectionTwo from './formFields/SectionTwo';
+import UploadSection from './formFields/UploadSection';
 import SkillsList from './formFields/SkillsList';
 import AbilitiesList from './formFields/AbilitiesList';
 import Button from '@/components/shared/Button';
 import ErrorLoading from '@/components/shared/ErrorLoading';
 import ErrorAlert from '@/components/shared/ErrorAlert';
-import { showSuccessToast, showErrorToast } from './Toasts';
+import { showSuccessToast, showErrorToast, showWarningToast } from './Toasts';
+import { createInput, uploadImage } from '@/lib/characterCreation/util';
 import "react-loading-skeleton/dist/skeleton.css";
 
 const override: CSSProperties = {
@@ -31,8 +32,9 @@ const CharacterForm = () => {
   const [skillsIds, setSkillsIds] = useState<number[]>([]);
   const [abilitiesIds, setAbilitiesIds] = useState<number[]>([]);
   const [createError, setCreateError] = useState(false);
+  const [createPending, setCreatePending] = useState(false);
 
-  const { createCharacterMutation, loading: createPending } = useCreateCharacter();
+  const { createCharacterMutation } = useCreateCharacter();
   const { races, skills, abilities, classes, alignments, error, refetch } = useReferenceValues();
 
   const router = useRouter();
@@ -72,6 +74,8 @@ const CharacterForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    trigger
   } = useForm<FormType>({
     resolver: zodResolver(schema),
     mode: 'onBlur',
@@ -84,69 +88,7 @@ const CharacterForm = () => {
     if (Object.keys(schemaDefaults).length !== 0) {
       reset(schemaDefaults);
     }
-  }, [schemaDefaults])
-
-  // create input to send to server
-  const createInput = (data: FormType) => {
-    const input: CreateCharacterInput = {} as CreateCharacterInput;
-
-    // character fields
-    input.character = {
-      name: data.name,
-      level: data.level,
-      classId: data.class,
-      alignmentId: data.alignment,
-      raceId: data.race,
-      armorClass: data.ac,
-      hp: data.hp,
-      initiative: data.initiative,
-      proficiencyBonus: data.proficiencyBonus,
-      speed: data.speed,
-    }
-
-    input.skills = [];
-    input.abilities = [];
-
-    for (const [key, value] of Object.entries(data)) {
-
-      // skills
-      if (key.includes('skill')) {
-        const id = key.slice(5);
-        input.skills.push({
-          skillId: parseInt(id),
-          skillProficiency: value as number,
-        })
-      }
-
-      // abilities
-      if (key.includes('ability')) {
-        const id = parseInt(key.slice(12));
-        const index = input.abilities.findIndex((ability) => ability?.abilityId === id);
-
-        if (key.includes('Score')) {
-          if (index !== -1) {
-            input.abilities[index]!.abilityScore = value as number;
-          } else {
-            input.abilities.push({
-              abilityId: id,
-              abilityScore: value
-            } as NewCharacterAbilityInput)
-          }
-        } else {
-          if (index !== -1) {
-            input.abilities[index]!.proficiencyBonus = value as number;
-          } else {
-            input.abilities.push({
-              abilityId: id,
-              proficiencyBonus: value,
-            } as NewCharacterAbilityInput)
-          }
-        }        
-      }
-    };
-
-    return input;
-  }
+  }, [schemaDefaults]);
 
   /**
    * onSubmit
@@ -155,20 +97,39 @@ const CharacterForm = () => {
    * on failure, shows an error toast and error message.
    * @param data FormData
    */
-  const onSubmit = async (data: FormData) => {
-    const input = createInput(data);
+  const onSubmit = async (data: FormType) => {
+    setCreatePending(true);
+    const input = await createInput(data);
+    let imageSuccess = false;
+
+    let imageLink: string | null = null;
+
+    try {
+      imageLink = await uploadImage(data.characterImage);
+      input.character.imageLink = imageLink;
+      imageSuccess = true;
+    } catch {
+      console.log('Failed to generate image link.');
+    }
 
     try {
       await createCharacterMutation(input);
       setCreateError(false);
-      showSuccessToast();
+
+      if (imageSuccess) {
+        showSuccessToast();
+      } else {
+        showWarningToast();
+      }
+      
       reset(schemaDefaults);
-      setTimeout(() => { router.push('/characters')}, 5000);
+      setTimeout(() => { router.push('/characters')}, 4000);
     } catch(error) {
       console.log(error);
       showErrorToast();
       setCreateError(true);
     }
+    setCreatePending(false);
   }
 
   return (
@@ -230,6 +191,17 @@ const CharacterForm = () => {
                   <SkillsList
                     skills={skills ? skills : []}
                     register={register}
+                    errors={errors}
+                  />
+                </div>
+              </Section>
+
+               {/* section five - image upload */}
+               <Section label="Character Image Upload">
+                <div className="space-y-6">
+                  <UploadSection
+                    setValue={setValue}
+                    trigger={trigger}
                     errors={errors}
                   />
                 </div>

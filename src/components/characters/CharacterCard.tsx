@@ -14,14 +14,13 @@ import rogueIcon from '@/assets/Rogue-icon.webp';
 import sorcererIcon from '@/assets/Sorcerer-icon.webp';
 import warlockIcon from '@/assets/Warlock-icon.webp';
 import wizardIcon from '@/assets/Wizard-icon.webp';
-import dragonborn from '@/assets/female_dragonborn.webp';
+import ghostMage from '@/assets/ghost-mage.webp';
 
-const CharacterCard: React.FC<{ character: Character, index: number }> = ({ character, index }) => {
+// set icon image depending on class
+const setIcon = (className: string | undefined) => {
   let iconImage: StaticImageData | null = null;
-  let iconAlt = character.class?.className ?? '';
 
-  // set icon image depending on class
-  switch (character.class?.className?.toUpperCase()) {
+  switch (className?.toUpperCase()) {
     case 'ARTIFICER':
       iconImage = artificerIcon;
       break;
@@ -64,14 +63,24 @@ const CharacterCard: React.FC<{ character: Character, index: number }> = ({ char
     default: break;
   }
 
+  return iconImage;
+}
+
+const CharacterCard: React.FC<{ character: Character, index: number }> = ({ character, index }) => {
+  let iconImage = setIcon(character.class?.className);
+  let iconAlt = character.class?.className ?? '';
+
+  const src = character.imageLink ?? ghostMage;
+
   return (
     <div className="bg-indigo-950 p-4 rounded-lg text-wrap ring-1 ring-blue-700/50">
       <div className="flex flex-row justify-center pb-3 md:pb-5">
         <Image
-          src={dragonborn}
-          alt='image of the character'
+          src={src}
+          alt=''
           width={320}
           height={400}
+          style={{ objectFit: 'contain' }}
           className="ring-2 ring-black"
           priority={index < 3 ? true : false}
         />

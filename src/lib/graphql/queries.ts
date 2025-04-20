@@ -10,6 +10,7 @@ const characterDetailFragment = graphql(`
     name
     level
     hp
+    imageLink
     alignment {
       id
       alignment

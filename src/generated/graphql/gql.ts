@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n": typeof types.CharacterDetailFragmentDoc,
+    "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    imageLink\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n": typeof types.CharacterDetailFragmentDoc,
     "\n  query GetCharacters($input: QueryCharactersInput!) {\n    characters(input: $input) {\n      characters {\n        ...CharacterDetail\n      }\n      totalCount\n      totalPages\n      currentPage\n      pageSize\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n": typeof types.GetCharactersDocument,
     "\n  query GetSingleCharacter($id: Int!) {\n    character(id: $id) {\n      ...CharacterDetail\n      initiative\n      proficiencyBonus\n      speed\n      skills {\n        skill {\n          id\n          skill\n        }\n        id\n        skillProficiency\n      }\n      abilities {\n        id\n        abilityScore\n        proficiencyBonus\n        ability {\n          id\n          ability\n        }\n      }\n    }\n  }\n": typeof types.GetSingleCharacterDocument,
     "\n  query getPartialCharacterById($id: Int!) {\n    character(id: $id) {\n      ...CharacterDetail\n    }\n  }\n": typeof types.GetPartialCharacterByIdDocument,
@@ -27,7 +27,7 @@ type Documents = {
     "\n  query GetCharacterFiltersReferenceValues {\n    referenceValues {\n      races {\n        id\n        raceName\n        raceType\n      }\n      classes {\n        id\n        className\n      }\n      alignments {\n        id\n        alignment\n      }\n    }\n  }\n": typeof types.GetCharacterFiltersReferenceValuesDocument,
 };
 const documents: Documents = {
-    "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n": types.CharacterDetailFragmentDoc,
+    "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    imageLink\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n": types.CharacterDetailFragmentDoc,
     "\n  query GetCharacters($input: QueryCharactersInput!) {\n    characters(input: $input) {\n      characters {\n        ...CharacterDetail\n      }\n      totalCount\n      totalPages\n      currentPage\n      pageSize\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n": types.GetCharactersDocument,
     "\n  query GetSingleCharacter($id: Int!) {\n    character(id: $id) {\n      ...CharacterDetail\n      initiative\n      proficiencyBonus\n      speed\n      skills {\n        skill {\n          id\n          skill\n        }\n        id\n        skillProficiency\n      }\n      abilities {\n        id\n        abilityScore\n        proficiencyBonus\n        ability {\n          id\n          ability\n        }\n      }\n    }\n  }\n": types.GetSingleCharacterDocument,
     "\n  query getPartialCharacterById($id: Int!) {\n    character(id: $id) {\n      ...CharacterDetail\n    }\n  }\n": types.GetPartialCharacterByIdDocument,
@@ -57,7 +57,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n"): (typeof documents)["\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n"];
+export function graphql(source: "\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    imageLink\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n"): (typeof documents)["\n  fragment CharacterDetail on Character {\n    id\n    name\n    level\n    hp\n    imageLink\n    alignment {\n      id\n      alignment\n    }\n    race {\n      id\n      raceName\n      raceType\n    }\n    class {\n      id\n      className\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

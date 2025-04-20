@@ -35,6 +35,7 @@ export interface CharactersTable {
   alignmentId: number;
   activeInd: boolean;
   userId: number;
+  imageLink: string | null;
 }
 
 export interface SkillsTable {
@@ -127,6 +128,7 @@ export type ReturnedData = {
   proficiencyBonus: number | null;
   speed: number | null;
   activeInd: boolean;
+  imageLink: string | null;
 }
 
 // You should not use the table schema interfaces directly. Instead, you should

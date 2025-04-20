@@ -13,6 +13,7 @@ const typeDefs = `#graphql
     alignment: Alignment
     abilities: [CharacterAbility]
     skills: [CharacterSkill]
+    imageLink: String
   }
 
   type Skill {
@@ -86,6 +87,7 @@ const typeDefs = `#graphql
     initiative: Int!
     proficiencyBonus: Int!
     alignmentId: Int!
+    imageLink: String
   }
 
   input CreateCharacterInput {

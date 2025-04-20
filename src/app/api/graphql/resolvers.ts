@@ -161,7 +161,6 @@ function sanitizeString(str: string): string {
   const replaced = str
       .replace(/</g, '')
       .replace(/>/g, '')
-      .replace(/\//g, '')
       .replace(/;/g, '')
       .replace(/\[/g, '')
       .replace(/]/g, '')

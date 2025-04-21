@@ -2,7 +2,7 @@
 
 import { gql } from '@apollo/client';
 import { useSuspenseQuery, useMutation, useQuery } from '@apollo/client';
-import { getReferenceValues, getCharacters, getCharacterFiltersReferenceValues } from '@/lib/graphql/queries';
+import { getReferenceValues, getCharacters, getCharacterFiltersReferenceValues, getCharacterById } from '@/lib/graphql/queries';
 import { createCharacter } from '@/lib/graphql/mutations';
 import { CreateCharacterInput, QueryCharactersInput } from '@/generated/graphql/graphql';
 import { PAGE_SIZE } from '@/constants';
@@ -71,6 +71,24 @@ export function useCharacters(page: number) {
   }
 
   return { data, error, refetch, fetchMore };
+}
+
+/**
+ * useCharacter
+ * uses a graphql query to get a single character
+ * @param id number
+ * @returns object with character data
+ */
+export function useCharacter(id: number) {
+  const { data, error, refetch } = useSuspenseQuery(getCharacterById, {
+    variables: { id }
+  });
+
+  if (error) {
+    console.log(error);
+  }
+
+  return { data, error, refetch };
 }
 
 /**

@@ -48,11 +48,15 @@ const ContentCard: React.FC<Props> = ({ description, imageSrc, title, alt, order
   }
 
   return (
-    <section tabIndex={0} onClick={handleSectionClick} className="bg-gradient-to-r from-indigo-950 to-purple-950 m-6 rounded-lg 
-                        ring-4 ring-indigo-900 focus:outline-purple-800 focus-visible:outline-purple-800
-                        shadow-2xl shadow-indigo-950 inset-shadow-2xl inset-shadow-indigo-950
-                        hover:ring-indigo-600 hover:cursor-pointer
-                        focus-active:ring-indigo-600 focus-active:cursor-pointer">
+    <section
+      tabIndex={0}
+      onClick={handleSectionClick}
+      className="bg-gradient-to-r from-indigo-950 to-purple-950 m-6 rounded-lg 
+                ring-4 ring-indigo-900 focus:outline-purple-800 focus-visible:outline-purple-800
+                shadow-2xl shadow-indigo-950 inset-shadow-2xl inset-shadow-indigo-950
+                hover:ring-indigo-600 hover:cursor-pointer
+                focus-active:ring-indigo-600 focus-active:cursor-pointer"
+    >
       <div>
         <Image
           src={imageSrc}

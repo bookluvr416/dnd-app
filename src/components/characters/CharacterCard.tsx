@@ -1,4 +1,5 @@
 import { decode } from 'html-entities';
+import { useRouter } from 'next/navigation';
 import { Character } from '@/generated/graphql/graphql';
 import Image, { StaticImageData } from 'next/image';
 import artificerIcon from '@/assets/Artificer-icon.webp';
@@ -67,13 +68,24 @@ const setIcon = (className: string | undefined) => {
 }
 
 const CharacterCard: React.FC<{ character: Character, index: number }> = ({ character, index }) => {
+  const router = useRouter();
   let iconImage = setIcon(character.class?.className);
   let iconAlt = character.class?.className ?? '';
 
   const src = character.imageLink ?? ghostMage;
 
+  const handleDivClick = () => {
+    router.push(`/characters/${character.id}`)
+  }
+
   return (
-    <div className="bg-indigo-950 p-4 rounded-lg text-wrap ring-1 ring-blue-700/50">
+    <div
+      tabIndex={0}
+      onClick={handleDivClick} 
+      className="bg-indigo-950 p-4 rounded-lg text-wrap ring-1 ring-blue-700/50
+                 hover:ring-indigo-500 hover:ring-2 hover:cursor-pointer
+                focus-active:ring-indigo-500 focus-active:ring-2 focus-active:cursor-pointer"
+    >
       <div className="flex flex-row justify-center pb-3 md:pb-5">
         <Image
           src={src}

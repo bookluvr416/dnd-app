@@ -33,7 +33,7 @@ const UserAuthForm: React.FC = () => {
       {hasError && (
         <div className="mb-10">
           <ErrorAlert>
-            An error occured on submitting character, please try again.
+            An error occured on signing in, please try again.
           </ErrorAlert>
         </div>
       )}
@@ -47,12 +47,6 @@ const UserAuthForm: React.FC = () => {
           data-testid="loader"
           className='mb-5'
         />
-      )}
-
-      {hasError && (
-        <div className='mb-5'>
-          Could not sign into Github, try again.
-        </div>
       )}
 
       <Button

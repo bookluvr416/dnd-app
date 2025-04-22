@@ -32,26 +32,26 @@ const TopLevelInfo: React.FC<Props> = ({ name, alignment, race, className, level
         className="ring-1 rounded-full w-32 sm:w-52"
         priority={true}
       />
-      <div className="flex flex-row flex-wrap items-center align-middle"
+      <div className="flex flex-row flex-wrap items-center align-middle text-sm sm:text-medium"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4
                         ring-1 ring-indigo-400 bg-indigo-950 text-indigo-200
                         rounded-xl p-4 shadow-md"
         >
           <div className="pr-5">
-            <h2 className="text-lg border-b-1 w-16 mb-2">Level</h2>
+            <h2 className="sm:text-lg border-b-1 w-16 mb-2">Level</h2>
             {level}
           </div>
           <div className="pr-5">
-            <h2 className="text-lg border-b-1 w-16 mb-2">Race</h2>
-            {race}
-          </div>
-          <div className="pr-5">
-            <h2 className="text-lg border-b-1 w-16 mb-2">Class</h2>
+            <h2 className="sm:text-lg border-b-1 w-16 mb-2">Class</h2>
             {className}
           </div>
+          <div className="pr-5">
+            <h2 className="sm:text-lg border-b-1 w-16 mb-2">Race</h2>
+            {race}
+          </div>
           <div>
-            <h2 className="text-lg border-b-1 w-24 mb-2">Alignment</h2>
+            <h2 className="sm:text-lg border-b-1 w-24 mb-2">Alignment</h2>
             {alignment}
           </div>
         </div>

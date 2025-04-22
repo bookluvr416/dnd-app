@@ -20,7 +20,7 @@ const Ability: React.FC<Props> = ({ ability }) => {
     <div className='w-28 flex flex-col items-center'>
       <div className="flex flex-col items-center justify-center
                       ring-2 ring-indigo-400 bg-indigo-950 text-indigo-200
-                      rounded-xl p-4 pb-6 w-28 shadow-md"
+                      rounded-xl p-4 pb-6 w-28 text-sm sm:text-medium shadow-md"
       >
         <div>
           {ability.ability?.ability}

@@ -10,7 +10,7 @@ import NavDisclosureButton from './NavDisclosureButton';
 import d20Img from '@/assets/d20.webp';
 
 export default async function Header() {
-  const user = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
   const linkCss = 'text-violet-100 p-3 hover:bg-violet-500/30 hover:text-purple-50 rounded-md';
 
@@ -55,12 +55,12 @@ export default async function Header() {
             </div>
             <div className='md:ml-6 md:block'>
               <ul>
-                {user && (
+                {session && (
                   <li className='p-6'>
                     <SignOutButton css={linkCss} />
                   </li>
                 )}
-                {!user && (
+                {!session && (
                   <li className='p-6 text-green-200'>
                     <NavLink href="/login" text="Sign In" css={linkCss} />
                   </li>

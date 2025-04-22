@@ -7,9 +7,9 @@ interface Props {
 
 const Abilities: React.FC<Props> = ({ abilities }) => {
   return (
-    <div>
+    <div className="flex flex-row sm:flex-col items-center justify-center flex-wrap gap-4">
       {abilities.map((ability) => (
-        <div className="pb-4" key={ability.id} >
+        <div className="pb-4" key={ability.id}>
           <Ability ability={ability} />
         </div>
       ))}

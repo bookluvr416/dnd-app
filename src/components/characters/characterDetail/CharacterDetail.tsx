@@ -41,8 +41,8 @@ const CharacterDetail: React.FC<Props> = ({ id }) => {
           <MidLevelInfo value={character.proficiencyBonus?.toString() ? `+${character.proficiencyBonus?.toString()}` : ''} label="Proficiency Bonus" />
           <MidLevelInfo value={character.speed?.toString() ? `${character.speed?.toString()} ft` : ''} label="Speed" />
         </div>
-        <div className='flex flex-row gap-12 flex-wrap justify-center'>
-          <div>
+        <div className='flex flex-row flex-wrap justify-center'>
+          <div className="sm:mr-12 mb-12 sm:mb-0 mt-6 sm:mt-0">
             <Abilities abilities={character.abilities?.filter(ability => ability !== null) ?? []} />
           </div>
           <div>

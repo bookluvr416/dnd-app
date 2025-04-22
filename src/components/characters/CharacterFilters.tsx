@@ -99,7 +99,7 @@ const CharacterFilters: React.FC<Props> = ({ onFilterChange }) => {
           onChange={(e) => {
             handleFilterChange(type, e.target.value);
           }}
-          className={commonClasses}
+          className={`${commonClasses} w-full`}
         >
           <option value="">All {text}</option>
           {filterValues.map((value) => (
@@ -153,7 +153,7 @@ const CharacterFilters: React.FC<Props> = ({ onFilterChange }) => {
         </div>
 
         {/* Filter Dropdowns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {createFilter('class')}
           {createFilter('race')}
           {createFilter('alignment')}

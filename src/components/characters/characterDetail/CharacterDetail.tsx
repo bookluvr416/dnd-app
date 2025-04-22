@@ -2,11 +2,11 @@
 
 import { notFound } from 'next/navigation'
 import ErrorLoading from '@/components/shared/ErrorLoading';
-import HeaderBanner from '@/components/shared/HeaderBanner';
 import { useCharacter } from '@/lib/graphql/hooks';
 import Abilities from './Abilities';
 import Skills from './Skills';
 import TopLevelInfo from './TopLevelInfo';
+import MidLevelInfo from './MidLevelInfo';
 
 interface Props {
   id: number;
@@ -24,9 +24,6 @@ const CharacterDetail: React.FC<Props> = ({ id }) => {
 
   return (
     <div>
-      <HeaderBanner
-        text={character.name ?? 'Loading...'}
-      />
       <div className="flex flex-col gap-12 flex-wrap justify-center items-center">
         <div>
           <TopLevelInfo
@@ -37,6 +34,12 @@ const CharacterDetail: React.FC<Props> = ({ id }) => {
             alignment={character.alignment?.alignment ?? ''}
             imageLink={character.imageLink}
           />
+        </div>
+        <div className="flex flex-row gap-12 flex-wrap justify-center">
+          <MidLevelInfo value={character.initiative?.toString() ? `+${character.initiative?.toString()}` : ''} label="Initiative" />
+          <MidLevelInfo value={character.armorClass?.toString() ?? ''} label="AC" />
+          <MidLevelInfo value={character.proficiencyBonus?.toString() ? `+${character.proficiencyBonus?.toString()}` : ''} label="Proficiency Bonus" />
+          <MidLevelInfo value={character.speed?.toString() ? `${character.speed?.toString()} ft` : ''} label="Speed" />
         </div>
         <div className='flex flex-row gap-12 flex-wrap justify-center'>
           <div>

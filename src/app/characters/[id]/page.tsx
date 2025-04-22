@@ -13,13 +13,12 @@ const SkeletonComponent = () => (
 );
 
 interface Props {
-  params: {
-    id: string;
-  }
+  params: Promise<{ id: string; }>;
 }
 
-const Character: React.FC<Props> = ({ params }) => {
-  const numericId = +params.id;
+const Character: React.FC<Props> = async ({ params }) => {
+  const { id } = await params;
+  const numericId = +id;
   if (isNaN(numericId)) notFound();
 
   return (

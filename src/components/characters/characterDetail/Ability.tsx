@@ -4,6 +4,11 @@ interface Props {
   ability: CharacterAbility;
 }
 
+/**
+ * convertProficiencyDisplay
+ * @param proficiencyBonus number
+ * @returns string for proficiency bonus
+ */
 const convertProficiencyDisplay = (proficiencyBonus: number | null | undefined) => {
   if (!proficiencyBonus) return '+0';
   if (proficiencyBonus >= 0) return `+${proficiencyBonus}`;

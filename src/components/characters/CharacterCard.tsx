@@ -81,6 +81,7 @@ const CharacterCard: React.FC<{ character: Character, index: number }> = ({ char
   return (
     <div
       tabIndex={0}
+      role="button"
       onClick={handleDivClick} 
       className="bg-indigo-950 p-4 rounded-lg text-wrap ring-1 ring-blue-700/50
                  hover:ring-indigo-500 hover:ring-2 hover:cursor-pointer

@@ -50,6 +50,7 @@ const ContentCard: React.FC<Props> = ({ description, imageSrc, title, alt, order
   return (
     <section
       tabIndex={0}
+      role="button"
       onClick={handleSectionClick}
       className="bg-gradient-to-r from-indigo-950 to-purple-950 m-6 rounded-lg 
                 ring-4 ring-indigo-900 focus:outline-purple-800 focus-visible:outline-purple-800

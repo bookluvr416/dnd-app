@@ -23,7 +23,7 @@ const CharacterDetail: React.FC<Props> = ({ id }) => {
   if (!character) notFound();
 
   return (
-    <div>
+    <section>
       <div className="flex flex-col gap-12 flex-wrap justify-center items-center">
         <div>
           <TopLevelInfo
@@ -50,7 +50,7 @@ const CharacterDetail: React.FC<Props> = ({ id }) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

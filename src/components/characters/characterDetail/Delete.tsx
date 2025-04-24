@@ -1,17 +1,41 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { ToastContainer } from 'react-toastify';
 import ButtonWithRef from '@/components/shared/ButtonWithRef';
 import Modal from '@/components/shared/Modal';
+import { showErrorToast, showSuccessToast } from '@/components/shared/Toasts';
+import { useDeleteCharacter } from '@/lib/graphql/hooks';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   id: number;
 }
 
+const ToastError = (
+  <div>
+    An error occured on deleting character, please try again.
+  </div>
+);
+
+const ToastSuccess = (
+  <div>
+    Character deleted!
+  </div>
+);
+
+
 const Delete: React.FC<Props> = ({ id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
+
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
+
+  const router = useRouter();
+
+  const { deleteCharacterMutation, loading } = useDeleteCharacter();
 
   useEffect(() => {
     if (isModalOpen) {
@@ -39,8 +63,19 @@ const Delete: React.FC<Props> = ({ id }) => {
   /**
    * onDelete
    */
-  const onDelete = () => {
-    alert(id)
+  const onDelete = async () => {
+    try {
+      await deleteCharacterMutation(id);
+      setDeleteError(false);
+      showSuccessToast(ToastSuccess, 'Character deleted!');
+      setTimeout(() => { router.push('/characters')}, 2000);
+    } catch (err) {
+      console.log(err);
+      setDeleteError(true);
+      showErrorToast(ToastError, 'An error occured on deletion.');
+    }
+
+    closeModal();
   }
 
   return (
@@ -50,6 +85,7 @@ const Delete: React.FC<Props> = ({ id }) => {
         text="Delete Character"
         onClick={openModal}
         ref={openButtonRef}
+        disabled={loading}
       />
       <Modal
         title="Delete character"
@@ -61,6 +97,14 @@ const Delete: React.FC<Props> = ({ id }) => {
         closeModal={closeModal}
         ref={cancelButtonRef}
       />
+      <div>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={2000}
+          closeOnClick
+        />
+      </div>
+      
     </>
   )
 }

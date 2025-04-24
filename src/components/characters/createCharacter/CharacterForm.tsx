@@ -19,14 +19,33 @@ import AbilitiesList from './formFields/AbilitiesList';
 import Button from '@/components/shared/Button';
 import ErrorLoading from '@/components/shared/ErrorLoading';
 import ErrorAlert from '@/components/shared/ErrorAlert';
-import { showSuccessToast, showErrorToast, showWarningToast } from './Toasts';
+import { showSuccessToast, showErrorToast, showWarningToast } from '../../shared/Toasts';
 import { createInput, uploadImage } from '@/lib/characterCreation/util';
 import "react-loading-skeleton/dist/skeleton.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 const override: CSSProperties = {
   display: "block",
   margin: "0 auto",
 };
+
+const ToastError = (
+  <div>
+    An error occured on submitting character, please try again.
+  </div>
+);
+
+const ToastSuccess = (
+  <div>
+    Character created!
+  </div>
+);
+
+const ToastWarn = (
+  <div>
+    Character created but image failed to save.
+  </div>
+);
 
 const CharacterForm = () => {
   const [skillsIds, setSkillsIds] = useState<number[]>([]);
@@ -117,16 +136,16 @@ const CharacterForm = () => {
       setCreateError(false);
 
       if (imageSuccess) {
-        showSuccessToast();
+        showSuccessToast(ToastSuccess, 'Character created!');
       } else {
-        showWarningToast();
+        showWarningToast(ToastWarn, 'Character created but image failed to save.');
       }
       
       reset(schemaDefaults);
-      setTimeout(() => { router.push('/characters')}, 4000);
+      setTimeout(() => { router.push('/characters')}, 3000);
     } catch(error) {
       console.log(error);
-      showErrorToast();
+      showErrorToast(ToastError, 'An error occured on submission.');
       setCreateError(true);
     }
     setCreatePending(false);
@@ -134,7 +153,11 @@ const CharacterForm = () => {
 
   return (
     <FormWrapper>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        closeOnClick
+      />
 
         {/* submit error */}
         {createError && (

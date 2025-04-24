@@ -59,6 +59,7 @@ export const getCharacterById = graphql(`
       armorClass
       proficiencyBonus
       speed
+      userId
       skills {
         skill {
           id

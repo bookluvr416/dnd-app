@@ -1,15 +1,31 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+'use client'
+
+import { useEffect, useState } from 'react';
+import type { Session } from 'next-auth';
 import Delete from './Delete';
 
 interface Props {
   id: number;
+  userId: number | null;
 }
 
-const CharacterFooter: React.FC<Props> = async ({ id }) => {
-  const session = await getServerSession(authOptions);
+const CharacterFooter: React.FC<Props> = ({ id, userId }) => {
+  const [session, setSession] = useState<Session | null>(null);
 
-  if (!session) {
+  /**
+   * useEffect
+   * fetches session details from the server
+   */
+  useEffect(() => {
+    const fetchSession = async () => {
+      const response = await fetch('/api/session');
+      const { session } = await response.json();
+      setSession(session)
+    }
+    fetchSession();
+  }, [])
+
+  if (!session || session.user.id !== userId) {
     return (<></>)
   }
 

@@ -3,8 +3,8 @@
 import { gql } from '@apollo/client';
 import { useSuspenseQuery, useMutation, useQuery } from '@apollo/client';
 import { getReferenceValues, getCharacters, getCharacterFiltersReferenceValues, getCharacterById } from '@/lib/graphql/queries';
-import { createCharacter } from '@/lib/graphql/mutations';
-import { CreateCharacterInput, QueryCharactersInput } from '@/generated/graphql/graphql';
+import { createCharacter, deleteCharacter } from '@/lib/graphql/mutations';
+import { CreateCharacterInput } from '@/generated/graphql/graphql';
 import { PAGE_SIZE } from '@/constants';
 
 /**
@@ -147,6 +147,26 @@ export function useCreateCharacter() {
 
   return {
     createCharacterMutation,
+    loading,
+    error,
+  };
+}
+
+/**
+ * useDeleteCharacter
+ * defines the function that will be used to delete a character
+ */
+export function useDeleteCharacter() {
+  const [mutate, { loading, error }] = useMutation(deleteCharacter);
+
+  const deleteCharacterMutation = async (id: number) => {
+    await mutate({
+      variables: { id }
+    });
+  };
+
+  return {
+    deleteCharacterMutation,
     loading,
     error,
   };

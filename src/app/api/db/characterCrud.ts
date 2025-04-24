@@ -32,6 +32,78 @@ type NewAbilitiesInput = {
 }
 
 /**
+ * mapData
+ * takes data returned from graphql and converts it into a Character object
+ * @param data 
+ * @returns 
+ */
+const mapData = (data: Types.ReturnedData) => {
+  let skills: Character['skills'];
+  let abilities: Character['abilities'];
+
+  if (!data.characterSkills) {
+    skills = [];
+  } else {
+    skills = data.characterSkills.map((skill) => (
+      {
+        id: skill.id,
+        skillProficiency: skill.skillProficiency,
+        skill: {
+          id: skill.skills!.id,
+          skill: skill.skills!.skill,
+        }
+      }
+    ));
+  }
+
+  if (!data.characterAbilities) {
+    abilities = [];
+  } else {
+    abilities = data.characterAbilities.map((ability) => (
+      {
+        id: ability.id,
+        abilityScore: ability.abilityScore,
+        proficiencyBonus: ability.proficiencyBonus,
+        ability: {
+          id: ability.abilities!.id,
+          ability: ability.abilities!.ability,
+        }
+      }
+    ));
+  }
+
+  const character: Character = {
+    id: data.id,
+    name: data.name,
+    level: data.level,
+    race: {
+      id: data.raceId!,
+      raceType: data.race!.raceType,
+      raceName: data.race!.raceName,
+    },
+    alignment: {
+      id: data.alignmentId!,
+      alignment: data.alignment!.alignment
+    },
+    class: {
+      id: data.classId!,
+      className: data.class!.className,
+    },
+    skills: skills,
+    abilities: abilities,
+    armorClass: data.armorClass,
+    hp: data.hp,
+    initiative: data.initiative,
+    proficiencyBonus: data.proficiencyBonus,
+    speed: data.speed,
+    imageLink: data.imageLink,
+    userId: data.userId,
+  };
+  return character;
+}
+
+
+/**
  * races
  * kysely fragment getting data from the races table
  * @param raceId 
@@ -137,76 +209,6 @@ function characterAbilities(characterId: Expression<number>) {
       .orderBy('characterAbilities.abilityId')
       .selectAll('characterAbilities')
   ).as('characterAbilities');
-}
-
-/**
- * mapData
- * takes data returned from graphql and converts it into a Character object
- * @param data 
- * @returns 
- */
-const mapData = (data: Types.ReturnedData) => {
-  let skills: Character['skills'];
-  let abilities: Character['abilities'];
-
-  if (!data.characterSkills) {
-    skills = [];
-  } else {
-    skills = data.characterSkills.map((skill) => (
-      {
-        id: skill.id,
-        skillProficiency: skill.skillProficiency,
-        skill: {
-          id: skill.skills!.id,
-          skill: skill.skills!.skill,
-        }
-      }
-    ));
-  }
-
-  if (!data.characterAbilities) {
-    abilities = [];
-  } else {
-    abilities = data.characterAbilities.map((ability) => (
-      {
-        id: ability.id,
-        abilityScore: ability.abilityScore,
-        proficiencyBonus: ability.proficiencyBonus,
-        ability: {
-          id: ability.abilities!.id,
-          ability: ability.abilities!.ability,
-        }
-      }
-    ));
-  }
-
-  const character: Character = {
-    id: data.id,
-    name: data.name,
-    level: data.level,
-    race: {
-      id: data.raceId!,
-      raceType: data.race!.raceType,
-      raceName: data.race!.raceName,
-    },
-    alignment: {
-      id: data.alignmentId!,
-      alignment: data.alignment!.alignment
-    },
-    class: {
-      id: data.classId!,
-      className: data.class!.className,
-    },
-    skills: skills,
-    abilities: abilities,
-    armorClass: data.armorClass,
-    hp: data.hp,
-    initiative: data.initiative,
-    proficiencyBonus: data.proficiencyBonus,
-    speed: data.speed,
-    imageLink: data.imageLink,
-  };
-  return character;
 }
 
 /**

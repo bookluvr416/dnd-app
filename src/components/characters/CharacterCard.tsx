@@ -1,5 +1,5 @@
 import { decode } from 'html-entities';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Character } from '@/generated/graphql/graphql';
 import Image, { StaticImageData } from 'next/image';
 import artificerIcon from '@/assets/Artificer-icon.webp';
@@ -68,58 +68,53 @@ const setIcon = (className: string | undefined) => {
 }
 
 const CharacterCard: React.FC<{ character: Character, index: number }> = ({ character, index }) => {
-  const router = useRouter();
   let iconImage = setIcon(character.class?.className);
   let iconAlt = character.class?.className ?? '';
 
   const src = character.imageLink ?? ghostMage;
-
-  const handleDivClick = () => {
-    router.push(`/characters/${character.id}`)
-  }
-
   return (
-    <div
-      tabIndex={0}
-      onClick={handleDivClick} 
+    <Link
+      href={`/characters/${character.id}`}
       className="bg-indigo-950 p-4 rounded-lg text-wrap ring-1 ring-blue-700/50
-                 hover:ring-indigo-500 hover:ring-2 hover:cursor-pointer
-                focus-active:ring-indigo-500 focus-active:ring-2 focus-active:cursor-pointer"
+                 hover:ring-indigo-500 hover:ring-2
+                focus-active:ring-indigo-500 focus-active:ring-2"
     >
-      <div className="flex flex-row justify-center pb-3 md:pb-5">
-        <Image
-          src={src}
-          alt=''
-          width={320}
-          height={400}
-          style={{ objectFit: 'contain' }}
-          className="ring-2 ring-black"
-          priority={index < 3 ? true : false}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <h2 className="text-lg sm:text-xl pb-5">{decode(character.name)}</h2>
-        {iconImage && (
-          <div className="pl-2">
-            <Image
-              src={iconImage}
-              alt={iconAlt}
-              width={50}
-              height={50}
-            />
-          </div>
-        )}
-        
-      </div>
       <div>
-        {character.race?.raceName} {character.class?.className}
+        <div className="flex flex-row justify-center pb-3 md:pb-5">
+          <Image
+            src={src}
+            alt=''
+            width={320}
+            height={400}
+            style={{ objectFit: 'contain' }}
+            className="ring-2 ring-black"
+            priority={index < 3 ? true : false}
+          />
+        </div>
+        <div className="flex flex-row justify-between">
+          <h2 className="text-lg sm:text-xl pb-5">{decode(character.name)}</h2>
+          {iconImage && (
+            <div className="pl-2">
+              <Image
+                src={iconImage}
+                alt={iconAlt}
+                width={50}
+                height={50}
+              />
+            </div>
+          )}
+          
+        </div>
+        <div>
+          {character.race?.raceName} {character.class?.className}
+        </div>
+        <div className="flex flex-row justify-between flex-wrap">
+          <div>Level {character.level}</div>
+          <div>{character.hp} HP</div>
+          <div>{character.alignment?.alignment}</div>
+        </div>
       </div>
-      <div className="flex flex-row justify-between flex-wrap">
-        <div>Level {character.level}</div>
-        <div>{character.hp} HP</div>
-        <div>{character.alignment?.alignment}</div>
-      </div>
-    </div>
+    </Link>
   );
 }
 

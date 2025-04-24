@@ -27,3 +27,9 @@ export const createCharacter = gql(`
     }
   }
 `);
+
+export const deleteCharacter = gql(`
+  mutation deleteCharacter($id: Int!) {
+    deleteCharacter(id: $id)
+  }
+`)

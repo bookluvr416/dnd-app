@@ -14,6 +14,7 @@ const typeDefs = `#graphql
     abilities: [CharacterAbility]
     skills: [CharacterSkill]
     imageLink: String
+    userId: Int
   }
 
   type Skill {

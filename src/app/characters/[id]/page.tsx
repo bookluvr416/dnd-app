@@ -5,9 +5,7 @@ import CharacterDetail from '@/components/characters/characterDetail/CharacterDe
 
 const SkeletonComponent = () => (
   <SkeletonTheme baseColor="#211b4b" highlightColor="#310e5a">
-    <section>
-      <Skeleton count={1} className='h-12 ring-1 ring-blue-700/50' />
-    </section>
+    <Skeleton count={1} className='h-12 w-full' />
   </SkeletonTheme>
 );
 
@@ -26,7 +24,6 @@ const Character: React.FC<Props> = async ({ params }) => {
         <CharacterDetail id={numericId} />
       </Suspense>
     </div>
-    
   )
 };
 

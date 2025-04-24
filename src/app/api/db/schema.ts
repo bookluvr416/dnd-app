@@ -129,6 +129,7 @@ export type ReturnedData = {
   speed: number | null;
   activeInd: boolean;
   imageLink: string | null;
+  userId: number;
 }
 
 // You should not use the table schema interfaces directly. Instead, you should

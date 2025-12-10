@@ -2,7 +2,7 @@
 
 This is a D&D themed Next.js app that is a work in progress.
 
-The live app can be seen at https://dnd-app-dun.vercel.app/.
+Edit: The hosted app was removed until I can patch the app for the React2Shell CVE, there is no live website to visit for now.
 
 Features:  
 - Dice roller with 3D css dice (done)
